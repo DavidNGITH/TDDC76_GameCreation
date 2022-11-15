@@ -24,7 +24,7 @@ Map::Map(std::string background, std::string foreground)
     foreground_sprite.setTexture(foreground_texture);
 
 
-};
+}
 
 //Map::update(Context& context)
 //{}
@@ -37,12 +37,6 @@ void Map::render(sf::RenderWindow& window)
 
 void Map::Collision()
 {
-    auto image = foreground.getTexture().copyToImage();
-    auto color = image.getPixel(1,1);
 }
-
-void Map::map_maker()
-{}
-
 
 

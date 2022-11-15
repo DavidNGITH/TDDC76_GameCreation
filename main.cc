@@ -3,7 +3,7 @@
 #include "context.h"
 #include "state.h"
 #include "menu_state.h"
-//#include "game_state.h"
+#include "game_state.h"
 
 int main()
 {
@@ -34,7 +34,7 @@ int main()
         state -> update(context);
 
         window.clear();
-        state -> render(window);
+        state -> render(window, context);
         window.display();
 
         if (context.next_state != nullptr)
