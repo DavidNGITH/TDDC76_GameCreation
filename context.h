@@ -12,11 +12,11 @@
 struct Context
 {
     sf::Time const&             delta;
-    std::vector<Game_Object*>&  objects;
-    std::vector<Game_Object*>&  new_objects;
-    std::vector<Game_Object*>&  players;
+    /*std::vector<Game_object*>&  objects;
+    std::vector<Game_object*>&  new_objects;
+    std::vector<Game_object*>&  players;*/
     State*                      next_state;
-    Map*                        map;
+    //Map*                        map;
 };
 
 #endif
