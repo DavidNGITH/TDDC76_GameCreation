@@ -1,20 +1,37 @@
-#ifndef MAP.H
-#define MAP.H
+#ifndef MAP_H
+#define MAP_H
 
-class Map:
+#include "SFML/Graphics.hpp"
+#include <string>
+#include "context.h"
+
+
+
+class Map
 {
     public:
 
-    void handle(Context& context, sf::Event event) override;
+    Map(std::string background, std::string foreground);
 
-    void update(Context& context) override;
+    ~Map();
 
-    void render(sf::RenderWindow& window) override;
+    //void update(Context& context);
+
+    void render(sf::RenderWindow& window);
 
     void Collision();
 
     private:
 
-    virtual const map_maker();
-}
+    virtual void map_maker();
+
+    sf::Texture background_texture;
+    sf::Sprite background_sprite;
+
+    sf::Texture foreground_texture;
+    sf::Sprite foreground_sprite;
+
+    auto image = foreground.getTexture().copyToImage();
+    auto color = image.getPixel(1,1);
+};
 #endif
