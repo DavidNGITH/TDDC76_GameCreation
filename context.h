@@ -5,7 +5,7 @@
 #include <vector>
 
 //#include "game_object.h"
-//#include "map.h"
+#include "map.h"
 #include "state.h"
 
 
@@ -16,7 +16,7 @@ struct Context
     std::vector<Game_object*>&  new_objects;
     std::vector<Game_object*>&  players;*/
     State*                      next_state;
-    //Map*                        map;
+    Map*                        map;
 };
 
 #endif

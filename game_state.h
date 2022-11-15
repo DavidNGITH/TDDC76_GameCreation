@@ -3,22 +3,24 @@
 
 #include "SFML/Graphics.hpp"
 #include "state.h"
+#include "map.h"
 
 class Game_state : public State
 {
     public:
     //Game_state(Map & map, list<Game_object*> & players);
+    Game_state(Map* map, Context& context);
 
-    ~Game_state() override;
+    //~Game_state() override;
 
     void handle(Context& context, sf::Event event) override;
 
     void update(Context& context) override;
 
-    void render(sf::RenderWindow& window) override;
+    void render(sf::RenderWindow& window, Context& context) override;
 
     private:
-    Game_object* current_player;
+    //Game_object* current_player;
     
 };
 

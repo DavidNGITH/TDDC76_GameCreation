@@ -4,66 +4,65 @@
 
 #include "context.h"
 #include "menu_state.h"
-
-
-
+#include "game_state.h"
+#include "map.h"
 
 
 Menu_state::Menu_state()
 {
     load_map("Map/background.png");
-
-    if(!title_texture.loadFromFile("title.png"))
-    {
-        std::cerr << "Kan inte öppna title.png" << std::endl;
-    }
     
+
+    unsigned int width{};
+    unsigned int height{};
+
+    /*
+    title_texture = set_texture("Textures/title.png");
     title.setTexture(title_texture);
-    //sf::Vector2u titles_size { titles.getSize() };
-    title.setOrigin(450,100);
     title.setPosition(450,100);
-    title.setScale(1,1);
 
-
-
-    if(!map_texture.loadFromFile("map.png"))
-    {
-        std::cerr << "Kan inte öppna map.png" << std::endl;
-    }
-    
+    map_texture = set_texture("Textures/map_selection");
     map.setTexture(map_texture);
-    //sf::Vector2u maps_size { maps.getSize() };
-    map.setOrigin(450,500);
     map.setPosition(450,500);
-    map.setScale(1,1);
 
-    
-    if(!player_texture.loadFromFile("player.png"))
-    {
-        std::cerr << "Kan inte öppna player.png" << std::endl;
-    }
-    
+    player_texture = set_texture("Textures/map_selection");
     player.setTexture(player_texture);
-    //sf::Vector2u players_size { players.getSize() };
-    player.setOrigin(450,900);
-    player.setPosition(450,900);
-    player.setScale(1,1);
+    player.setPosition(450,900);*/
 
+    
+
+    start_button_texture = set_texture("Textures/start_game.png");
+    start_button.setTexture(start_button_texture);
+    width = start_button_texture.getSize().x;
+    height = start_button_texture.getSize().y;
+    start_button.setOrigin(width/2, height/2);
+    start_button.setPosition(960, 540);
   
 }
 
 void Menu_state::handle(Context& context, sf::Event event)
-{}
+{
+    if (event.type == sf::Event::MouseButtonPressed)
+    {
+        sf::Event::MouseButtonEvent mouse { event.mouseButton };
+        if (mouse.button == sf::Mouse::Button::Left)
+        {
+            context.next_state = new Game_state{new Map{"Map/background.png", "Map/ground.png"}, context};
+        }
+    }
+}
 
 void Menu_state::update(Context& context)
 {}
 
-void Menu_state::render(sf::RenderWindow& window)
+void Menu_state::render(sf::RenderWindow& window, Context& context)
 {
     window.draw(background);
-    window.draw(title);
-    window.draw(map);
-    window.draw(player);
+    //window.draw(title);
+    //window.draw(map);
+    //window.draw(player);
+
+    window.draw(start_button);
 
 }
 
@@ -77,6 +76,7 @@ void Menu_state::choose_map()
 
 void Menu_state::load_map(std::string filename)
 {
+    
     if(!background_texture.loadFromFile(filename))
     {
         std::cerr << "Kan inte öppna:" << filename << std::endl;
@@ -84,10 +84,19 @@ void Menu_state::load_map(std::string filename)
     
     background.setTexture(background_texture);
     //sf::Vector2u background_size { background.getSize() };
-    background.setOrigin(900,0);
-    background.setPosition(900,0);
-    background.setScale(1,1);
 }
 
 void Menu_state::start_game()
 {}
+
+sf::Texture Menu_state::set_texture(std::string path)
+{
+    sf::Texture texture{};
+    if(!texture.loadFromFile(path))
+    {
+        //Här borde vi throwa något
+        std::cerr << "Kan inte öppna title.png" << std::endl;
+    }
+
+    return texture;
+}
