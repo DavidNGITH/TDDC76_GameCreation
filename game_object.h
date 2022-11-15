@@ -8,18 +8,19 @@ class Game_object : public Game_state
 {
 public:
     Game_object();
-    ~Game_object();
+    //~Game_object();
     
-    void update();
-    void collosion(); 
-    void render();
-    void handle();
+    virtual void update();
+    virtual void Collision(); 
+    virtual void render();
+    virtual void handle();
 
 
 
 
 private:
     sf::Sprite icon;
+    sf::Texture texture;
     int position_x{};
     int position_y{};
 
