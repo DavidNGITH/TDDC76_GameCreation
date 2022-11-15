@@ -7,7 +7,7 @@
 class Game_state : public State
 {
     public:
-    Game_state(Map & map, list<Game_object*> & players);
+    //Game_state(Map & map, list<Game_object*> & players);
 
     ~Game_state() override;
 
