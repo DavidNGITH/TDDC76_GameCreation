@@ -13,39 +13,33 @@ Menu_state::Menu_state()
 {
     load_map("Map/background.png");
 
-    if(!title_texture.loadFromFile("title.png"))
+    if(!title_texture.loadFromFile("Textures/title.png"))
     {
         std::cerr << "Kan inte öppna title.png" << std::endl;
     }
     
     title.setTexture(title_texture);
-    //sf::Vector2u titles_size { titles.getSize() };
-    title.setOrigin(450,100);
     title.setPosition(450,100);
     title.setScale(1,1);
 
 
 
-    if(!map_texture.loadFromFile("map.png"))
+    if(!map_texture.loadFromFile("Textures/map_selection.png"))
     {
         std::cerr << "Kan inte öppna map.png" << std::endl;
     }
     
     map.setTexture(map_texture);
-    //sf::Vector2u maps_size { maps.getSize() };
-    map.setOrigin(450,500);
     map.setPosition(450,500);
     map.setScale(1,1);
 
     
-    if(!player_texture.loadFromFile("player.png"))
+    if(!player_texture.loadFromFile("Textures/player.png"))
     {
         std::cerr << "Kan inte öppna player.png" << std::endl;
     }
     
     player.setTexture(player_texture);
-    //sf::Vector2u players_size { players.getSize() };
-    player.setOrigin(450,900);
     player.setPosition(450,900);
     player.setScale(1,1);
 
