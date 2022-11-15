@@ -1,56 +1,53 @@
 #include "menu_state.h"
 
 #include "SFML/Graphics.hpp"
+#include <iostream>
 
 #include <vector>
 
 
 
-Menu_state()
+
+
+Menu_state::Menu_state()
 {
     load_map("Map/background.png");
 
-    sf::Texture title{};
-
-    if(!title.loadFromFile("title.png"))
+    if(!title_texture.loadFromFile("title.png"))
     {
         std::cerr << "Kan inte öppna title.png" << std::endl;
-        return 1;
     }
     
-    sf::Sprite titles { title };
-    sf::Vector2u titles_size { titles.getSize() };
-    titles.setOrigin(450,100);
-    titles.setPosition(450,100);
-    titles.setScale(1,1);
+    title.setTexture(title_texture);
+    //sf::Vector2u titles_size { titles.getSize() };
+    title.setOrigin(450,100);
+    title.setPosition(450,100);
+    title.setScale(1,1);
 
-    sf::Texture map{};
 
-    if(!map.loadFromFile("map.png"))
+
+    if(!map_texture.loadFromFile("map.png"))
     {
         std::cerr << "Kan inte öppna map.png" << std::endl;
-        return 1;
     }
     
-    sf::Sprite maps { map };
-    sf::Vector2u maps_size { maps.getSize() };
-    maps.setOrigin(450,500);
-    maps.setPosition(450,500);
-    maps.setScale(1,1);
+    map.setTexture(map_texture);
+    //sf::Vector2u maps_size { maps.getSize() };
+    map.setOrigin(450,500);
+    map.setPosition(450,500);
+    map.setScale(1,1);
 
-    sf::Texture player{};
-
-    if(!player.loadFromFile("player.png"))
+    
+    if(!player_texture.loadFromFile("player.png"))
     {
         std::cerr << "Kan inte öppna player.png" << std::endl;
-        return 1;
     }
     
-    sf::Sprite players { player };
-    sf::Vector2u players_size { players.getSize() };
-    players.setOrigin(450,900);
-    players.setPosition(450,900);
-    players.setScale(1,1);
+    player.setTexture(player_texture);
+    //sf::Vector2u players_size { players.getSize() };
+    player.setOrigin(450,900);
+    player.setPosition(450,900);
+    player.setScale(1,1);
 
   
 }
@@ -64,15 +61,15 @@ void Menu_state::update(Context& context)
 void Menu_state::render(sf::RenderWindow& window)
 {
     window.draw(background);
-    window.draw(titles);
-    window.draw(maps);
-    window.draw(players);
+    window.draw(title);
+    window.draw(map);
+    window.draw(player);
 
 }
 
 void Menu_state::add_player()
 {
-    players.pushback(new Player*);
+    //players.pushback(new Player*);
 }
 
 void Menu_state::choose_map()
@@ -80,14 +77,13 @@ void Menu_state::choose_map()
 
 void Menu_state::load_map(std::string filename)
 {
-    if(!campus.loadFromFile(filename))
+    if(!background_texture.loadFromFile(filename))
     {
         std::cerr << "Kan inte öppna:" << filename << std::endl;
-        return 1;
     }
     
-    sf::Sprite background { campus };
-    sf::Vector2u background_size { background.getSize() };
+    background.setTexture(background_texture)
+    //sf::Vector2u background_size { background.getSize() };
     background.setOrigin(900,0);
     background.setPosition(900,0);
     background.setScale(1,1);
