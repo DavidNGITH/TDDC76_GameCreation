@@ -21,7 +21,7 @@ class Menu_state : public State
     virtual void render(sf::RenderWindow& window) override;
 
 
-    ~Menu_state();
+    //~Menu_state();
 
     private:
     void add_player();

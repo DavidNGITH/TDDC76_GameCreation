@@ -1,8 +1,9 @@
 #include "SFML/Graphics.hpp"
 
 #include "game_state.h"
+//#include "map.h"
 
-Game_state(Map & map, Context& context)
+Game_state(Map& map, Context& context)
 {
     current_player = context.players[0];
     context.map = map;

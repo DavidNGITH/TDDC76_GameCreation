@@ -4,8 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-#include "game_object.h"
-#include "map.h"
+//#include "game_object.h"
+//#include "map.h"
 #include "state.h"
 
 

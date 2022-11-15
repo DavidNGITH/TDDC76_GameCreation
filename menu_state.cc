@@ -1,9 +1,9 @@
-#include "menu_state.h"
-
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 #include <iostream>
-
 #include <vector>
+
+#include "context.h"
+#include "menu_state.h"
 
 
 
@@ -82,7 +82,7 @@ void Menu_state::load_map(std::string filename)
         std::cerr << "Kan inte öppna:" << filename << std::endl;
     }
     
-    background.setTexture(background_texture)
+    background.setTexture(background_texture);
     //sf::Vector2u background_size { background.getSize() };
     background.setOrigin(900,0);
     background.setPosition(900,0);
