@@ -3,7 +3,6 @@
 
 #include "game_object.h"
 #include "SFML/Graphics.hpp"
-#include "context.h"
 
 class Helicopter :public Game_object
 {

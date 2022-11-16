@@ -4,9 +4,8 @@
 #include <iostream>
 
 Helicopter::Helicopter()
-:stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{}, spawn_rate{100}, speed{100}
+:stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{}, spawn_rate{100}, speed{1}
 {   
-    sf::Texture texture { };
 
     //Checks if the file can be loaded
     if (!texture.loadFromFile("helicopter.png"))
@@ -16,7 +15,7 @@ Helicopter::Helicopter()
     }
 
     //creates the helicopter, spawns it outside the map. 
-    sf::Sprite icon  { texture };
+    icon.setTexture(texture);
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y / 2);
     icon.setPosition(0, 100);
@@ -45,7 +44,7 @@ void Helicopter::update(Context& context)
 {
     sf::Vector2f old_position { icon.getPosition() }; //get the old position
 
-    float active_speed { context.delta.asSeconds() * speed}; 
+    float active_speed = speed; 
     if (is_active == 1)
     {
         if (has_stopped == 1)
@@ -138,7 +137,7 @@ bool Helicopter::new_turn()
 
 bool Helicopter::is_removed()
 {
-
+    return 0;
 }
 
 void Helicopter::remove()

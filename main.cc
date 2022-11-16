@@ -12,6 +12,7 @@ int main()
 {
     unsigned const screen_width {1920};
     unsigned const screen_height {1080};
+    srand (time(NULL));
 
     sf::RenderWindow window { sf::VideoMode {screen_width, screen_height}, "DANK TANKS"};
     
