@@ -5,13 +5,13 @@
 #include "state.h"
 #include "map.h"
 
+
 class Game_state : public State
 {
     public:
     //Game_state(Map & map, list<Game_object*> & players);
     Game_state(Context& context);
-
-    //~Game_state() override;
+    //~Game_state() = default;
 
     void handle(Context& context, sf::Event event) override;
 

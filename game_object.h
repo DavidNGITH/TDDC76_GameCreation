@@ -6,6 +6,7 @@
 #include "menu_state.h"
 #include "context.h"
 
+struct Context; //fwd declartation
 
 class Game_object
 {
