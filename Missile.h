@@ -3,13 +3,13 @@
 
 #include "SFML/Graphics.hpp"
 //#include "Player.h"
-
+#include "game_object.h"
 class Missile
 {
 public:
 // Constructors / destructors
-    Missile(double x, double y);
-    //virtual ~Missile();
+    Missile(int position_x, int position_y);
+    virtual ~Missile();
 
 //Functions
     virtual void move();
@@ -21,11 +21,12 @@ public:
 
 
 
+
 private:
     sf::Sprite icon;
     sf::CircleShape missile;
     sf::Vector2f Velocity;
-    sf::Vector2f acceleration_y;
+    sf::Vector2f acceleration_yhut;
 
 
 };

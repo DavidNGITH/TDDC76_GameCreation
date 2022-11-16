@@ -2,25 +2,26 @@
 
 #include "SFML/Graphics.hpp"
 
-Missile::Missile(double x, double y)
+Missile::Missile(int position_x, int position_y)
 
 {
 
 
 }
-/*
+
 Missile::~Missile()
 {
 
 
 }
-*/
 
-void missile::move()
+
+void Missile::move()
 {
 
 }
-void missile::position()
+void Missile::position()
 {
     
 }
+
