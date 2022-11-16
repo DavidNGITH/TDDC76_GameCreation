@@ -1,5 +1,5 @@
 CC=g++ -std=c++17
-CCFLAGS=-c -Wall -Wextra -pedantic -Weffc++ -Wold-style-cast
+CCFLAGS= -c -Wall -Wextra -Wpedantic -Weffc++ -Wold-style-cast
 LIBS:=-lsfml-graphics -lsfml-window -lsfml-system
 
 
@@ -20,22 +20,22 @@ FILE13=repair
 FILE14=shield
 
 
-OBJS= $(MAIN).o $(FILE1).o $(FILE2).o #$(FILE3).o $(FILE4).o $(FILE5).o ...
+OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o #$(FILE4).o $(FILE5).o ...
 
 output: $(OBJS)
-	$(CC) $(OBJS) -o a.out
+	$(CC) $(OBJS) -o a.out $(LIBS)
 
 $(MAIN).o: $(MAIN).cc
-	$(CC) $(CCFLAGS) $(MAIN).cc
+	$(CC) $(CCFLAGS) $(MAIN).cc $(LIBS)
 
 $(FILE1).o: $(FILE1).cc
-	$(CC) $(CCFLAGS) $(FILE1).cc
+	$(CC) $(CCFLAGS) $(FILE1).cc $(LIBS)
 
 $(FILE2).o: $(FILE2).cc
-	$(CC) $(CCFLAGS) $(FILE2).cc
+	$(CC) $(CCFLAGS) $(FILE2).cc $(LIBS)
 
-#$(FILE3).o: $(FILE3).cc
-#	$(CC) $(CCFLAGS) $(FILE3).cc
+$(FILE3).o: $(FILE3).cc
+	$(CC) $(CCFLAGS) $(FILE3).cc $(LIBS)
 
 #$(FILE4).o: $(FILE4).cc
 #	$(CC) $(CCFLAGS) $(FILE4).cc

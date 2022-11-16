@@ -1,16 +1,23 @@
 #include "SFML/Graphics.hpp"
 
 #include "game_state.h"
+#include "context.h"
+#include "map.h"
 
-Game_state(Map & map, Context& context)
+/*Game_state(Map& map, Context& context)
 {
     current_player = context.players[0];
+    context.map = map;
+}*/
+
+Game_state::Game_state(Map* map, Context& context)
+{
     context.map = map;
 }
 
 void Game_state::handle(Context& context, sf::Event event)
 {
-    context.current_player -> handle(Context& context, sf::Event event);
+    /*context.current_player -> handle(Context& context, sf::Event event);
 
     //Check collsion with other
     for (unsigned int i{0}; i < context.active_player.size(); i++)
@@ -35,10 +42,12 @@ void Game_state::handle(Context& context, sf::Event event)
     }
 
     //Check collsion with wall
+    */
 }
 
 void Game_state::update(Context& context)
 {
+    /*
     //Update players and objects
     context.objects -> update(Context& context)
     context.players -> update(Context& context)
@@ -110,12 +119,16 @@ void Game_state::update(Context& context)
     //Check if next players turn
 
     //Check if someones won
+
+    */
+
+
 }
 
 
-void Game_state::render(Context& context)
+void Game_state::render(sf::RenderWindow& window, Context& context)
 {
-    context.map -> render();
+    /*context.map -> render();
 
     for (Game_object* object: context.objects)
     {
@@ -125,6 +138,8 @@ void Game_state::render(Context& context)
     for (Game_object* player: context.players)
     {
         player -> render(Context& context);
-    }
+    }*/
+
+    context.map ->render(window);
 
 }

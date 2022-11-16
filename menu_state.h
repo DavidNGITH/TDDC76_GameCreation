@@ -1,11 +1,13 @@
-#ifndef MENU_STATE.H
-#define MENU_STATE.H
+#ifndef MENU_STATE_H
+#define MENU_STATE_H
 
 #include <SFML/Graphics.hpp>
 #include <list>
+#include <string>
 #include <vector>
+#include "state.h"
 
-class Menu_state
+class Menu_state : public State
 {
 
     public:
@@ -13,14 +15,14 @@ class Menu_state
 
     
 
-    Map map;
+    //Map map;
 
     virtual void handle(Context& context, sf::Event event) override;
     virtual void update(Context& context) override;
-    virtual void render(sf::RenderWindow& window) override;
+    virtual void render(sf::RenderWindow& window, Context& context) override;
 
 
-    ~Menu_state();
+    //~Menu_state();
 
     private:
     void add_player();
@@ -28,7 +30,24 @@ class Menu_state
     void load_map(std::string filename);
     void start_game();
 
-    std::vector<Player*> players;
+    sf::Texture set_texture(std::string path);
+
+    sf::Texture title_texture{};
+    sf::Texture map_texture{};
+    sf::Texture player_texture{};
+    sf::Texture background_texture{};
+    sf::Texture start_button_texture{};
+    
+
+    sf::Sprite map{};
+    sf::Sprite title{};
+    sf::Sprite player{};
+    sf::Sprite background{};
+    sf::Sprite start_button{};
+
+
+
+    //std::vector<Player*> players;
    
 };
 
