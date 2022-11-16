@@ -33,18 +33,23 @@ class Menu_state : public State
     sf::Texture set_texture(std::string path);
 
     sf::Texture title_texture{};
-    sf::Texture map_texture{};
+    sf::Texture map_selection_texture{};
     sf::Texture player_texture{};
     sf::Texture background_texture{};
     sf::Texture start_button_texture{};
+    sf::Texture map_border_texture{};
+    sf::Texture map_preview_texture{};
+    sf::Texture add_player_img_texture{};
     
 
-    sf::Sprite map{};
+    sf::Sprite map_selection{};
     sf::Sprite title{};
     sf::Sprite player{};
     sf::Sprite background{};
     sf::Sprite start_button{};
-
+    sf::Sprite map_border{};
+    sf::Sprite map_preview{};
+    sf::Sprite add_player_img{};
 
 
     //std::vector<Player*> players;
