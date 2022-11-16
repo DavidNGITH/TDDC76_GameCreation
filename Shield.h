@@ -3,21 +3,25 @@
 
 #include "SFML/Graphics.hpp"
 
-#include "PowerUp"
+#include "PowerUp.h"
+#include "context.h"
 
 class Shield :public PowerUp
 {
     public:
         Shield();
         
-        bool handle(Context& context, sf::Event event) override
-        void update(Context& context) override
-        void render(sf::RenderWindow& window) override
-        
-        void collision() override;
+        ~Shield() = default;
+
+        void update(Context& context) override;
+        void render(sf::RenderWindow& window, Context& context) override;
+        void handle(Context& context, sf::Event event) override;
+
+        void collision(Game_object* object) override; 
+        bool check_collision(Game_object* object) override;
         void remove() override;
         bool is_removed() override;
-        
+
         bool add_shield();
 
     private:
@@ -27,8 +31,10 @@ class Shield :public PowerUp
         int position_x{};
         int position_y{};
 
+        float speed{};
+
         //bool removed;
-}
+};
 
 
 
