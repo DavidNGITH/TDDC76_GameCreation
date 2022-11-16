@@ -22,8 +22,9 @@ int main()
     std::vector<Game_object*>  objects{};
     std::vector<Game_object*>  new_objects{};
     std::vector<Game_object*>  players{};
+    Game_object*               current_player{};
 
-    Context context{clock.restart(), nullptr, nullptr, objects, new_objects, players};
+    Context context{clock.restart(), nullptr, nullptr, objects, new_objects, players, current_player};
 
 
     while (window.isOpen())
