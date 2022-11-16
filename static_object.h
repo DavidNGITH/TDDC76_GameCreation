@@ -12,7 +12,7 @@ class Static_object : public Game_object
 
     void update() override;
     void Collision() override; 
-    void render() override;
+    void render(sf::RenderWindow& window) override;
     void handle() override;
     bool is_removed() override;
     void remove() override;
