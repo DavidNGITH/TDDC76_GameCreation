@@ -3,19 +3,22 @@
 
 #include "SFML/Graphics.hpp"
 #include "game_state.h"
+#include "menu_state.h"
 
-class Game_object : public Game_state
+class Game_object
 {
 public:
     Game_object();
-    //~Game_object();
     
     virtual void update();
     virtual void Collision(); 
     virtual void render();
     virtual void handle();
+    virtual bool is_removed();
+    virtual void remove();
 
-
+protected:
+    bool removed{};
 
 
 private:
