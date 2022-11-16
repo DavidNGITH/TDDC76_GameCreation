@@ -67,6 +67,11 @@ void Helicopter::Collision() override
 
 }
 
+void Helicopter::Handle() override
+{
+    //ska vara tom ty inga inputs styr helikoptern.
+}
+
 bool Helicopter::collides() const
 {
 
