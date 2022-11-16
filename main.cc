@@ -4,6 +4,9 @@
 #include "state.h"
 #include "menu_state.h"
 #include "game_state.h"
+#include "game_object.h"
+
+#include <vector>
 
 int main()
 {
@@ -16,7 +19,13 @@ int main()
 
     sf::Clock clock;
 
-    Context context {clock.restart(), nullptr};
+    std::vector<Game_object*>  objects{};
+    std::vector<Game_object*>  new_objects{};
+    std::vector<Game_object*>  players{};
+    Game_object*               current_player{};
+
+    Context context{clock.restart(), nullptr, nullptr, objects, new_objects, players, current_player};
+
 
     while (window.isOpen())
     {
