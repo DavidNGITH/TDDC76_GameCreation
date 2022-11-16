@@ -8,7 +8,7 @@ Helicopter::Helicopter()
 {   
 
     //Checks if the file can be loaded
-    if (!texture.loadFromFile("helicopter.png"))
+    if (!texture.loadFromFile("helicopter1.png"))
     {
         std::cerr << "Kan inte Ã¶ppna: helkopeter.png" << std::endl;
         //return 1;
