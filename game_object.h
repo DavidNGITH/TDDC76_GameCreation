@@ -10,10 +10,10 @@ class Game_object
 public:
     Game_object();
     
-    virtual void update();
+    virtual void update(Context& context);
     virtual void Collision(); 
-    virtual void render();
-    virtual void handle();
+    virtual void render(Context& context);
+    virtual void handle(Context& context, sf::Event event);
     virtual bool is_removed();
     virtual void remove();
 

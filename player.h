@@ -9,7 +9,6 @@ class Player : public Game_object
 {
 public:
     Player();
-    //~Player();
 
     void Aim();
     void Fire();
@@ -24,7 +23,7 @@ public:
     std::string name{};
     std::string color{};
     int score{};
-    //Hud::Hud* hud{};
+    //Hud* hud{};
 
 protected:
     int hp{};
