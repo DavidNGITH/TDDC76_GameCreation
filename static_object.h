@@ -1,6 +1,6 @@
 #ifndef STATIC_OBJECT_H
 #define STATIC_OBJECT_H
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 #include "game_object.h"
 
 
@@ -21,9 +21,9 @@ class Static_object : public Game_object
 
     bool removed();
 
-    Sf::Sprite tree;
-    Sf::Texture icon;
+    Sf::Sprite tree_sprite;
+    Sf::Texture tree_texture;
 
-}
+};
 
 #endif
