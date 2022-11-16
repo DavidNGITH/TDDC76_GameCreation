@@ -128,17 +128,16 @@ void Game_state::update(Context& context)
 
 void Game_state::render(sf::RenderWindow& window, Context& context)
 {
-    /*context.map -> render();
 
     for (Game_object* object: context.objects)
     {
-        object -> render(Context& context);
+        object -> render(window, context);
     }
 
     for (Game_object* player: context.players)
     {
-        player -> render(Context& context);
-    }*/
+        player -> render(window, context);
+    }
 
     context.map ->render(window);
 

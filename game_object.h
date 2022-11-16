@@ -10,7 +10,9 @@
 class Game_object
 {
 public:
-    Game_object();
+    //Game_object() = default;
+
+    virtual ~Game_object() = 0;
     
     virtual void update(Context& context);
     virtual void collision(Game_object* object); 
