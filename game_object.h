@@ -4,23 +4,23 @@
 #include "SFML/Graphics.hpp"
 #include "game_state.h"
 #include "menu_state.h"
-#include "context.h"
 
+struct Context; //fwd declartation
 
 class Game_object
 {
 public:
     //Game_object() = default;
 
-    virtual ~Game_object() = 0;
+    virtual ~Game_object() = default;
     
-    virtual void update(Context& context);
-    virtual void collision(Game_object* object); 
-    virtual void render(sf::RenderWindow& window, Context& context);
-    virtual void handle(Context& context, sf::Event event);
-    virtual bool is_removed();
-    virtual void remove();
-    virtual bool check_collision(Game_object* object);
+    virtual void update(Context& context) = 0;
+    virtual void collision(Game_object* object) = 0; 
+    virtual void render(sf::RenderWindow& window, Context& context) = 0;
+    virtual void handle(Context& context, sf::Event event) = 0;
+    virtual bool is_removed() = 0;
+    virtual void remove() = 0;
+    virtual bool check_collision(Game_object* object) = 0;
 
 protected:
     bool removed{};
