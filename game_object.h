@@ -14,10 +14,11 @@ public:
 
     virtual ~Game_object() = default;
     
-    virtual void update(Context& context) = 0;
-    virtual void collision(Game_object* object) = 0; 
-    virtual void render(sf::RenderWindow& window, Context& context) = 0;
     virtual void handle(Context& context, sf::Event event) = 0;
+    virtual void update(Context& context) = 0;
+    virtual void render(sf::RenderWindow& window, Context& context) = 0;
+    virtual void collision(Game_object* object) = 0; 
+    
     bool is_removed();
     void remove();
     virtual bool check_collision(Game_object* object) = 0;

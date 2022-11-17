@@ -1,14 +1,31 @@
 #include "SFML/Graphics.hpp"
-
 #include "player.h"
-#include "context.h"
+#include <iostream>
 
-Player::Player()
-{}
+Player::Player(sf::Texture player_texture)
+:bearing(90), hp(100), score(0)
+{
+    //Hard coded: Read texture file
+    if (!texture.loadFromFile("blue_tank.png"))
+    {
+        std::cerr << "Can't open: blue_tank.png" << std::endl;
+    }
+
+
+    //Commented away due to hard code above 
+    //Set whick tank color/texture this player should have
+    //texture = player_texture;
+
+    //Spawns a player in the middle of the map. 
+    icon.setTexture(texture);
+    sf::Vector2u texture_size { texture.getSize() };
+    icon.setOrigin(texture_size.x / 2, texture_size.y / 2);
+    icon.setPosition(900, 400);
+
+}
 
 void Player::Aim()
 {
-
 
 }
 
@@ -18,6 +35,21 @@ void Player::Fire()
 }
 
 void Player::handle(Context& context, sf::Event event)
+{
+
+}
+
+void Player::update(Context& context)
+{
+
+}
+
+void Player::render(sf::RenderWindow& window, Context& context)
+{
+    window.draw(icon);
+}
+
+void Player::collision(Game_object* object)
 {
     /*context.current_player -> handle(Context& context, sf::Event event);
 
@@ -42,20 +74,5 @@ void Player::handle(Context& context, sf::Event event)
             current_player -> collision(context.players.at(i));
         }
     }*/
-
-}
-
-void Player::update(Context& context)
-{
-
-}
-
-void Player::render(Context& context)
-{
-
-}
-
-void Player::Collision()
-{
 
 }
