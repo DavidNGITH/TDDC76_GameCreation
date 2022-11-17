@@ -5,7 +5,6 @@
 #include "game_object.h"
 
 Shield::Shield()
-:position_x{}, position_y{}, check_collision{false}
 {
     //Checks if the file can be loaded
     if (!texture.loadFromFile("shield.png"))
@@ -17,7 +16,7 @@ Shield::Shield()
     icon.setTexture(texture);    
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y / 2);    
-    icon.setPosition(position_x, position_y);
+    icon.setPosition(1000, 100);
 }
 
 
@@ -30,11 +29,11 @@ void Shield::update(Context& context)
 {
     //falla från himmelen
     sf::Vector2f old_position { icon.getPosition() };
-    float current_speed { delta.asSeconds() * speed };
+    //float current_speed = speed;
 
     //if not kollision med mark
     
-        icon.setPosition(old_position.x, old_position.y + current_speed)
+        icon.setPosition(old_position.x, old_position.y + 1);
     
 }
 
@@ -44,12 +43,12 @@ void Shield::render(sf::RenderWindow& window, Context& context)
 }
 
 
-void Shield::Collision()
+void Shield::collision(Game_object* object)
 {
     //Tom?
 }
 
-bool Shield::check_collision()
+bool Shield::check_collision(Game_object* object)
 {
     //Kollar om objektet kolliderar med någonting
     //Skicka till remove

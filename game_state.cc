@@ -5,11 +5,13 @@
 #include "game_object.h" 
 #include "map.h"
 #include "Helicopter.h"
+#include "Shield.h"
 
 
 Game_state::Game_state(Context& context)
 {
     context.objects.push_back(new Helicopter);
+    context.objects.push_back(new Shield);
 }
 
 void Game_state::handle(Context& context, sf::Event event)

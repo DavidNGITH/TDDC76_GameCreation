@@ -17,10 +17,10 @@ FILE10=static_object
 FILE11=standard_missile
 FILE12=shower_missile
 FILE13=repair
-FILE14=shield
+FILE14=Shield
 
 
-OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE9).o
+OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE9).o $(FILE14).o 
 
 output: $(OBJS)
 	$(CC) $(OBJS) -o a.out $(LIBS)
@@ -37,8 +37,8 @@ $(FILE2).o: $(FILE2).cc
 $(FILE3).o: $(FILE3).cc
 	$(CC) $(CCFLAGS) $(FILE3).cc $(LIBS)
 
-#$(FILE4).o: $(FILE4).cc
-#	$(CC) $(CCFLAGS) $(FILE4).cc
+$(FILE4).o: $(FILE4).cc
+	$(CC) $(CCFLAGS) $(FILE4).cc $(LIBS)
 
 #$(FILE5).o: $(FILE5).cc
 #	$(CC) $(CCFLAGS) $(FILE5).cc
@@ -67,8 +67,8 @@ $(FILE9).o: $(FILE9).cc
 #$(FILE13).o: $(FILE9).cc
 #	$(CC) $(CCFLAGS) $(FILE9).cc
 
-#$(FILE14).o: $(FILE9).cc
-#	$(CC) $(CCFLAGS) $(FILE9).cc
+$(FILE14).o: $(FILE14).cc
+	$(CC) $(CCFLAGS) $(FILE14).cc $(LIBS)
 
 clean:
 	rm *.o a.out
