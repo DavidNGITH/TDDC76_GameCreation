@@ -5,18 +5,23 @@
 #include "game_object.h" 
 #include "map.h"
 #include "Helicopter.h"
+#include "Shield.h"
+#include "player.h"
 
 
 Game_state::Game_state(Context& context)
 {
     context.objects.push_back(new Helicopter);
+    context.objects.push_back(new Shield);
+    context.players.push_back(new Player);
+    context.current_player = context.players.at(0);
 }
 
 void Game_state::handle(Context& context, sf::Event event)
 {
-    /*context.current_player -> handle(context, event);
+    context.current_player -> handle(context, event);
 
-    //Check collsion with other objects
+    /*//Check collsion with other objects
     for (unsigned int i{0}; i < context.objects.size(); i++)
     {
         if (context.current_player -> check_collision(context.objects.at(i)))
