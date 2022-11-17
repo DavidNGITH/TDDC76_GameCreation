@@ -7,9 +7,11 @@
 Player::Player()//(sf::Texture player_texture)
 : hp{100}, bearing{-90}, score{0}, barrel_rotation_speed {30}
 {
+    ////////////// HARD CODED /////////////
     speed = 100;
     position_x = 900;
     position_y = 880;
+
     //Commented away due to hard code below 
     //Set whick tank color/texture this player should have
     //texture = player_texture;
@@ -30,18 +32,16 @@ Player::Player()//(sf::Texture player_texture)
     {
         std::cerr << "Can't open: blue_barrel.png" << std::endl;
     }
+
+    barrel_sprite.setTexture(barrel);
     
     ////////////// HARD CODED //////////////
-    barrel_sprite.setTexture(barrel);
     sf::Vector2u texture_size_barrel { barrel.getSize() };
     barrel_sprite.setOrigin(10, texture_size_barrel.y / 2);
     barrel_sprite.setScale(0.05, 0.05);
     barrel_sprite.setRotation(bearing);
     
     set_barrel_pos();
-
-
-    
 
 }
 
@@ -57,6 +57,7 @@ void Player::Fire()
 
 void Player::handle(Context& context, sf::Event event)
 {
+    
 }
 
 void Player::update(Context& context)
@@ -110,29 +111,6 @@ void Player::render(sf::RenderWindow& window, Context& context)
 
 void Player::collision(Game_object* object)
 {
-    /*context.current_player -> handle(Context& context, sf::Event event);
-
-    //Check collsion with other
-    for (unsigned int i{0}; i < context.active_player.size(); i++)
-    {
-        for (unsigned int j{i+1}; j < context.active_player.size(); j++)
-        {
-            if context.active_player.at(i) -> collides(context.active_player.at(j))
-            {
-                context.active_player.at(i) -> collision(context.active_player.at(j));
-                context.active_player.at(j) -> collision(context.active_player.at(1));
-            }
-        }
-    }
-
-    //Check collision with other players
-    for (unsigned int i{0}; i < context.players.size(); i++)
-    {
-        if (current_player -> collides(context.players.at(i)) && current_player != context.players.at(i))
-        {
-            current_player -> collision(context.players.at(i));
-        }
-    }*/
 
 }
 
