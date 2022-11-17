@@ -99,4 +99,6 @@ void Player::collision(Game_object* object)
 }
 
 bool Player::check_collision(Game_object* object)
-{}
+{
+    return false;
+}
