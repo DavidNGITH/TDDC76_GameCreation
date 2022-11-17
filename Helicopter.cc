@@ -5,7 +5,7 @@
 #include <iostream>
 
 Helicopter::Helicopter()
-:stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{}, spawn_rate{100}, speed{100}, current_player{nullptr}
+:stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{}, spawn_rate{100}, speed{150}, current_player{nullptr}
 {   
     //Hårdkodat
     position_x = 0;
@@ -131,7 +131,7 @@ bool Helicopter::check_collision(Game_object* object)
 void Helicopter::create_powerup(Context& context) const
 {
     //New Power_Up
-    context.new_objects.push_back(new Powerup(icon.getPosition().x, icon.getPosition().y));
+    context.new_objects.push_back(new Powerup(position_x, position_y));
 }
 
 void Helicopter::stop_position()
