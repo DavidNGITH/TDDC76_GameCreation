@@ -26,10 +26,15 @@ public:
 protected:
     bool removed{};
     sf::Sprite icon;
+    sf::Sprite barrel_sprite;
     sf::Texture texture;
+    sf::Texture barrel;
     float position_x{};
     float position_y{};
+    int position_x_barrel{};
+    int position_y_barrel{};
     float const speed {5.0};
+    float const barrel_rotation_speed {3.0};
 
 
 private:
