@@ -5,27 +5,23 @@
 
 //HARD CODED:
 Player::Player()//(sf::Texture player_texture)
-:bearing(-90), hp(100), score(0)
+: hp{100}, bearing{-90}, score{0}, barrel_rotation_speed {30}
 {
+    speed = 100;
+    position_x = 900;
+    position_y = 880;
     //Commented away due to hard code below 
     //Set whick tank color/texture this player should have
     //texture = player_texture;
 
     ////////////////////// Hard coded: Read texture file
-    if (!texture.loadFromFile("Textures/blue_tank.png"))
-    {
-        std::cerr << "Can't open: blue_tank.png" << std::endl;
-    }
 
-    //Spawns a player in the middle of the map.
-    icon.setTexture(texture);
+    load_icon("Textures/blue_tank.png");
+    
+    ////////////// HARD CODED /////////////
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y);
     icon.setScale(0.1, 0.1);
-    ////////////// HARD CODED //////////////
-    position_x = 900;
-    position_y = 880;
-    ////////////// HARD CODED //////////////
     icon.setPosition(position_x, position_y);
 
 
@@ -35,16 +31,14 @@ Player::Player()//(sf::Texture player_texture)
         std::cerr << "Can't open: blue_barrel.png" << std::endl;
     }
     
+    ////////////// HARD CODED //////////////
     barrel_sprite.setTexture(barrel);
     sf::Vector2u texture_size_barrel { barrel.getSize() };
     barrel_sprite.setOrigin(10, texture_size_barrel.y / 2);
     barrel_sprite.setScale(0.05, 0.05);
     barrel_sprite.setRotation(bearing);
-    ////////////// HARD CODED //////////////
-    position_x_barrel = 895;
-    position_y_barrel = 845;
-    ////////////// HARD CODED //////////////
-    barrel_sprite.setPosition(position_x_barrel, position_y_barrel);
+    
+    set_barrel_pos();
 
 
     
@@ -63,51 +57,21 @@ void Player::Fire()
 
 void Player::handle(Context& context, sf::Event event)
 {
-    
-
-    /*if(event.key.code == sf::Keyboard::Left)
-    {
-        position_x = position_x - speed;
-        icon.setPosition (position_x, position_y);
-
-        position_x_barrel = position_x_barrel - speed;
-        barrel_sprite.setPosition (position_x_barrel, position_y_barrel);
-        
-    }
-    if(event.key.code == sf::Keyboard::Right)
-    {
-        position_x = position_x + speed;
-        icon.setPosition (position_x, position_y);
-
-        position_x_barrel = position_x_barrel + speed;
-        barrel_sprite.setPosition (position_x_barrel, position_y_barrel);
-    }
-
-
-    if(event.key.code == sf::Keyboard::Up)
-    {
-        
-        bearing = bearing + barrel_rotation_speed;
-        barrel_sprite.rotate(barrel_rotation_speed);
-        
-    }
-    if(event.key.code == sf::Keyboard::Down)
-    {
-        bearing = bearing - barrel_rotation_speed;
-        barrel_sprite.rotate(-barrel_rotation_speed);
-        }*/
-    
 }
 
 void Player::update(Context& context)
+{
+
+}
+
+void Player::move(Context& context)
 {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
         position_x += context.delta.asSeconds() * -speed;
         icon.setPosition (position_x, position_y);
 
-        position_x_barrel = position_x -5;
-        barrel_sprite.setPosition (position_x_barrel, position_y_barrel);
+        set_barrel_pos();    
     }
 
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
@@ -115,22 +79,27 @@ void Player::update(Context& context)
         position_x += context.delta.asSeconds() * speed;
         icon.setPosition (position_x, position_y);
 
-        position_x_barrel = position_x -5;
-        barrel_sprite.setPosition (position_x_barrel, position_y_barrel);
+        set_barrel_pos();
     }
 
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
-        
-        bearing += context.delta.asSeconds() * barrel_rotation_speed;
-        barrel_sprite.rotate(barrel_rotation_speed);
+        if (bearing <= 0)
+        {
+            bearing += context.delta.asSeconds() * barrel_rotation_speed;
+            barrel_sprite.setRotation(bearing);
+        }
         
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
     {
-        bearing -= context.delta.asSeconds() * barrel_rotation_speed;
-        barrel_sprite.rotate(-barrel_rotation_speed);
+        if (bearing >=-180)
+        {
+            bearing -= context.delta.asSeconds() * barrel_rotation_speed;
+            barrel_sprite.setRotation(bearing);
         }
+
+    }
 }
 
 void Player::render(sf::RenderWindow& window, Context& context)
@@ -170,4 +139,9 @@ void Player::collision(Game_object* object)
 bool Player::check_collision(Game_object* object)
 {
     return false;
+}
+
+void Player::set_barrel_pos()
+{
+    barrel_sprite.setPosition(position_x - 5, position_y - 35);
 }

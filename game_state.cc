@@ -47,6 +47,7 @@ void Game_state::handle(Context& context, sf::Event event)
 
 void Game_state::update(Context& context)
 {
+    context.current_player -> move(context);
     
     for (Game_object* object : context.objects)
     {

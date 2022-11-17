@@ -19,6 +19,7 @@ public:
     void render(sf::RenderWindow& window, Context& context) override;
     void collision(Game_object* object) override;
     bool check_collision(Game_object* object) override;
+    void move(Context& context) override;
 
     
 
@@ -27,8 +28,14 @@ protected:
     int hp{};
 
 private:
+    void set_barrel_pos();
+
     double bearing{};
     int score{};
+    float const barrel_rotation_speed{};
+
+    sf::Sprite barrel_sprite;
+    sf::Texture barrel;
     
 };
 

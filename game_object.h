@@ -18,26 +18,20 @@ public:
     virtual void update(Context& context) = 0;
     virtual void render(sf::RenderWindow& window, Context& context) = 0;
     virtual void collision(Game_object* object) = 0; 
+    virtual void move(Context& context);
     
     bool is_removed();
     void remove();
     virtual bool check_collision(Game_object* object) = 0;
+    void load_icon(std::string path);
 
 protected:
     bool removed{};
     sf::Sprite icon;
-    sf::Sprite barrel_sprite;
     sf::Texture texture;
-    sf::Texture barrel;
-    float position_x{};
-    float position_y{};
-    int position_x_barrel{};
-    int position_y_barrel{};
-    float const speed {100};
-    float const barrel_rotation_speed {3.0};
-
-
-private:
+    double position_x{};
+    double position_y{};
+    float speed {};
 
 
 };
