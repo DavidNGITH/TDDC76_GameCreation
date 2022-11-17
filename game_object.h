@@ -29,11 +29,11 @@ protected:
     sf::Sprite barrel_sprite;
     sf::Texture texture;
     sf::Texture barrel;
-    int position_x{};
-    int position_y{};
+    float position_x{};
+    float position_y{};
     int position_x_barrel{};
     int position_y_barrel{};
-    float const speed {5.0};
+    float const speed {100};
     float const barrel_rotation_speed {3.0};
 
 
