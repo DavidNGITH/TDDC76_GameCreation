@@ -40,6 +40,13 @@ class Menu_state : public State
     sf::Texture map_border_texture{};
     sf::Texture map_preview_texture{};
     sf::Texture add_player_img_texture{};
+    sf::Texture blue_tank_texture{};
+    sf::Texture cyan_tank_texture{};
+    sf::Texture green_tank_texture{};
+    sf::Texture pink_tank_texture{};
+    sf::Texture red_tank_texture{};
+    sf::Texture yellow_tank_texture{};
+    
     
 
     sf::Sprite map_selection{};
@@ -50,6 +57,17 @@ class Menu_state : public State
     sf::Sprite map_border{};
     sf::Sprite map_preview{};
     sf::Sprite add_player_img{};
+    sf::Sprite blue_tank{};
+    sf::Sprite cyan_tank{};
+    sf::Sprite green_tank{};
+    sf::Sprite pink_tank{};
+    sf::Sprite red_tank{};
+    sf::Sprite yellow_tank{};
+    sf::Sprite player_selection{};
+
+    bool player_selected{};
+
+    bool map_selected{};
 
 
     //std::vector<Player*> players;
