@@ -2,15 +2,16 @@
 #include "player.h"
 #include <iostream>
 #include "context.h"
+#include "static_object.h"
 
 //HARD CODED:
 Player::Player()//(sf::Texture player_texture)
-: hp{100}, bearing{-90}, score{0}, barrel_rotation_speed {30}
+: hp{100}, bearing{-90}, score{0}, barrel_rotation_speed {30}, old_position{}
 {
     ////////////// HARD CODED /////////////
     speed = 100;
     position_x = 900;
-    position_y = 880;
+    position_y = 878;
 
     //Commented away due to hard code below 
     //Set whick tank color/texture this player should have
@@ -69,6 +70,7 @@ void Player::move(Context& context)
 {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
+        old_position = icon.getPosition();
         position_x += context.delta.asSeconds() * -speed;
         icon.setPosition (position_x, position_y);
 
@@ -77,6 +79,7 @@ void Player::move(Context& context)
 
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
     {
+        old_position = icon.getPosition();
         position_x += context.delta.asSeconds() * speed;
         icon.setPosition (position_x, position_y);
 
@@ -111,7 +114,16 @@ void Player::render(sf::RenderWindow& window, Context& context)
 
 void Player::collision(Game_object* object)
 {
+    Static_object* static_object { dynamic_cast<Static_object*>(object) };
 
+    if (static_object != nullptr)
+    {
+        position_x = old_position.x;
+        position_y = old_position.y;
+
+        icon.setPosition(position_x, position_y);
+        set_barrel_pos(); 
+    }
 }
 
 bool Player::check_collision(Game_object* object)
