@@ -33,6 +33,7 @@ private:
     double bearing{};
     int score{};
     float const barrel_rotation_speed{};
+    sf::Vector2f old_position{};
 
     sf::Sprite barrel_sprite;
     sf::Texture barrel;
