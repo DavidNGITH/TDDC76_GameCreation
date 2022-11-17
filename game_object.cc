@@ -25,7 +25,7 @@ void Game_object::load_icon(std::string path)
 {
     if (!texture.loadFromFile(path))
     {
-        std::cerr << "Can't open: blue_tank.png" << std::endl;
+        std::cerr << "Can't open file: " << path << std::endl;
     }
 
     icon.setTexture(texture);
