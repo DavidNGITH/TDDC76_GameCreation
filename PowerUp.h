@@ -8,9 +8,9 @@
 class Powerup :public Game_object
 {
     public:
-        Powerup(); //(double position_x);
+        Powerup(double position_x, double position_y); //(double position_x);
         ~Powerup() = default;
-
+        Powerup();
         void update(Context& context) override;
         void render(sf::RenderWindow& window, Context& context) override;
         void handle(Context& context, sf::Event event) override;
