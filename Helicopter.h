@@ -16,7 +16,7 @@ class Helicopter :public Game_object
     void collision(Game_object* object) override;
     bool check_collision(Game_object* object) override;
     bool should_spawn();
-    void create_powerup() const;
+    void create_powerup(Context& context) const;
     float stop_position();
 
 

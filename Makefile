@@ -11,16 +11,15 @@ FILE4=game_object
 FILE5=hud
 FILE6=player
 FILE7=missile
-FILE8=power_up
+FILE8=powerup
 FILE9=Helicopter
 FILE10=static_object
 FILE11=standard_missile
 FILE12=shower_missile
-FILE13=repair
-FILE14=Shield
 
 
-OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE6).o $(FILE9).o $(FILE14).o 
+
+OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE6).o $(FILE9).o $(FILE8).o 
 
 output: $(OBJS)
 	$(CC) $(OBJS) -o a.out $(LIBS)
@@ -41,34 +40,29 @@ $(FILE4).o: $(FILE4).cc
 	$(CC) $(CCFLAGS) $(FILE4).cc $(LIBS)
 
 #$(FILE5).o: $(FILE5).cc
-#	$(CC) $(CCFLAGS) $(FILE5).cc
+#	$(CC) $(CCFLAGS) $(FILE5).cc $(LIBS)
 
 $(FILE6).o: $(FILE6).cc
 	$(CC) $(CCFLAGS) $(FILE6).cc $(LIBS)
 
 #$(FILE7).o: $(FILE7).cc
-#	$(CC) $(CCFLAGS) $(FILE7).cc
+#	$(CC) $(CCFLAGS) $(FILE7).cc $(LIBS)
 
-#$(FILE8).o: $(FILE8).cc
-#	$(CC) $(CCFLAGS) $(FILE8).cc
+$(FILE8).o: $(FILE8).cc
+	$(CC) $(CCFLAGS) $(FILE8).cc $(LIBS)
 
 $(FILE9).o: $(FILE9).cc
 	$(CC) $(CCFLAGS) $(FILE9).cc $(LIBS)
 
-#$(FILE10).o: $(FILE9).cc
-#	$(CC) $(CCFLAGS) $(FILE9).cc
+#$(FILE10).o: $(FILE10).cc
+#	$(CC) $(CCFLAGS) $(FILE10).cc $(LIBS)
 
-#$(FILE11).o: $(FILE9).cc
-#	$(CC) $(CCFLAGS) $(FILE9).cc
+#$(FILE11).o: $(FILE11).cc
+#	$(CC) $(CCFLAGS) $(FILE11).cc $(LIBS)
 
-#$(FILE12).o: $(FILE9).cc
-#	$(CC) $(CCFLAGS) $(FILE9).cc
+#$(FILE12).o: $(FILE12).cc
+#	$(CC) $(CCFLAGS) $(FILE12).cc $(LIBS)
 
-#$(FILE13).o: $(FILE9).cc
-#	$(CC) $(CCFLAGS) $(FILE9).cc
-
-$(FILE14).o: $(FILE14).cc
-	$(CC) $(CCFLAGS) $(FILE14).cc $(LIBS)
 
 clean:
 	rm *.o a.out
