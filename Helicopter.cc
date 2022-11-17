@@ -113,6 +113,7 @@ void Helicopter::handle(Context& context, sf::Event event)
 bool Helicopter::check_collision(Game_object* object)
 {
     //check if helicopter has collided with a missile.
+    return false;
 }
 
 void Helicopter::create_powerup(int coordinate) const
@@ -131,6 +132,7 @@ float Helicopter::stop_position()
 
 bool Helicopter::new_turn()
 {
+    return false;
     //check if it's a new turn 
 }
 

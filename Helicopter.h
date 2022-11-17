@@ -25,14 +25,12 @@ class Helicopter :public Game_object
 
 
     private:
-    sf::Sprite icon;
-    sf::Texture texture;
     float stop_coordinate{};
-    float speed{};
     int is_active{};
     int has_stopped{};
     int has_dropped{};
     int spawn_rate{};  //number 0-100 in likelihood of spawning (percent)
+    float speed{};
 
 };
 
