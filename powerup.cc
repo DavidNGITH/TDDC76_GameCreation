@@ -1,3 +1,5 @@
+//Hårdkodad kod nedan
+
 #include <stdexcept>
 #include <iostream>
 //#include "SFML/Graphics.hpp"
