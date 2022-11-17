@@ -4,25 +4,19 @@
 
 //HARD CODED:
 Player::Player()//(sf::Texture player_texture)
-:bearing(90), hp(100), score(0)
+:bearing(-90), hp(100), score(0)
 {
-    //Hard coded: Read texture file
+    //Commented away due to hard code below 
+    //Set whick tank color/texture this player should have
+    //texture = player_texture;
+
+    ////////////////////// Hard coded: Read texture file
     if (!texture.loadFromFile("Textures/blue_tank.png"))
     {
         std::cerr << "Can't open: blue_tank.png" << std::endl;
     }
-    //Hard coded: Read texture file
-    if (!texture.loadFromFile("Textures/blue_barrel.png"))
-    {
-        std::cerr << "Can't open: blue_tank.png" << std::endl;
-    }
 
-
-    //Commented away due to hard code above 
-    //Set whick tank color/texture this player should have
-    //texture = player_texture;
-
-    //Spawns a player in the middle of the map. 
+    //Spawns a player in the middle of the map.
     icon.setTexture(texture);
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y);
@@ -32,6 +26,25 @@ Player::Player()//(sf::Texture player_texture)
     position_y = 880;
     ////////////// HARD CODED //////////////
     icon.setPosition(position_x, position_y);
+
+
+    ////////////////////// Hard coded: Read texture file
+    if (!barrel.loadFromFile("Textures/blue_barrel.png"))
+    {
+        std::cerr << "Can't open: blue_barrel.png" << std::endl;
+    }
+    
+    barrel_sprite.setTexture(barrel);
+    sf::Vector2u texture_size_barrel { barrel.getSize() };
+    barrel_sprite.setOrigin(10, texture_size_barrel.y / 2);
+    barrel_sprite.setScale(0.05, 0.05);
+    barrel_sprite.setRotation(bearing);
+    ////////////// HARD CODED //////////////
+    position_x_barrel = 895;
+    position_y_barrel = 845;
+    ////////////// HARD CODED //////////////
+    barrel_sprite.setPosition(position_x_barrel, position_y_barrel);
+
 
     
 
@@ -55,12 +68,32 @@ void Player::handle(Context& context, sf::Event event)
         {
             position_x = position_x - speed;
             icon.setPosition (position_x, position_y);
+
+            position_x_barrel = position_x_barrel - speed;
+            barrel_sprite.setPosition (position_x_barrel, position_y_barrel);
             
         }
         if(event.key.code == sf::Keyboard::Right)
         {
             position_x = position_x + speed;
             icon.setPosition (position_x, position_y);
+
+            position_x_barrel = position_x_barrel + speed;
+            barrel_sprite.setPosition (position_x_barrel, position_y_barrel);
+        }
+
+
+        if(event.key.code == sf::Keyboard::Up)
+        {
+            
+            bearing = bearing + barrel_rotation_speed;
+            barrel_sprite.rotate(barrel_rotation_speed);
+            
+        }
+        if(event.key.code == sf::Keyboard::Down)
+        {
+            bearing = bearing - barrel_rotation_speed;
+            barrel_sprite.rotate(-barrel_rotation_speed);
         }
     }
 }
@@ -73,6 +106,7 @@ void Player::update(Context& context)
 void Player::render(sf::RenderWindow& window, Context& context)
 {
     window.draw(icon);
+    window.draw(barrel_sprite);
 }
 
 void Player::collision(Game_object* object)
