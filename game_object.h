@@ -29,9 +29,11 @@ protected:
     sf::Texture texture;
     int position_x{};
     int position_y{};
+    float const speed {5.0};
 
 
 private:
+
 
 };
 #endif

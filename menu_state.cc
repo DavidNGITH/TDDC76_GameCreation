@@ -16,19 +16,6 @@ Menu_state::Menu_state()
     unsigned int width{};
     unsigned int height{};
 
-    /*
-    title_texture = set_texture("Textures/title.png");
-    title.setTexture(title_texture);
-    title.setPosition(450,100);
-
-    map_texture = set_texture("Textures/map_selection");
-    map.setTexture(map_texture);
-    map.setPosition(450,500);
-
-    player_texture = set_texture("Textures/map_selection");
-    player.setTexture(player_texture);
-    player.setPosition(450,900);*/
-
     
 
     start_button_texture = set_texture("Textures/start_game.png");
@@ -36,9 +23,113 @@ Menu_state::Menu_state()
     width = start_button_texture.getSize().x;
     height = start_button_texture.getSize().y;
     start_button.setOrigin(width/2, height/2);
-    start_button.setPosition(960, 540);
-  
+    start_button.setPosition(960, 480);
+    start_button.setScale(0.5,0.5);
+    
+    map_selection_texture = set_texture("Textures/map_selection.png");
+    map_selection.setTexture(map_selection_texture);
+    width = map_selection_texture.getSize().x;
+    height = map_selection_texture.getSize().y;
+    map_selection.setOrigin(width/2, height/2);
+    map_selection.setPosition(380, 850);
+    map_selection.setScale(0.5,0.5);
+
+    player_texture = set_texture("Textures/player.png");
+    player.setTexture(player_texture);
+    width = player_texture.getSize().x;
+    height = player_texture.getSize().y;
+    player.setOrigin(width/2, height/2);
+    player.setPosition(450, 650);
+    player.setScale(0.5,0.5);
+
+    title_texture = set_texture("Textures/title.png");
+    title.setTexture(title_texture);
+    width = title_texture.getSize().x;
+    height = title_texture.getSize().y;
+    title.setOrigin(width/2, height/2);
+    title.setPosition(960, 200);
+    title.setScale(2,2);
+
+    map_border_texture = set_texture("Textures/map_border.png");
+    map_border.setTexture(map_border_texture);
+    width = map_border_texture.getSize().x;
+    height = map_border_texture.getSize().y;
+    map_border.setOrigin(width/2, height/2);
+    map_border.setPosition(0, 0);
+    map_border.setScale(0.12,0.12);
+
+    map_preview_texture = set_texture("Map/background.png");
+    map_preview.setTexture(map_preview_texture);
+    width = map_preview_texture.getSize().x;
+    height = map_preview_texture.getSize().y;
+    map_preview.setOrigin(width/2, height/2);
+    map_preview.setPosition(650, 850);
+    map_preview.setScale(0.1,0.1);
+
+    add_player_img_texture = set_texture("Textures/add_player_img.png");
+    add_player_img.setTexture(add_player_img_texture);
+    width = add_player_img_texture.getSize().x;
+    height = add_player_img_texture.getSize().y;
+    add_player_img.setOrigin(width/2, height/2);
+    add_player_img.setPosition(1600, 650);
+    add_player_img.setScale(0.25,0.25);
+
+    blue_tank_texture = set_texture("Textures/blue_tank.png");
+    blue_tank.setTexture(blue_tank_texture);
+    width = blue_tank_texture.getSize().x;
+    height = blue_tank_texture.getSize().y;
+    blue_tank.setOrigin(width/2, height/2);
+    blue_tank.setPosition(700, 650);
+    blue_tank.setScale(0.10,0.10);
+
+    cyan_tank_texture = set_texture("Textures/cyan_tank.png");
+    cyan_tank.setTexture(cyan_tank_texture);
+    width = cyan_tank_texture.getSize().x;
+    height = cyan_tank_texture.getSize().y;
+    cyan_tank.setOrigin(width/2, height/2);
+    cyan_tank.setPosition(800, 650);
+    cyan_tank.setScale(0.10,0.10);
+
+    green_tank_texture = set_texture("Textures/green_tank.png");
+    green_tank.setTexture(green_tank_texture);
+    width = green_tank_texture.getSize().x;
+    height = green_tank_texture.getSize().y;
+    green_tank.setOrigin(width/2, height/2);
+    green_tank.setPosition(900, 650);
+    green_tank.setScale(0.10,0.10);
+
+    pink_tank_texture = set_texture("Textures/pink_tank.png");
+    pink_tank.setTexture(pink_tank_texture);
+    width = pink_tank_texture.getSize().x;
+    height = pink_tank_texture.getSize().y;
+    pink_tank.setOrigin(width/2, height/2);
+    pink_tank.setPosition(1000, 650);
+    pink_tank.setScale(0.10,0.10);
+
+    red_tank_texture = set_texture("Textures/red_tank.png");
+    red_tank.setTexture(red_tank_texture);
+    width = red_tank_texture.getSize().x;
+    height = red_tank_texture.getSize().y;
+    red_tank.setOrigin(width/2, height/2);
+    red_tank.setPosition(1100, 650);
+    red_tank.setScale(0.10,0.10);
+
+    yellow_tank_texture = set_texture("Textures/yellow_tank.png");
+    yellow_tank.setTexture(yellow_tank_texture);
+    width = yellow_tank_texture.getSize().x;
+    height = yellow_tank_texture.getSize().y;
+    yellow_tank.setOrigin(width/2, height/2);
+    yellow_tank.setPosition(1200, 650);
+    yellow_tank.setScale(0.10,0.10);
+
+    player_selection.setTexture(map_border_texture);
+    width = map_border_texture.getSize().x;
+    height = map_border_texture.getSize().y;
+    player_selection.setOrigin(width/2, height/2);
+    player_selection.setPosition(0, 0);
+    player_selection.setScale(0.04,0.06);
 }
+
 
 void Menu_state::handle(Context& context, sf::Event event)
 {
@@ -47,8 +138,58 @@ void Menu_state::handle(Context& context, sf::Event event)
         sf::Event::MouseButtonEvent mouse { event.mouseButton };
         if (mouse.button == sf::Mouse::Button::Left)
         {
-            context.map = new Map{"Map/background.png", "Map/ground.png"};
-            context.next_state = new Game_state{context};
+            if((mouse.x > 747.5 && mouse.x < 1173) && (mouse.y > 326 && mouse.y < 574))
+            {  
+
+                context.map = new Map{"Map/background.png", "Map/ground.png"};
+                context.next_state = new Game_state{context};
+            }
+            else if((mouse.x > 1500 && mouse.x < 1700) && (mouse.y > 620 && mouse.y < 680))
+            {
+                add_player();
+            }
+            else if(((mouse.x > 659 && mouse.x < 741) && (mouse.y > 600 && mouse.y < 700)) && !blue_active)
+            {
+                player_selection.setPosition(695,650);
+                player_selected = true;
+                //blue
+            }
+            else if(((mouse.x > 759 && mouse.x < 841) && (mouse.y > 600 && mouse.y < 700)) && !cyan_active)
+            {
+                player_selection.setPosition(795,650);
+                player_selected = true;
+                //cyan
+            }
+            else if(((mouse.x > 859 && mouse.x < 941) && (mouse.y > 600 && mouse.y < 700)) && !green_active)
+            {
+                player_selection.setPosition(895,650);
+                player_selected = true;
+                //green
+            }
+            else if(((mouse.x > 959 && mouse.x < 1041) && (mouse.y > 600 && mouse.y < 700)) && !pink_active)
+            {
+                player_selection.setPosition(995,650);
+                player_selected = true;
+                //pink
+            }
+            else if(((mouse.x > 1059 && mouse.x < 1141) && (mouse.y > 600 && mouse.y < 700)) && !red_active)
+            {
+                player_selection.setPosition(1095,650);
+                player_selected = true;
+                //red
+            }
+            else if(((mouse.x > 1159 && mouse.x < 1241) && (mouse.y > 600 && mouse.y < 700)) && !yellow_active)
+            {
+                player_selection.setPosition(1195,650);
+                player_selected = true;
+                //yellow
+            }
+            else if(((mouse.x > 458 && mouse.x < 842) && (mouse.y > 742 && mouse.y < 958)))
+            {
+                map_border.setPosition(650,850);
+                map_selected = true;
+                //campus
+            }
         }
     }
 }
@@ -59,18 +200,110 @@ void Menu_state::update(Context& context)
 void Menu_state::render(sf::RenderWindow& window, Context& context)
 {
     window.draw(background);
-    //window.draw(title);
-    //window.draw(map);
-    //window.draw(player);
 
     window.draw(start_button);
 
+    window.draw(title);
+
+    window.draw(player);
+
+    window.draw(map_selection);
+
+    window.draw(map_preview);
+
+    window.draw(add_player_img);
+
+    if(!blue_active)
+    {
+        window.draw(blue_tank);
+    }
+
+    if(!red_active)
+    {
+        window.draw(red_tank);
+    }
+
+    if(!cyan_active)
+    {
+        window.draw(cyan_tank);
+    }
+
+    if(!yellow_active)
+    {
+        window.draw(yellow_tank);
+    }
+
+    if(!pink_active)
+    {
+        window.draw(pink_tank);
+    }
+
+    if(!green_active)
+    {
+        window.draw(green_tank);
+    }
+
+    if(player_selected)
+    {
+        window.draw(player_selection);
+    }
+    else
+    {
+        player_selection.setPosition(-100,-100);
+    }
+    if(map_selected)
+    {
+        window.draw(map_border);
+    }
 }
 
 void Menu_state::add_player()
 {
-    //players.pushback(new Player*);
+    if(player_selection.getPosition().x == 695 && player_selection.getPosition().y == 650)
+    {   
+        //blue
+        std::cout << "blue_tank_added" << std::endl;
+        blue_active = true;
+        player_selected = false;
+        
+    }
+    else if(player_selection.getPosition().x == 795 && player_selection.getPosition().y == 650)
+    {   
+        //cyan
+        std::cout << "cyan_tank_added" << std::endl;
+        cyan_active = true;
+        player_selected = false;
+    }
+    else if(player_selection.getPosition().x == 895 && player_selection.getPosition().y == 650)
+    {   
+        //green
+        std::cout << "green_tank_added" << std::endl;
+        green_active = true;
+        player_selected = false;
+    }
+    else if(player_selection.getPosition().x == 995 && player_selection.getPosition().y == 650)
+    {   
+        //pink
+        std::cout << "pink_tank_added" << std::endl;
+        pink_active = true;
+        player_selected = false;
+    }
+    else if(player_selection.getPosition().x == 1095 && player_selection.getPosition().y == 650)
+    {
+        //red
+        std::cout << "red_tank_added" << std::endl;
+        red_active = true;
+        player_selected = false;
+    }
+    else if(player_selection.getPosition().x == 1195 && player_selection.getPosition().y == 650)
+    {   
+        //yellow
+        std::cout << "yellow_tank_added" << std::endl;
+        yellow_active = true;
+        player_selected = false;
+    }
 }
+
 
 void Menu_state::choose_map()
 {}
