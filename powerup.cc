@@ -8,7 +8,7 @@
 #include "game_object.h"
 #include "context.h"
 
-Powerup::Powerup() //(double position_x) lägg till coordiante
+Powerup::Powerup(double position_x, double position_y) //lägg till coordiante
 //:int position_y{-45}, int position_x{100}
 {
     int randnum = rand() % 2;
@@ -25,7 +25,7 @@ Powerup::Powerup() //(double position_x) lägg till coordiante
         sf::Vector2u texture_size { texture.getSize() };
         icon.setOrigin(texture_size.x / 2, texture_size.y / 2);    
         icon.setScale(0.1, 0.1);
-        icon.setPosition(100, -45);
+        icon.setPosition(position_x, position_y + 40);
     }
     else
     {
@@ -40,11 +40,14 @@ Powerup::Powerup() //(double position_x) lägg till coordiante
         sf::Vector2u texture_size { texture.getSize() };
         icon.setOrigin(texture_size.x / 2, texture_size.y / 2);    
         icon.setScale(0.1, 0.1);
-        icon.setPosition(100, -45);
+        icon.setPosition(position_x, position_y + 40);
     }
 }
 
+Powerup::Powerup()
+{
 
+}
 
 
 

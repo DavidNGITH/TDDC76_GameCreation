@@ -5,8 +5,8 @@
 #include "game_object.h" 
 #include "map.h"
 #include "Helicopter.h"
-#include "PowerUp.h"
 #include "player.h"
+#include "PowerUp.h"
 
 
 Game_state::Game_state(Context& context)

@@ -1,6 +1,7 @@
 #include "Helicopter.h"
 #include "game_object.h"
 #include "context.h"
+#include "PowerUp.h"
 #include <iostream>
 
 Helicopter::Helicopter()
@@ -58,7 +59,7 @@ void Helicopter::update(Context& context)
                 has_dropped = 1; //lets us know we've dropped the powerup.
                 //check for collision
                 //drop power up and stop.
-                create_powerup();
+                create_powerup(context);
             }
 
         }
@@ -123,10 +124,10 @@ bool Helicopter::check_collision(Game_object* object)
     return false;
 }
 
-void Helicopter::create_powerup() const
+void Helicopter::create_powerup(Context& context) const
 {
     //New Power_Up
-    //new Powerup(icon.getPosition().x)
+    context.new_objects.push_back(new Powerup(icon.getPosition().x, icon.getPosition().y));
 }
 
 float Helicopter::stop_position()
