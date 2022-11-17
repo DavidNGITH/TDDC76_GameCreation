@@ -20,13 +20,16 @@ public:
     void collision(Game_object* object) override;
     bool check_collision(Game_object* object) override;
 
+    
+
 
 protected:
     int hp{};
 
 private:
-    int bearing{};
+    double bearing{};
     int score{};
+    
 };
 
 
