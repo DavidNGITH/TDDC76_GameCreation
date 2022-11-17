@@ -4,29 +4,32 @@
 #include "SFML/Graphics.hpp"
 //#include "Player.h"
 #include "game_object.h"
-class Missile
+#include <vector>
+class Missile : public Game_object
 {
 public:
 // Constructors / destructors
-    Missile(int position_x, int position_y);
+    Missile(int position_x, int position_y, int speed, int bearing);
     virtual ~Missile();
 
 //Functions
-    virtual void move();
-    virtual void position();
-    
+    void handle(Context& context, sf::Event event) override;
+    void update(Context& context) override;
+    void render(sf::RenderWindow& window, Context& context) override;
+    void collision(Game_object* object) override;
+    bool check_collision(Game_object* object) override;
 //variables
-    int bearing{};
-    int speed{};
-
+ 
 
 
 
 private:
-    sf::Sprite icon;
     sf::CircleShape missile;
-    sf::Vector2f Velocity;
-    sf::Vector2f acceleration_yhut;
+
+    //variables
+    int speed_x{};
+    int speed_y{};
+    int acceleration_y{};
 
 
 };
