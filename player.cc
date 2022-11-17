@@ -1,6 +1,7 @@
 #include "SFML/Graphics.hpp"
 #include "player.h"
 #include <iostream>
+#include "context.h"
 
 //HARD CODED:
 Player::Player()//(sf::Texture player_texture)
@@ -62,45 +63,74 @@ void Player::Fire()
 
 void Player::handle(Context& context, sf::Event event)
 {
-    if ( event.type == sf::Event::KeyPressed )   
+    
+
+    /*if(event.key.code == sf::Keyboard::Left)
     {
-        if(event.key.code == sf::Keyboard::Left)
-        {
-            position_x = position_x - speed;
-            icon.setPosition (position_x, position_y);
+        position_x = position_x - speed;
+        icon.setPosition (position_x, position_y);
 
-            position_x_barrel = position_x_barrel - speed;
-            barrel_sprite.setPosition (position_x_barrel, position_y_barrel);
-            
-        }
-        if(event.key.code == sf::Keyboard::Right)
-        {
-            position_x = position_x + speed;
-            icon.setPosition (position_x, position_y);
-
-            position_x_barrel = position_x_barrel + speed;
-            barrel_sprite.setPosition (position_x_barrel, position_y_barrel);
-        }
-
-
-        if(event.key.code == sf::Keyboard::Up)
-        {
-            
-            bearing = bearing + barrel_rotation_speed;
-            barrel_sprite.rotate(barrel_rotation_speed);
-            
-        }
-        if(event.key.code == sf::Keyboard::Down)
-        {
-            bearing = bearing - barrel_rotation_speed;
-            barrel_sprite.rotate(-barrel_rotation_speed);
-        }
+        position_x_barrel = position_x_barrel - speed;
+        barrel_sprite.setPosition (position_x_barrel, position_y_barrel);
+        
     }
+    if(event.key.code == sf::Keyboard::Right)
+    {
+        position_x = position_x + speed;
+        icon.setPosition (position_x, position_y);
+
+        position_x_barrel = position_x_barrel + speed;
+        barrel_sprite.setPosition (position_x_barrel, position_y_barrel);
+    }
+
+
+    if(event.key.code == sf::Keyboard::Up)
+    {
+        
+        bearing = bearing + barrel_rotation_speed;
+        barrel_sprite.rotate(barrel_rotation_speed);
+        
+    }
+    if(event.key.code == sf::Keyboard::Down)
+    {
+        bearing = bearing - barrel_rotation_speed;
+        barrel_sprite.rotate(-barrel_rotation_speed);
+        }*/
+    
 }
 
 void Player::update(Context& context)
 {
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    {
+        position_x += context.delta.asSeconds() * -speed;
+        icon.setPosition (position_x, position_y);
 
+        position_x_barrel = position_x -5;
+        barrel_sprite.setPosition (position_x_barrel, position_y_barrel);
+    }
+
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    {
+        position_x += context.delta.asSeconds() * speed;
+        icon.setPosition (position_x, position_y);
+
+        position_x_barrel = position_x -5;
+        barrel_sprite.setPosition (position_x_barrel, position_y_barrel);
+    }
+
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    {
+        
+        bearing += context.delta.asSeconds() * barrel_rotation_speed;
+        barrel_sprite.rotate(barrel_rotation_speed);
+        
+    }
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    {
+        bearing -= context.delta.asSeconds() * barrel_rotation_speed;
+        barrel_sprite.rotate(-barrel_rotation_speed);
+        }
 }
 
 void Player::render(sf::RenderWindow& window, Context& context)
