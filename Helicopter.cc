@@ -11,24 +11,14 @@ Helicopter::Helicopter()
     position_x = 0;
     position_y = 40;
 
-    //Checks if the file can be loaded
-    if (!texture.loadFromFile("helicopter.png"))
-    {
-        std::cerr << "Kan inte Öppna: helkopeter.png" << std::endl;
-        //return 1;
-    }
+    load_icon("helicopter.png");
 
-    //creates the helicopter, spawns it outside the map. 
-    icon.setTexture(texture);
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y / 2);
     icon.setPosition(position_x, position_y);
 
     //sets first stop position
     stop_position();
-    //current_player = context.current_player
-
-
 
 }
 

@@ -5,37 +5,21 @@
 
 
 
-Static_object()
+Static_object::Static_object()
 {
-    if(!tree_texture.loadFromFile("Textures/tree.png"))
-    {
-        std::cerr << "Kunde inte öppna" << std::endl;
-    };
-    
-    tree_sprite.setTexture(tree_texture);
-
+    load_icon("Textures/tree.png");
 };
 
-void update()
+void Static_object::handle(Context& context, sf::Event event)
 {};
 
-void Collision()
+void Static_object::update(Context& context)
 {};
 
-void render(sf::RenderWindow& window)
+void Static_object::render(sf::RenderWindow& window, Context& context)
 {
-    window.draw(tree_sprite);
-
+    window.draw(icon);
 };
 
-void handle()
+void Static_object::collision(Game_object* object)
 {};
-
-bool is_removed()
-{};
-
-void remove()
-{};
-
-bool removed()
-{}
