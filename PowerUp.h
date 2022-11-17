@@ -2,15 +2,15 @@
 #define POWERUP_H
 
 #include "SFML/Graphics.hpp"
-//#include "PowerUp.h"
 #include "game_object.h"
 
 class Powerup :public Game_object
 {
     public:
-        Powerup(double position_x, double position_y); //(double position_x);
-        ~Powerup() = default;
-        Powerup();
+        Powerup(double position_x, double position_y); //Konstruktor med givna koordinater
+        ~Powerup() = default; //Destruktor
+        Powerup(); //Defaultkonstruktor
+
         void update(Context& context) override;
         void render(sf::RenderWindow& window, Context& context) override;
         void handle(Context& context, sf::Event event) override;

@@ -1,15 +1,12 @@
-//Hårdkodad kod nedan
-
 #include <stdexcept>
 #include <iostream>
 //#include "SFML/Graphics.hpp"
 #include "PowerUp.h"
 //#include "PowerUp.h"
 #include "game_object.h"
-#include "context.h"
+//#include "context.h"
 
-Powerup::Powerup(double position_x, double position_y) //lägg till coordiante
-//:int position_y{-45}, int position_x{100}
+Powerup::Powerup(double position_x, double position_y)
 {
     int randnum = rand() % 2;
     if (randnum == 0)
@@ -19,13 +16,6 @@ Powerup::Powerup(double position_x, double position_y) //lägg till coordiante
         {
             throw std::runtime_error { "Could not open: 'Powerup.png'" };
         }
-    
-        //Creates the Powerup at the same position as the helicopter.
-        icon.setTexture(texture);    
-        sf::Vector2u texture_size { texture.getSize() };
-        icon.setOrigin(texture_size.x / 2, texture_size.y / 2);    
-        icon.setScale(0.1, 0.1);
-        icon.setPosition(position_x, position_y + 40);
     }
     else
     {
@@ -34,14 +24,14 @@ Powerup::Powerup(double position_x, double position_y) //lägg till coordiante
         {
             throw std::runtime_error { "Could not open: 'Powerup.png'" };
         }
-    
-        //Creates the Powerup at the same position as the helicopter.
-        icon.setTexture(texture);    
-        sf::Vector2u texture_size { texture.getSize() };
-        icon.setOrigin(texture_size.x / 2, texture_size.y / 2);    
-        icon.setScale(0.1, 0.1);
-        icon.setPosition(position_x, position_y + 40);
     }
+    
+    //Creates the Powerup at the same position as the helicopter.
+    icon.setTexture(texture);    
+    sf::Vector2u texture_size { texture.getSize() };
+    icon.setOrigin(texture_size.x / 2, texture_size.y / 2);    
+    icon.setScale(0.1, 0.1);
+    icon.setPosition(position_x, position_y + 40);
 }
 
 Powerup::Powerup()
@@ -63,9 +53,14 @@ void Powerup::update(Context& context)
     //float current_speed = speed;
 
     //if not kollision med mark
-    
-        icon.setPosition(old_position.x, old_position.y + 0.5);
-    
+    if (old_position.y == 860) //Hårdkodad nu när vi inte har kollision
+    {
+        icon.setPosition(old_position.x, old_position.y);
+    }
+    else
+    {
+        icon.setPosition(old_position.x, old_position.y + 0.5); //Hårdkodad speed
+    }
 }
 
 void Powerup::render(sf::RenderWindow& window, Context& context)
@@ -77,16 +72,37 @@ void Powerup::render(sf::RenderWindow& window, Context& context)
 void Powerup::collision(Game_object* object)
 {
     //Tom?
+    //Kolla om objektet kolliderar med marken
+    /*
+    if ()
+    {
+        icon.setPosition(old_position);
+    }
+    else
+    {
+        //Uppdatera attribut för player
+        remove();
+    }*/
 }
 
 bool Powerup::check_collision(Game_object* object)
 {
-    //Kollar om objektet kolliderar med någonting
+    //Kolla om objektet kolliderar med marken
+    //if ()
+    //{
+    //    return true;
+    //}
+
+    //Kolla om objektet kolliderar med något annat objekt
     //Skicka till remove
-    return false;
+    //else
+    //{
+        return false;
+    //*/
+
 }     
 
-/*bool Powerup::add_Powerup()
+/*bool Powerup::add_powerup()
 {
     //På något sätt addera ett objekt av Powerup till spelaren som fick powerupen
 }*/
