@@ -2,29 +2,33 @@
 #define POWERUP_H
 
 #include "SFML/Graphics.hpp"
-#include "Game_object.h"
+//#include "PowerUp.h"
+#include "game_object.h"
 
-class PowerUp :public Game_object
+class Powerup :public Game_object
 {
     public:
-
-        PowerUp();
-        //~PowerUp();
-
-        void random_powerup() const;
+        Powerup(); //(double position_x);
+        ~Powerup() = default;
 
         void update(Context& context) override;
-        void render(Context& context) virtual;
-        void handle(Context& context, sf::Event event) virtual;
-        void Collision() override;
-        bool is_removed() override;
-        void remove() override;
+        void render(sf::RenderWindow& window, Context& context) override;
+        void handle(Context& context, sf::Event event) override;
 
+        void collision(Game_object* object) override; 
+        bool check_collision(Game_object* object) override;
 
+        //bool add_powerup();
 
     private:
+        //sf::Sprite icon;
+        //sf::Texture texture;
 
-}
+        //int position_x{};
+        //int position_y{};
+
+        float speed{};
+};
 
 
 
