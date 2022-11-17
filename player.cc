@@ -20,9 +20,15 @@ Player::Player()//(sf::Texture player_texture)
     //Spawns a player in the middle of the map. 
     icon.setTexture(texture);
     sf::Vector2u texture_size { texture.getSize() };
-    icon.setOrigin(texture_size.x / 2, texture_size.y / 2);
+    icon.setOrigin(texture_size.x / 2, texture_size.y);
     icon.setScale(0.1, 0.1);
-    icon.setPosition(900, 800);
+    ////////////// HARD CODED //////////////
+    position_x = 900;
+    position_y = 880;
+    ////////////// HARD CODED //////////////
+    icon.setPosition(position_x, position_y);
+
+    
 
 }
 
@@ -38,7 +44,20 @@ void Player::Fire()
 
 void Player::handle(Context& context, sf::Event event)
 {
-
+    if ( event.type == sf::Event::KeyPressed )   
+    {
+        if(event.key.code == sf::Keyboard::Left)
+        {
+            position_x = position_x - speed;
+            icon.setPosition (position_x, position_y);
+            
+        }
+        if(event.key.code == sf::Keyboard::Right)
+        {
+            position_x = position_x + speed;
+            icon.setPosition (position_x, position_y);
+        }
+    }
 }
 
 void Player::update(Context& context)
@@ -80,4 +99,6 @@ void Player::collision(Game_object* object)
 }
 
 bool Player::check_collision(Game_object* object)
-{}
+{
+    return false;
+}
