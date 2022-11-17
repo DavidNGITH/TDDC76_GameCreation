@@ -11,6 +11,11 @@ Player::Player()//(sf::Texture player_texture)
     {
         std::cerr << "Can't open: blue_tank.png" << std::endl;
     }
+    //Hard coded: Read texture file
+    if (!texture.loadFromFile("Textures/blue_barrel.png"))
+    {
+        std::cerr << "Can't open: blue_tank.png" << std::endl;
+    }
 
 
     //Commented away due to hard code above 
