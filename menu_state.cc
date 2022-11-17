@@ -266,7 +266,7 @@ void Menu_state::add_player()
         blue_active = true;
         player_selected = false;
         players.push_back(blue_tank_texture);
-        std::cout << players.size() << std::endl;
+
         
     }
     else if(player_selection.getPosition().x == 795 && player_selection.getPosition().y == 650)
