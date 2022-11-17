@@ -5,28 +5,32 @@
 #include "game_state.h"
 #include "menu_state.h"
 
+struct Context; //fwd declartation
+
 class Game_object
 {
 public:
-    Game_object();
+    //Game_object() = default;
+
+    virtual ~Game_object() = default;
     
-    virtual void update(Context& context);
-    virtual void Collision(); 
-    virtual void render(Context& context);
-    virtual void handle(Context& context, sf::Event event);
-    virtual bool is_removed();
-    virtual void remove();
+    virtual void update(Context& context) = 0;
+    virtual void collision(Game_object* object) = 0; 
+    virtual void render(sf::RenderWindow& window, Context& context) = 0;
+    virtual void handle(Context& context, sf::Event event) = 0;
+    bool is_removed();
+    void remove();
+    virtual bool check_collision(Game_object* object) = 0;
 
 protected:
     bool removed{};
-
-
-private:
     sf::Sprite icon;
     sf::Texture texture;
     int position_x{};
     int position_y{};
 
+
+private:
 
 };
 #endif

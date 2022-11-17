@@ -47,7 +47,8 @@ void Menu_state::handle(Context& context, sf::Event event)
         sf::Event::MouseButtonEvent mouse { event.mouseButton };
         if (mouse.button == sf::Mouse::Button::Left)
         {
-            context.next_state = new Game_state{new Map{"Map/background.png", "Map/ground.png"}, context};
+            context.map = new Map{"Map/background.png", "Map/ground.png"};
+            context.next_state = new Game_state{context};
         }
     }
 }
