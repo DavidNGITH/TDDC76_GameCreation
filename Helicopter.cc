@@ -132,7 +132,8 @@ float Helicopter::stop_position()
 
 bool Helicopter::new_turn()
 {
-    return false;
+    //HARD CODED:
+    return true;
     //check if it's a new turn 
 }
 

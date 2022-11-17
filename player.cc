@@ -2,11 +2,12 @@
 #include "player.h"
 #include <iostream>
 
-Player::Player(sf::Texture player_texture)
+//HARD CODED:
+Player::Player()//(sf::Texture player_texture)
 :bearing(90), hp(100), score(0)
 {
     //Hard coded: Read texture file
-    if (!texture.loadFromFile("blue_tank.png"))
+    if (!texture.loadFromFile("Textures/blue_tank.png"))
     {
         std::cerr << "Can't open: blue_tank.png" << std::endl;
     }
@@ -20,7 +21,8 @@ Player::Player(sf::Texture player_texture)
     icon.setTexture(texture);
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y / 2);
-    icon.setPosition(900, 400);
+    icon.setScale(0.1, 0.1);
+    icon.setPosition(900, 800);
 
 }
 
@@ -76,3 +78,6 @@ void Player::collision(Game_object* object)
     }*/
 
 }
+
+bool Player::check_collision(Game_object* object)
+{}

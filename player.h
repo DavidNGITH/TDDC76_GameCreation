@@ -8,7 +8,8 @@
 class Player : public Game_object
 {
 public:
-    Player(sf::Texture player_texture);
+    //HARD CODED:
+    Player();//(sf::Texture player_texture);
 
     void Aim();
     void Fire();
@@ -17,6 +18,8 @@ public:
     void update(Context& context) override;
     void render(sf::RenderWindow& window, Context& context) override;
     void collision(Game_object* object) override;
+    bool check_collision(Game_object* object) override;
+
 
 protected:
     int hp{};

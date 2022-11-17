@@ -20,7 +20,7 @@ FILE13=repair
 FILE14=Shield
 
 
-OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE9).o $(FILE14).o 
+OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE6).o $(FILE9).o $(FILE14).o 
 
 output: $(OBJS)
 	$(CC) $(OBJS) -o a.out $(LIBS)
@@ -43,8 +43,8 @@ $(FILE4).o: $(FILE4).cc
 #$(FILE5).o: $(FILE5).cc
 #	$(CC) $(CCFLAGS) $(FILE5).cc
 
-#$(FILE6).o: $(FILE6).cc
-#	$(CC) $(CCFLAGS) $(FILE6).cc
+$(FILE6).o: $(FILE6).cc
+	$(CC) $(CCFLAGS) $(FILE6).cc $(LIBS)
 
 #$(FILE7).o: $(FILE7).cc
 #	$(CC) $(CCFLAGS) $(FILE7).cc
