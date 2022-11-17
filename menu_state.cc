@@ -139,7 +139,7 @@ void Menu_state::handle(Context& context, sf::Event event)
         if (mouse.button == sf::Mouse::Button::Left)
         {
             if((mouse.x > 747.5 && mouse.x < 1173) && (mouse.y > 326 && mouse.y < 574))
-            {  
+            {  //start button
 
                 context.map = new Map{"Map/background.png", "Map/ground.png"};
                 context.next_state = new Game_state{context};
@@ -265,6 +265,8 @@ void Menu_state::add_player()
         std::cout << "blue_tank_added" << std::endl;
         blue_active = true;
         player_selected = false;
+        players.push_back(blue_tank_texture);
+        std::cout << players.size() << std::endl;
         
     }
     else if(player_selection.getPosition().x == 795 && player_selection.getPosition().y == 650)
@@ -273,6 +275,7 @@ void Menu_state::add_player()
         std::cout << "cyan_tank_added" << std::endl;
         cyan_active = true;
         player_selected = false;
+        players.push_back(cyan_tank_texture);
     }
     else if(player_selection.getPosition().x == 895 && player_selection.getPosition().y == 650)
     {   
@@ -280,6 +283,7 @@ void Menu_state::add_player()
         std::cout << "green_tank_added" << std::endl;
         green_active = true;
         player_selected = false;
+        players.push_back(green_tank_texture);
     }
     else if(player_selection.getPosition().x == 995 && player_selection.getPosition().y == 650)
     {   
@@ -287,6 +291,7 @@ void Menu_state::add_player()
         std::cout << "pink_tank_added" << std::endl;
         pink_active = true;
         player_selected = false;
+        players.push_back(pink_tank_texture);
     }
     else if(player_selection.getPosition().x == 1095 && player_selection.getPosition().y == 650)
     {
@@ -294,6 +299,7 @@ void Menu_state::add_player()
         std::cout << "red_tank_added" << std::endl;
         red_active = true;
         player_selected = false;
+        players.push_back(red_tank_texture);
     }
     else if(player_selection.getPosition().x == 1195 && player_selection.getPosition().y == 650)
     {   
@@ -301,6 +307,7 @@ void Menu_state::add_player()
         std::cout << "yellow_tank_added" << std::endl;
         yellow_active = true;
         player_selected = false;
+        players.push_back(yellow_tank_texture);
     }
 }
 
