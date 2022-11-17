@@ -148,40 +148,47 @@ void Menu_state::handle(Context& context, sf::Event event)
             {
                 add_player();
             }
-            else if(((mouse.x > 659 && mouse.x < 741) && (mouse.y > 600 && mouse.y < 700)))
+            else if(((mouse.x > 659 && mouse.x < 741) && (mouse.y > 600 && mouse.y < 700)) && !blue_active)
             {
                 player_selection.setPosition(695,650);
                 player_selected = true;
+                //blue
             }
-            else if(((mouse.x > 759 && mouse.x < 841) && (mouse.y > 600 && mouse.y < 700)))
+            else if(((mouse.x > 759 && mouse.x < 841) && (mouse.y > 600 && mouse.y < 700)) && !cyan_active)
             {
                 player_selection.setPosition(795,650);
                 player_selected = true;
+                //cyan
             }
-            else if(((mouse.x > 859 && mouse.x < 941) && (mouse.y > 600 && mouse.y < 700)))
+            else if(((mouse.x > 859 && mouse.x < 941) && (mouse.y > 600 && mouse.y < 700)) && !green_active)
             {
                 player_selection.setPosition(895,650);
                 player_selected = true;
+                //green
             }
-            else if(((mouse.x > 959 && mouse.x < 1041) && (mouse.y > 600 && mouse.y < 700)))
+            else if(((mouse.x > 959 && mouse.x < 1041) && (mouse.y > 600 && mouse.y < 700)) && !pink_active)
             {
                 player_selection.setPosition(995,650);
                 player_selected = true;
+                //pink
             }
-            else if(((mouse.x > 1059 && mouse.x < 1141) && (mouse.y > 600 && mouse.y < 700)))
+            else if(((mouse.x > 1059 && mouse.x < 1141) && (mouse.y > 600 && mouse.y < 700)) && !red_active)
             {
                 player_selection.setPosition(1095,650);
                 player_selected = true;
+                //red
             }
-            else if(((mouse.x > 1159 && mouse.x < 1241) && (mouse.y > 600 && mouse.y < 700)))
+            else if(((mouse.x > 1159 && mouse.x < 1241) && (mouse.y > 600 && mouse.y < 700)) && !yellow_active)
             {
                 player_selection.setPosition(1195,650);
                 player_selected = true;
+                //yellow
             }
-            else if(((mouse.x > 1159 && mouse.x < 1241) && (mouse.y > 600 && mouse.y < 700)))
+            else if(((mouse.x > 458 && mouse.x < 842) && (mouse.y > 742 && mouse.y < 958)))
             {
                 map_border.setPosition(650,850);
                 map_selected = true;
+                //campus
             }
         }
     }
@@ -206,21 +213,43 @@ void Menu_state::render(sf::RenderWindow& window, Context& context)
 
     window.draw(add_player_img);
 
-    window.draw(blue_tank);
+    if(!blue_active)
+    {
+        window.draw(blue_tank);
+    }
 
-    window.draw(cyan_tank);
+    if(!red_active)
+    {
+        window.draw(red_tank);
+    }
 
-    window.draw(red_tank);
+    if(!cyan_active)
+    {
+        window.draw(cyan_tank);
+    }
 
-    window.draw(pink_tank);
+    if(!yellow_active)
+    {
+        window.draw(yellow_tank);
+    }
 
-    window.draw(yellow_tank);
+    if(!pink_active)
+    {
+        window.draw(pink_tank);
+    }
 
-    window.draw(green_tank);
+    if(!green_active)
+    {
+        window.draw(green_tank);
+    }
 
     if(player_selected)
     {
         window.draw(player_selection);
+    }
+    else
+    {
+        player_selection.setPosition(-100,-100);
     }
     if(map_selected)
     {
@@ -231,28 +260,47 @@ void Menu_state::render(sf::RenderWindow& window, Context& context)
 void Menu_state::add_player()
 {
     if(player_selection.getPosition().x == 695 && player_selection.getPosition().y == 650)
-    {
+    {   
+        //blue
         std::cout << "blue_tank_added" << std::endl;
+        blue_active = true;
+        player_selected = false;
+        
     }
     else if(player_selection.getPosition().x == 795 && player_selection.getPosition().y == 650)
-    {
+    {   
+        //cyan
         std::cout << "cyan_tank_added" << std::endl;
+        cyan_active = true;
+        player_selected = false;
     }
     else if(player_selection.getPosition().x == 895 && player_selection.getPosition().y == 650)
-    {
+    {   
+        //green
         std::cout << "green_tank_added" << std::endl;
+        green_active = true;
+        player_selected = false;
     }
     else if(player_selection.getPosition().x == 995 && player_selection.getPosition().y == 650)
-    {
+    {   
+        //pink
         std::cout << "pink_tank_added" << std::endl;
+        pink_active = true;
+        player_selected = false;
     }
     else if(player_selection.getPosition().x == 1095 && player_selection.getPosition().y == 650)
     {
+        //red
         std::cout << "red_tank_added" << std::endl;
+        red_active = true;
+        player_selected = false;
     }
     else if(player_selection.getPosition().x == 1195 && player_selection.getPosition().y == 650)
-    {
+    {   
+        //yellow
         std::cout << "yellow_tank_added" << std::endl;
+        yellow_active = true;
+        player_selected = false;
     }
 }
 

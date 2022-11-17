@@ -66,8 +66,15 @@ class Menu_state : public State
     sf::Sprite player_selection{};
 
     bool player_selected{};
-
     bool map_selected{};
+
+    bool blue_active{};
+    bool cyan_active{};
+    bool pink_active{};
+    bool yellow_active{};
+    bool green_active{};
+    bool red_active{};
+    
 
 
     //std::vector<Player*> players;
