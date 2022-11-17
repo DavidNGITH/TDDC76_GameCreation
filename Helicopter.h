@@ -19,22 +19,18 @@ class Helicopter :public Game_object
     void create_powerup(int coordinate) const;
     float stop_position();
     bool new_turn();
-    bool is_removed() override;
-    void remove() override;
 
 
 
 
 
     private:
-    sf::Sprite icon;
-    sf::Texture texture;
     float stop_coordinate{};
-    float speed{};
     int is_active{};
     int has_stopped{};
     int has_dropped{};
     int spawn_rate{};  //number 0-100 in likelihood of spawning (percent)
+    float speed{};
 
 };
 
