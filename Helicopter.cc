@@ -1,10 +1,10 @@
 #include "Helicopter.h"
 #include "game_object.h"
-//#include "context.h"
+#include "context.h"
 #include <iostream>
 
 Helicopter::Helicopter()
-:stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{}, spawn_rate{100}, speed{1}
+:stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{}, spawn_rate{100}, speed{1}, current_player{nullptr}
 {   
 
     //Checks if the file can be loaded
@@ -18,10 +18,11 @@ Helicopter::Helicopter()
     icon.setTexture(texture);
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y / 2);
-    icon.setPosition(0, 100);
+    icon.setPosition(0, 40);
 
     //sets first stop position
     stop_coordinate = stop_position();
+    //current_player = context.current_player
 
 }
 
@@ -43,8 +44,7 @@ bool Helicopter::should_spawn()
 void Helicopter::update(Context& context)
 {
     sf::Vector2f old_position { icon.getPosition() }; //get the old position
-
-    float active_speed = speed; 
+    float active_speed = speed;  
     if (is_active == 1)
     {
         if (has_stopped == 1)
@@ -56,7 +56,9 @@ void Helicopter::update(Context& context)
             else
             {
                 has_dropped = 1; //lets us know we've dropped the powerup.
+                //check for collision
                 //drop power up and stop.
+                create_powerup();
             }
 
         }
@@ -77,11 +79,16 @@ void Helicopter::update(Context& context)
     //first check if it's a new turn, and if it is, run randomize spawn.
     else
     {
-        if (new_turn())
+        if ((current_player == context.current_player) || (current_player == nullptr))
+        {
+        
             if (should_spawn())
             {
+                current_player = context.current_player;
                 is_active = 1;
+
             }
+        }
     }
 
 
@@ -97,12 +104,12 @@ void Helicopter::render(sf::RenderWindow& window, Context& context)
 
 void Helicopter::collision(Game_object* object)
 {
-    //reset all parameters, and reset position.
-    is_active = 0;
+    /*//reset all parameters, and reset position.
+    //is_active = 0;
     has_stopped = 0;
     has_dropped = 0;
-    icon.setPosition(-40, 100);
-    stop_coordinate = stop_position();
+    //icon.setPosition(-40, 100);
+    stop_coordinate = stop_position();*/
 }
 
 void Helicopter::handle(Context& context, sf::Event event)
@@ -116,9 +123,10 @@ bool Helicopter::check_collision(Game_object* object)
     return false;
 }
 
-void Helicopter::create_powerup(int coordinate) const
+void Helicopter::create_powerup() const
 {
     //New Power_Up
+    //new Powerup(icon.getPosition().x)
 }
 
 float Helicopter::stop_position()
@@ -128,12 +136,5 @@ float Helicopter::stop_position()
     //randomize stop_position
 
     
-}
-
-bool Helicopter::new_turn()
-{
-    //HARD CODED:
-    return true;
-    //check if it's a new turn 
 }
 

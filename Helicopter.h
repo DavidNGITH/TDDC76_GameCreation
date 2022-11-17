@@ -16,9 +16,8 @@ class Helicopter :public Game_object
     void collision(Game_object* object) override;
     bool check_collision(Game_object* object) override;
     bool should_spawn();
-    void create_powerup(int coordinate) const;
+    void create_powerup() const;
     float stop_position();
-    bool new_turn();
 
 
 
@@ -31,6 +30,7 @@ class Helicopter :public Game_object
     int has_dropped{};
     int spawn_rate{};  //number 0-100 in likelihood of spawning (percent)
     float speed{};
+    Game_object* current_player{};
 
 };
 
