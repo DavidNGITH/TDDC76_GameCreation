@@ -4,10 +4,13 @@
 #include "context.h"
 #include "game_object.h" 
 #include "map.h"
+#include "Helicopter.h"
 
 
 Game_state::Game_state(Context& context)
-{}
+{
+    context.objects.push_back(new Helicopter);
+}
 
 void Game_state::handle(Context& context, sf::Event event)
 {
@@ -128,6 +131,7 @@ void Game_state::update(Context& context)
 
 void Game_state::render(sf::RenderWindow& window, Context& context)
 {
+    context.map ->render(window);
 
     for (Game_object* object: context.objects)
     {
@@ -139,6 +143,6 @@ void Game_state::render(sf::RenderWindow& window, Context& context)
         player -> render(window, context);
     }
 
-    context.map ->render(window);
+
 
 }
