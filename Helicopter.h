@@ -19,8 +19,6 @@ class Helicopter :public Game_object
     void create_powerup(int coordinate) const;
     float stop_position();
     bool new_turn();
-    bool is_removed() override;
-    void remove() override;
 
 
 

@@ -134,13 +134,3 @@ bool Helicopter::new_turn()
     //check if it's a new turn 
 }
 
-
-bool Helicopter::is_removed()
-{
-    return 0;
-}
-
-void Helicopter::remove()
-{
-
-}
