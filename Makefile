@@ -1,6 +1,6 @@
 CC=g++ -std=c++17
 CCFLAGS= -c -Wall -Wextra -Wpedantic -Weffc++ -Wold-style-cast
-LIBS:=-lsfml-graphics -lsfml-window -lsfml-system
+LIBS:= -lsfml-graphics -lsfml-window -lsfml-system 
 
 
 MAIN=main
@@ -19,7 +19,7 @@ FILE12=shower_missile
 
 
 
-OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE6).o $(FILE9).o $(FILE8).o 
+OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE6).o $(FILE9).o $(FILE10).o $(FILE8).o 
 
 output: $(OBJS)
 	$(CC) $(OBJS) -o a.out $(LIBS)
@@ -54,8 +54,8 @@ $(FILE8).o: $(FILE8).cc
 $(FILE9).o: $(FILE9).cc
 	$(CC) $(CCFLAGS) $(FILE9).cc $(LIBS)
 
-#$(FILE10).o: $(FILE10).cc
-#	$(CC) $(CCFLAGS) $(FILE10).cc $(LIBS)
+$(FILE10).o: $(FILE10).cc
+	$(CC) $(CCFLAGS) $(FILE10).cc $(LIBS)
 
 #$(FILE11).o: $(FILE11).cc
 #	$(CC) $(CCFLAGS) $(FILE11).cc $(LIBS)
