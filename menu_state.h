@@ -77,7 +77,7 @@ class Menu_state : public State
     
 
 
-    //std::vector<Player*> players;
+    std::vector<sf::Texture> players;
    
 };
 

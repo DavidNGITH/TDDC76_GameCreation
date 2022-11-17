@@ -5,14 +5,14 @@
 #include "game_object.h" 
 #include "map.h"
 #include "Helicopter.h"
-#include "Shield.h"
+#include "PowerUp.h"
 #include "player.h"
 
 
 Game_state::Game_state(Context& context)
 {
     context.objects.push_back(new Helicopter);
-    context.objects.push_back(new Shield);
+    context.objects.push_back(new Powerup);
     context.players.push_back(new Player);
     context.current_player = context.players.at(0);
 }
