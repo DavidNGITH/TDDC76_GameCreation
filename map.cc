@@ -5,6 +5,7 @@
 
 
 Map::Map(std::string background, std::string foreground)
+:background_texture{}, background_sprite{}, foreground_texture{}, foreground_sprite{}
 {
 
     if(!background_texture.loadFromFile(background))

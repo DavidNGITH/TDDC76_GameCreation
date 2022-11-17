@@ -52,6 +52,7 @@ bool Shield::check_collision(Game_object* object)
 {
     //Kollar om objektet kolliderar med någonting
     //Skicka till remove
+    return false;
 }
 
 /*void Shield::remove()

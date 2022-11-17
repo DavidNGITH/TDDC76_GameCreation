@@ -10,7 +10,7 @@ struct Context; //fwd declartation
 class Game_object
 {
 public:
-    //Game_object() = default;
+    Game_object() : icon{}, texture{} {};
 
     virtual ~Game_object() = default;
     
