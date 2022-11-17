@@ -4,13 +4,16 @@
 #include <iostream>
 
 Helicopter::Helicopter()
-:stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{}, spawn_rate{100}, speed{1}, current_player{nullptr}
+:stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{}, spawn_rate{100}, speed{100}, current_player{nullptr}
 {   
+    //Hårdkodat
+    position_x = 0;
+    position_y = 40;
 
     //Checks if the file can be loaded
     if (!texture.loadFromFile("helicopter.png"))
     {
-        std::cerr << "Kan inte Ã¶ppna: helkopeter.png" << std::endl;
+        std::cerr << "Kan inte Öppna: helkopeter.png" << std::endl;
         //return 1;
     }
 
@@ -18,11 +21,13 @@ Helicopter::Helicopter()
     icon.setTexture(texture);
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y / 2);
-    icon.setPosition(0, 40);
+    icon.setPosition(position_x, position_y);
 
     //sets first stop position
-    stop_coordinate = stop_position();
+    stop_position();
     //current_player = context.current_player
+
+
 
 }
 
@@ -43,8 +48,6 @@ bool Helicopter::should_spawn()
 
 void Helicopter::update(Context& context)
 {
-    sf::Vector2f old_position { icon.getPosition() }; //get the old position
-    float active_speed = speed;  
     if (is_active == 1)
     {
         if (has_stopped == 1)
@@ -65,13 +68,14 @@ void Helicopter::update(Context& context)
         
         else 
         {
-            if (old_position.x == stop_coordinate)
+            if (position_x >= stop_coordinate)
             {
                 has_stopped = 1; //helicopter has reached its final destination
             }
             else
             {
-                icon.setPosition(old_position.x + active_speed, old_position.y); //moves the helicopter in positive x, keeps y.
+                position_x += speed * context.delta.asSeconds();
+                icon.setPosition(position_x, position_y); //moves the helicopter in positive x, keeps y.
             }
         }
     }
@@ -129,10 +133,9 @@ void Helicopter::create_powerup() const
     //new Powerup(icon.getPosition().x)
 }
 
-float Helicopter::stop_position()
+void Helicopter::stop_position()
 {
     stop_coordinate = ((rand() % 1520) + 200);
-    return stop_coordinate;
     //randomize stop_position
 
     

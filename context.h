@@ -11,7 +11,7 @@
 
 struct Context
 {
-    sf::Time const&             delta;
+    sf::Time                    delta;
     State*                      next_state;
     Map*                        map;
     std::vector<Game_object*>&  objects;

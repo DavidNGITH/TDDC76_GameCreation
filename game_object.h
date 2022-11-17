@@ -27,8 +27,8 @@ protected:
     bool removed{};
     sf::Sprite icon;
     sf::Texture texture;
-    int position_x{};
-    int position_y{};
+    float position_x{};
+    float position_y{};
     float const speed {5.0};
 
 
