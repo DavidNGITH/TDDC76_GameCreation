@@ -74,10 +74,12 @@ class Menu_state : public State
     bool yellow_active{};
     bool green_active{};
     bool red_active{};
+
     
 
 
-    std::vector<sf::Texture> players;
+    std::vector<std::string> players;
+    std::vector<std::string> barrels;
    
 };
 

@@ -3,13 +3,14 @@
 
 #include "SFML/Graphics.hpp"
 #include "game_object.h"
+#include "hud.h"
 #include <string>
 
 class Player : public Game_object
 {
 public:
     //HARD CODED:
-    Player();//(sf::Texture player_texture);
+    Player(std::string player_texture, std::string barrel_texture);
 
     void handle(Context& context, sf::Event event) override;
     void update(Context& context) override;
@@ -21,7 +22,7 @@ public:
 
     double get_bearing() const&;
     int get_score() const&;
-
+    //void activate_powerup();
     
 
 
@@ -40,6 +41,8 @@ private:
 
     sf::Sprite barrel_sprite;
     sf::Texture barrel;
+
+    Hud* hud;
 };
 
 
