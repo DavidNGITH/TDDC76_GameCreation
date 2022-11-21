@@ -13,16 +13,19 @@
 
 Game_state::Game_state(Context& context)
 {
+    std::cout << context.players.size() << std::endl;
+
     context.objects.push_back(new Helicopter);
     context.objects.push_back(new Powerup);
     //context.objects.push_back(new Static_object);
     //context.objects.push_back(new Static_object);
     //context.players.push_back(new Player);
+
     context.current_player = context.players.at(0);
-    for(unsigned int i{1}; i < context.players.size(); i++)
+    /*for(unsigned int i{1}; i < context.players.size(); i++)
     {
         context.objects.push_back(context.players[i]);
-    }
+    }*/
 }
 
 void Game_state::handle(Context& context, sf::Event event)
@@ -102,7 +105,7 @@ void Game_state::update(Context& context)
     //Check if player dead
     for (unsigned int i{0}; i < context.players.size(); i++)
     {
-        if (context.objects.at(i) -> is_removed())
+        if (context.players.at(i) -> is_removed())
         {
             //Add implementation for deletion of player
         }
@@ -135,19 +138,7 @@ void Game_state::update(Context& context)
     }  
 
     //Check if next players turn
-    std::cout << "hej" << std::endl;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-    {
-        if (user = context.players.size()-1)
-        {
-            user = 0;
-        }
-        else
-        {
-            user += 1;
-        }
-        context.current_player = context.players.at(user);
-    }
+    
     //Check if someones won
 
     

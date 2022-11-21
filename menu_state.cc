@@ -155,6 +155,7 @@ void Menu_state::handle(Context& context, sf::Event event)
                     context.next_state = new Game_state{context};
                 }
                 
+                std::cout << context.players.size() << std::endl;
             }
             else if((mouse.x > 1500 && mouse.x < 1700) && (mouse.y > 620 && mouse.y < 680))
             {
