@@ -30,14 +30,13 @@ Map::Map(std::string background, std::string foreground)
 //Map::update(Context& context)
 //{}
 
-void Map::render(sf::RenderWindow& window)
+void Map::render(sf::RenderWindow& window, Context& context)
 {
     window.draw(background_sprite);
     window.draw(foreground_sprite);
 }
 
-void Map::Collision()
-{
-}
+bool Map::check_collision(Game_object* object)
+{}
 
 
