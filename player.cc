@@ -76,6 +76,7 @@ void Player::Aim()
 void Player::Fire()
 {
 
+
 }
 
 void Player::handle(Context& context, sf::Event event)
@@ -158,4 +159,14 @@ bool Player::check_collision(Game_object* object)
 void Player::set_barrel_pos()
 {
     barrel_sprite.setPosition(position_x - 3, position_y - 17);
+}
+
+double Player::get_bearing() const&;
+{
+    return bearing;
+}
+
+int Player::get_score() const&;
+{
+    return score;
 }

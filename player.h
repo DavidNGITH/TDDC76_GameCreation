@@ -19,6 +19,9 @@ public:
     bool check_collision(Game_object* object) override;
     void move(Context& context) override;
 
+    double get_bearing() const&;
+    int get_score() const&;
+
     
 
 
