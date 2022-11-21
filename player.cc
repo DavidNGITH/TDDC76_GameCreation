@@ -4,7 +4,9 @@
 #include <string>
 #include "context.h"
 #include "static_object.h"
+#include "Missile.h"
 #include <string>
+
 
 //HARD CODED:
 Player::Player(std::string player_texture, std::string barrel_texture)
@@ -75,9 +77,10 @@ void Player::Aim()
 
 }
 
-void Player::Fire()
+void Player::Fire(Context& context)
 {
-
+    //std::cout<< -bearing << std::endl;
+    context.new_objects.push_back(new Missile{position_x,position_y, speed, -bearing});
 
 }
 
@@ -88,7 +91,10 @@ void Player::handle(Context& context, sf::Event event)
 
 void Player::update(Context& context)
 {
-
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    {
+        Fire(context);
+    }
 }
 
 void Player::move(Context& context)

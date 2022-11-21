@@ -9,7 +9,7 @@ class Missile : public Game_object
 {
 public:
 // Constructors / destructors
-    Missile(int position_x, int position_y, int speed, int bearing);
+    Missile(double  incoming_position_x, double  incoming_position_y, double  speed, double  bearing);
     virtual ~Missile();
 
 //Functions
@@ -18,7 +18,7 @@ public:
     void render(sf::RenderWindow& window, Context& context) override;
     void collision(Game_object* object) override;
     bool check_collision(Game_object* object) override;
-//variables
+
  
 
 
@@ -27,9 +27,9 @@ private:
     sf::CircleShape missile;
 
     //variables
-    int speed_x{};
-    int speed_y{};
-    int acceleration_y{};
+    double speed_x{};
+    double speed_y{};
+    double acceleration_y{};
 
 
 };

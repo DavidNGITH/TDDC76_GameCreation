@@ -32,7 +32,7 @@ protected:
 private:
     void set_barrel_pos();
     void Aim();
-    void Fire();
+    void Fire(Context& context);
 
     int score{};
     double bearing{};
