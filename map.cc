@@ -37,8 +37,7 @@ Map::Map(std::string background, std::string foreground)
 //Map::update(Context& context)
 //{}
 
-void Map::render(sf::RenderWindostd::cout << (static_cast<int>
-    (foreground_image.getPixel(object -> icon.getPosition().x, object -> icon.getPosition().y).a)) << std::endl;w& window, Context& context)
+void Map::render(sf::RenderWindow& window, Context& context)
 {
     window.draw(background_sprite);
     window.draw(foreground_sprite);

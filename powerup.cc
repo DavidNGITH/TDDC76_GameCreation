@@ -5,40 +5,29 @@
 #include "PowerUp.h"
 #include "game_object.h"
 #include "context.h"
+#include "map.h"
+#include "player.h"
 
 Powerup::Powerup(double incoming_x, double incoming_y) //lägg till coordiante
-: speed{200}
+: speed{200}, has_stopped{false}
 {
     position_x = incoming_x;
     position_y = incoming_y + 40;
 
-    int randnum = rand() % 2;
+    randnum = rand() % 2;
 
     if (randnum == 0)
     {
         load_icon("shield.png");
-
-        //Creates the Powerup at the same position as the helicopter.    
-        sf::Vector2u texture_size { texture.getSize() };
-        icon.setOrigin(texture_size.x / 2, texture_size.y / 2);    
-        icon.setScale(0.1, 0.1);
-        icon.setPosition(position_x, position_y);
     }
     else
     {
         load_icon("repair_kit.png");
-        
-        //Creates the Powerup at the same position as the helicopter.   
-        sf::Vector2u texture_size { texture.getSize() };
-        icon.setOrigin(texture_size.x / 2, texture_size.y / 2);    
-        icon.setScale(0.1, 0.1);
-        icon.setPosition(position_x, position_y + 40);
     }
     
-    //Creates the Powerup at the same position as the helicopter.
-    icon.setTexture(texture);    
+    //Creates the Powerup at the same position as the helicopter.   
     sf::Vector2u texture_size { texture.getSize() };
-    icon.setOrigin(texture_size.x / 2, texture_size.y / 2);    
+    icon.setOrigin(texture_size.x / 2, texture_size.y);    
     icon.setScale(0.1, 0.1);
     icon.setPosition(position_x, position_y + 40);
 }
@@ -49,7 +38,6 @@ Powerup::Powerup()
 }
 
 
-
 void Powerup::handle(Context& context, sf::Event event)
 {
     //Tom? Yesbox
@@ -58,19 +46,15 @@ void Powerup::handle(Context& context, sf::Event event)
 //HÅRDKODAD POSITION I UPDATE
 void Powerup::update(Context& context)
 {
-    //old_position = icon.getPosition();
-    //falla från himmelen
-    std::cout << randnum << std::endl;
-    if( position_y <= 852 )
+    if (!has_stopped)
     {
+        old_position_x = icon.getPosition().x;
+        old_position_y = icon.getPosition().y;
+    
         position_y += context.delta.asSeconds() * speed;
         icon.setPosition(position_x, position_y);
     }
-    else 
-    {
-        icon.setPosition(position_x, 862);
-        //remove();
-    }
+    
 
     //float current_speed = speed;
 
@@ -87,9 +71,22 @@ void Powerup::render(sf::RenderWindow& window, Context& context)
 
 void Powerup::collision(Game_object* object)
 {
-    else if (powerup != nullptr)
+    Map* map { dynamic_cast<Map*>(object) };
+    Player* player { dynamic_cast<Player*>(object) };
+
+    if (map != nullptr)
     {
-        powerup -> remove();
+        position_x = old_position_x;
+        position_y = old_position_y;
+
+        icon.setPosition(position_x, position_y);
+        has_stopped = true;
+    }
+    
+    else if (player != nullptr)
+    {
+        remove();
+        give_powerup(object);
         //if collision with shield, load icon shield
         //if collision with repairkit, add HP
     }
@@ -121,6 +118,18 @@ bool Powerup::check_collision(Game_object* object)
     }
 
 }     
+
+void Powerup::give_powerup(Game_object* object)
+{
+    if (randnum == 0)
+    {
+        //load_icon("shield.png");
+    }
+    else
+    {
+        //object.hp += 100;
+    }
+}
 
 /*bool Powerup::add_powerup()
 {
