@@ -1,6 +1,7 @@
 #include "SFML/Graphics.hpp"
 #include "player.h"
 #include <iostream>
+#include <string>
 #include "context.h"
 #include "static_object.h"
 #include <string>
@@ -14,9 +15,6 @@ Player::Player(std::string player_texture)
     position_x = rand() % 1900;
     position_y = 878;
 
-    //Commented away due to hard code below 
-    //Set whick tank color/texture this player should have
-    //texture = player_texture;
 
     ////////////////////// Hard coded: Read texture file
 
@@ -25,7 +23,7 @@ Player::Player(std::string player_texture)
     ////////////// HARD CODED /////////////
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y);
-    icon.setScale(0.1, 0.1);
+    icon.setScale(0.05, 0.05);
     icon.setPosition(position_x, position_y);
 
 
@@ -40,20 +38,45 @@ Player::Player(std::string player_texture)
     ////////////// HARD CODED //////////////
     sf::Vector2u texture_size_barrel { barrel.getSize() };
     barrel_sprite.setOrigin(10, texture_size_barrel.y / 2);
-    barrel_sprite.setScale(0.05, 0.05);
+    barrel_sprite.setScale(0.025, 0.025);
     barrel_sprite.setRotation(bearing);
-    
     set_barrel_pos();
+
+    
+
+
 
 }
 
 void Player::Aim()
 {
+    /*
+    Skapa text 
+    
+    sf::Font font{};
+    if ( !font.loadFromFile ("Textures/CaviarDreams.ttf") )
+    {
+        // kunde inte ladda typsnitt
+        std::cerr << "Can't open: CaviarDreams.ttf" << std::endl;
+    }
+
+    // skapa text objekt
+    sf::Text bearing_text { "Aim: " + std::to_string(bearing), font };
+    bearing_text.setFillColor(sf::Color::Black);
+    auto bounds { bearing_text.getGlobalBounds () };
+    bearing_text.setPosition ((1920 - bounds.width) / 2, 200);
+    //GLÖM EJ WINDOW.DRAW i render!!
+    */
+
+    
+
+
 
 }
 
 void Player::Fire()
 {
+
 
 }
 
@@ -75,7 +98,7 @@ void Player::move(Context& context)
         position_x += context.delta.asSeconds() * -speed;
         icon.setPosition (position_x, position_y);
 
-        set_barrel_pos();    
+        set_barrel_pos();
     }
 
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
@@ -93,6 +116,7 @@ void Player::move(Context& context)
         {
             bearing += context.delta.asSeconds() * barrel_rotation_speed;
             barrel_sprite.setRotation(bearing);
+            Aim();
         }
         
     }
@@ -102,6 +126,7 @@ void Player::move(Context& context)
         {
             bearing -= context.delta.asSeconds() * barrel_rotation_speed;
             barrel_sprite.setRotation(bearing);
+            Aim();
         }
 
     }
@@ -134,5 +159,15 @@ bool Player::check_collision(Game_object* object)
 
 void Player::set_barrel_pos()
 {
-    barrel_sprite.setPosition(position_x - 5, position_y - 35);
+    barrel_sprite.setPosition(position_x - 3, position_y - 17);
+}
+
+double Player::get_bearing() const&
+{
+    return bearing;
+}
+
+int Player::get_score() const&
+{
+    return score;
 }

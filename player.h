@@ -19,6 +19,9 @@ public:
     bool check_collision(Game_object* object) override;
     void move(Context& context) override;
 
+    double get_bearing() const&;
+    int get_score() const&;
+
     
 
 
@@ -30,8 +33,8 @@ private:
     void Aim();
     void Fire();
 
-    double bearing{};
     int score{};
+    double bearing{};
     float const barrel_rotation_speed{};
     sf::Vector2f old_position{};
 

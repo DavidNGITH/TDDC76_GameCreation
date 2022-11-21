@@ -2,7 +2,6 @@
 #define POWERUP_H
 
 #include "SFML/Graphics.hpp"
-//#include "PowerUp.h"
 #include "game_object.h"
 
 class Powerup :public Game_object
@@ -17,17 +16,21 @@ class Powerup :public Game_object
 
         void collision(Game_object* object) override; 
         bool check_collision(Game_object* object) override;
+    
 
         //bool add_powerup();
 
     private:
+        void give_powerup(Game_object* object);
         //sf::Sprite icon;
         //sf::Texture texture;
 
-        //int position_x{};
-        //int position_y{};
+        int old_position_x{};
+        int old_position_y{};
 
         float speed{};
+        int randnum{};
+        bool has_stopped{};
 };
 
 
