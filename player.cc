@@ -173,7 +173,7 @@ int Player::get_score() const&
     return score;
 }
 
-void Player::activate_powerup()
+/*void Player::activate_powerup()
 {
     Powerup* powerup { dynamic_cast<Powerup*>(object) };
     if (powerup != nullptr)
@@ -191,4 +191,4 @@ void Player::activate_powerup()
         //if collision with repairkit, add HP
     }
     
-}
+}*/
