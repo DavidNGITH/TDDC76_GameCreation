@@ -6,7 +6,11 @@
 #include "menu_state.h"
 #include "game_state.h"
 #include "map.h"
+<<<<<<< HEAD
 #include "player.h"
+=======
+#include "hud.h"
+>>>>>>> main
 
 
 Menu_state::Menu_state()
