@@ -16,7 +16,7 @@ public:
     virtual void update(Context& context) = 0;
     virtual void render(sf::RenderWindow& window, Context& context) = 0;
     virtual void collision(Game_object* object) = 0; 
-    virtual bool check_collision(Game_object* object) = 0;
+    virtual bool check_collision(Game_object* object);
     virtual void move(Context& context);
     
     bool is_removed();

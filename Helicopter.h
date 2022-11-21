@@ -14,7 +14,6 @@ class Helicopter :public Game_object
     void render(sf::RenderWindow& window, Context& context) override;
     void handle(Context& context, sf::Event event) override;
     void collision(Game_object* object) override;
-    bool check_collision(Game_object* object) override;
     bool should_spawn();
     void create_powerup(Context& context) const;
     void stop_position();

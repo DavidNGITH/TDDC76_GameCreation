@@ -83,8 +83,3 @@ void Missile::collision(Game_object* object)
 
 }
 
-bool Missile::check_collision(Game_object* object)
-{
-    return false;
-}
-

@@ -112,11 +112,6 @@ void Helicopter::handle(Context& context, sf::Event event)
     //ska vara tom ty inga inputs styr helikoptern.
 }
 
-bool Helicopter::check_collision(Game_object* object)
-{
-    //check if helicopter has collided with a missile.
-    return false;
-}
 
 void Helicopter::create_powerup(Context& context) const
 {

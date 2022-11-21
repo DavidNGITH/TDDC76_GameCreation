@@ -17,8 +17,6 @@ public:
     void update(Context& context) override;
     void render(sf::RenderWindow& window, Context& context) override;
     void collision(Game_object* object) override;
-    bool check_collision(Game_object* object) override;
-
  
 
 

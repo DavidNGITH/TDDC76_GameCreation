@@ -160,10 +160,6 @@ void Player::collision(Game_object* object)
     }
 }
 
-bool Player::check_collision(Game_object* object)
-{
-    return false;
-}
 
 void Player::set_barrel_pos()
 {
