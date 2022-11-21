@@ -2,6 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include <iostream>
 #include <cmath>
+#include <iostream>
 
 
 Map::Map(std::string background, std::string foreground)
@@ -25,18 +26,28 @@ Map::Map(std::string background, std::string foreground)
     foreground_sprite.setTexture(foreground_texture);
 
 
+    if(!foreground_image.loadFromFile(foreground))
+    {
+        std::cerr << "Kunde inte öppna" << std::endl;
+    }
+    
+
 }
 
 //Map::update(Context& context)
 //{}
 
-void Map::render(sf::RenderWindow& window, Context& context)
+void Map::render(sf::RenderWindostd::cout << (static_cast<int>
+    (foreground_image.getPixel(object -> icon.getPosition().x, object -> icon.getPosition().y).a)) << std::endl;w& window, Context& context)
 {
     window.draw(background_sprite);
     window.draw(foreground_sprite);
 }
 
 bool Map::check_collision(Game_object* object)
-{}
+{
+    return (static_cast<int>
+    (foreground_image.getPixel(object -> icon.getPosition().x, object -> icon.getPosition().y).a) != 0);
+}
 
 

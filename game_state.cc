@@ -77,6 +77,13 @@ void Game_state::update(Context& context)
     }
     
     //Check collision with ground
+    for (unsigned int i{0}; i < context.objects.size(); i++)
+    {
+        if(context.map -> check_collision(context.objects.at(i)))
+        {
+            context.objects.at(i) -> collision(context.map);
+        }
+    }
 
     //Check whether an object should be deleted
     for (unsigned int i{0}; i < context.objects.size();)
