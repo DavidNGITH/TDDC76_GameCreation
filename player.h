@@ -42,7 +42,7 @@ private:
     sf::Sprite barrel_sprite;
     sf::Texture barrel;
 
-    Hud* hud();
+    Hud* hud;
 };
 
 
