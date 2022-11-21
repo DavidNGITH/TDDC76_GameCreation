@@ -1,13 +1,15 @@
-#ifndef Shower_MISSILE_H
-#define Shower_MISSILE_H
+#ifndef Standard_MISSILE_H
+#define Standard_MISSILE_H
 
+#include "Missile.h"
 #include <string>
+
 
 class Standard_Missile : public Missile
 {
 public:
 
-
+    void Exlosion();
 
 
 

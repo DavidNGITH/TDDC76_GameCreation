@@ -8,7 +8,7 @@
 class Powerup :public Game_object
 {
     public:
-        Powerup(double position_x, double position_y); //(double position_x);
+        Powerup(double incoming_x, double incoming_y); //(double position_x);
         ~Powerup() = default;
         Powerup();
         void update(Context& context) override;

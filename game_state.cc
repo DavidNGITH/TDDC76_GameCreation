@@ -7,12 +7,15 @@
 #include "Helicopter.h"
 #include "player.h"
 #include "PowerUp.h"
+#include "static_object.h"
 
 
 Game_state::Game_state(Context& context)
 {
     context.objects.push_back(new Helicopter);
     context.objects.push_back(new Powerup);
+    context.objects.push_back(new Static_object);
+    context.objects.push_back(new Static_object);
     context.players.push_back(new Player);
     context.current_player = context.players.at(0);
 }
@@ -24,7 +27,7 @@ void Game_state::handle(Context& context, sf::Event event)
     /*//Check collsion with other objects
     for (unsigned int i{0}; i < context.objects.size(); i++)
     {
-        if (context.current_player -> check_collision(context.objects.at(i)))
+        if (context.objects.at(i) -> check_collision(context.current_player))
         {
             context.current_player -> collision(context.objects.at(i));
             
@@ -47,6 +50,7 @@ void Game_state::handle(Context& context, sf::Event event)
 
 void Game_state::update(Context& context)
 {
+    context.current_player -> move(context);
     
     for (Game_object* object : context.objects)
     {
@@ -116,7 +120,7 @@ void Game_state::update(Context& context)
     {
         for (unsigned int j{0}; j < context.objects.size(); j++)
         {
-            if (context.players.at(i) -> check_collision(context.objects.at(j)))
+            if (context.objects.at(j) -> check_collision(context.players.at(i)))
             {
                 context.players.at(i) -> collision(context.objects.at(j));
                 context.objects.at(j) -> collision(context.players.at(i));

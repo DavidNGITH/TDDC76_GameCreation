@@ -11,22 +11,32 @@ public:
     //HARD CODED:
     Player();//(sf::Texture player_texture);
 
-    void Aim();
-    void Fire();
-
     void handle(Context& context, sf::Event event) override;
     void update(Context& context) override;
     void render(sf::RenderWindow& window, Context& context) override;
+
     void collision(Game_object* object) override;
     bool check_collision(Game_object* object) override;
+    void move(Context& context) override;
+
+    
 
 
 protected:
     int hp{};
 
 private:
-    int bearing{};
+    void set_barrel_pos();
+    void Aim();
+    void Fire();
+
+    double bearing{};
     int score{};
+    float const barrel_rotation_speed{};
+    sf::Vector2f old_position{};
+
+    sf::Sprite barrel_sprite;
+    sf::Texture barrel;
 };
 
 
