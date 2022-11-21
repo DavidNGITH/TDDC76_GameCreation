@@ -161,12 +161,12 @@ void Player::set_barrel_pos()
     barrel_sprite.setPosition(position_x - 3, position_y - 17);
 }
 
-double Player::get_bearing() const&;
+double Player::get_bearing() const&
 {
     return bearing;
 }
 
-int Player::get_score() const&;
+int Player::get_score() const&
 {
     return score;
 }
