@@ -3,14 +3,15 @@
 #include <iostream>
 #include "context.h"
 #include "static_object.h"
+#include <string>
 
 //HARD CODED:
-Player::Player()//(sf::Texture player_texture)
+Player::Player(std::string player_texture)
 : hp{100}, bearing{-90}, score{0}, barrel_rotation_speed {30}, old_position{}
 {
     ////////////// HARD CODED /////////////
     speed = 100;
-    position_x = 900;
+    position_x = rand() % 1900;
     position_y = 878;
 
     //Commented away due to hard code below 
@@ -19,7 +20,7 @@ Player::Player()//(sf::Texture player_texture)
 
     ////////////////////// Hard coded: Read texture file
 
-    load_icon("Textures/blue_tank.png");
+    load_icon(player_texture);
     
     ////////////// HARD CODED /////////////
     sf::Vector2u texture_size { texture.getSize() };
