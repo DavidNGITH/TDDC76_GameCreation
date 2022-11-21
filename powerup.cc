@@ -4,7 +4,7 @@
 #include "SFML/Graphics.hpp"
 #include "PowerUp.h"
 #include "game_object.h"
-//#include "context.h"
+#include "context.h"
 
 Powerup::Powerup(double incoming_x, double incoming_y) //lägg till coordiante
 : speed{200}
@@ -55,15 +55,27 @@ void Powerup::handle(Context& context, sf::Event event)
     //Tom? Yesbox
 }
 
+//HÅRDKODAD POSITION I UPDATE
 void Powerup::update(Context& context)
 {
+    //old_position = icon.getPosition();
     //falla från himmelen
-    position_y += context.delta.asSeconds() * speed;
+    std::cout << randnum << std::endl;
+    if( position_y <= 852 )
+    {
+        position_y += context.delta.asSeconds() * speed;
+        icon.setPosition(position_x, position_y);
+    }
+    else 
+    {
+        icon.setPosition(position_x, 862);
+        //remove();
+    }
+
     //float current_speed = speed;
 
     //if not kollision med mark
     
-    icon.setPosition(position_x, position_y);
     
 }
 
@@ -75,6 +87,13 @@ void Powerup::render(sf::RenderWindow& window, Context& context)
 
 void Powerup::collision(Game_object* object)
 {
+    else if (powerup != nullptr)
+    {
+        powerup -> remove();
+        //if collision with shield, load icon shield
+        //if collision with repairkit, add HP
+    }
+    
     //Tom?
     //Kolla om objektet kolliderar med marken
     /*
@@ -91,18 +110,15 @@ void Powerup::collision(Game_object* object)
 
 bool Powerup::check_collision(Game_object* object)
 {
-    //Kolla om objektet kolliderar med marken
-    //if ()
-    //{
-    //    return true;
-    //}
+    if(icon.getGlobalBounds().intersects(object -> icon.getGlobalBounds()))
+    {
+        return true;
+    }
 
-    //Kolla om objektet kolliderar med något annat objekt
-    //Skicka till remove
-    //else
-    //{
+    else
+    {
         return false;
-    //*/
+    }
 
 }     
 

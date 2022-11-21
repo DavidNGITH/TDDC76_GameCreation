@@ -27,6 +27,8 @@ class Powerup :public Game_object
         //int position_y{};
 
         float speed{};
+        int randnum{};
+        //sf::Vector2f old_position{};
 };
 
 
