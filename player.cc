@@ -42,6 +42,7 @@ Player::Player(std::string player_texture)
     barrel_sprite.setRotation(bearing);
     set_barrel_pos();
 
+    hud = new Hud;
     
 
 
@@ -136,6 +137,7 @@ void Player::render(sf::RenderWindow& window, Context& context)
 {
     window.draw(icon);
     window.draw(barrel_sprite);
+    hud -> render(window);
 }
 
 void Player::collision(Game_object* object)
@@ -170,4 +172,24 @@ double Player::get_bearing() const&
 int Player::get_score() const&
 {
     return score;
+}
+
+void Player::activate_powerup()
+{
+    Powerup* powerup { dynamic_cast<Powerup*>(object) };
+    if (powerup != nullptr)
+    {
+        powerup.remove();
+        if (powerup.get_pwrup_type() == 0)
+        {
+
+        }
+        else if(powerup.get_pwrup_type() == 1)
+        {
+
+        }
+        //if collision with shield, load icon shield
+        //if collision with repairkit, add HP
+    }
+    
 }
