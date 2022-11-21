@@ -40,8 +40,14 @@ int main()
             {
                 window.close();
             }
-
             state -> handle(context, event);
+            if (context.next_state != nullptr)
+            {
+                delete state;
+                state = context.next_state;
+                context.next_state = nullptr;
+                break;
+            }
         }
 
         state -> update(context);
