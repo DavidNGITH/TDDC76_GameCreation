@@ -16,7 +16,8 @@ class Powerup :public Game_object
 
         void collision(Game_object* object) override; 
         bool check_collision(Game_object* object) override;
-    
+
+        int get_poweruptype() const&;
 
         //bool add_powerup();
 
