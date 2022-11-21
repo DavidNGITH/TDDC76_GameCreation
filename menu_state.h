@@ -79,6 +79,7 @@ class Menu_state : public State
 
 
     std::vector<std::string> players;
+    std::vector<std::string> barrels;
    
 };
 

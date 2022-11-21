@@ -7,7 +7,7 @@
 #include <string>
 
 //HARD CODED:
-Player::Player(std::string player_texture)
+Player::Player(std::string player_texture, std::string barrel_texture)
 : hp{100}, bearing{-90}, score{0}, barrel_rotation_speed {30}, old_position{}
 {
     ////////////// HARD CODED /////////////
@@ -28,7 +28,7 @@ Player::Player(std::string player_texture)
 
 
     ////////////////////// Hard coded: Read texture file
-    if (!barrel.loadFromFile("Textures/blue_barrel.png"))
+    if (!barrel.loadFromFile(barrel_texture))
     {
         std::cerr << "Can't open: blue_barrel.png" << std::endl;
     }
