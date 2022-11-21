@@ -8,16 +8,24 @@
 #include "player.h"
 #include "PowerUp.h"
 #include "static_object.h"
+#include <iostream>
 
 
 Game_state::Game_state(Context& context)
 {
+    std::cout << context.players.size() << std::endl;
+
     context.objects.push_back(new Helicopter);
     context.objects.push_back(new Powerup);
-    context.objects.push_back(new Static_object);
-    context.objects.push_back(new Static_object);
-    context.players.push_back(new Player);
+    //context.objects.push_back(new Static_object);
+    //context.objects.push_back(new Static_object);
+    //context.players.push_back(new Player);
+
     context.current_player = context.players.at(0);
+    /*for(unsigned int i{1}; i < context.players.size(); i++)
+    {
+        context.objects.push_back(context.players[i]);
+    }*/
 }
 
 void Game_state::handle(Context& context, sf::Event event)
@@ -65,9 +73,9 @@ void Game_state::update(Context& context)
 
     //Check collsion between objects
     for (unsigned int i{0}; i < context.objects.size(); i++)
-    {
+    {   
         for (unsigned int j{i+1}; j < context.objects.size(); j++)
-        {
+        {  
             if (context.objects.at(i) -> check_collision(context.objects.at(j)))
             {
                 context.objects.at(i) -> collision(context.objects.at(j));
@@ -87,7 +95,7 @@ void Game_state::update(Context& context)
 
     //Check whether an object should be deleted
     for (unsigned int i{0}; i < context.objects.size();)
-    {
+    { 
         if (context.objects.at(i) -> is_removed())
         {
             std::swap(context.objects.at(i), context.objects.back());
@@ -104,7 +112,7 @@ void Game_state::update(Context& context)
     //Check if player dead
     for (unsigned int i{0}; i < context.players.size(); i++)
     {
-        if (context.objects.at(i) -> is_removed())
+        if (context.players.at(i) -> is_removed())
         {
             //Add implementation for deletion of player
         }
@@ -123,8 +131,9 @@ void Game_state::update(Context& context)
     }
 
     //Check collision between players and objects
+    
     for (unsigned int i{0}; i < context.players.size(); i++)
-    {
+    {   
         for (unsigned int j{0}; j < context.objects.size(); j++)
         {
             if (context.objects.at(j) -> check_collision(context.players.at(i)))
@@ -133,10 +142,10 @@ void Game_state::update(Context& context)
                 context.objects.at(j) -> collision(context.players.at(i));
             }
         }
-    }   
+    }  
 
     //Check if next players turn
-
+    
     //Check if someones won
 
     

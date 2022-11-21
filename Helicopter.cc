@@ -5,11 +5,11 @@
 #include <iostream>
 
 Helicopter::Helicopter()
-:stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{}, spawn_rate{100}, speed{150}, current_player{nullptr}
+:stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{}, spawn_rate{100}, speed{200}, current_player{nullptr}
 {   
     //Hårdkodat
     position_x = 0;
-    position_y = 40;
+    position_y = 100;
 
     load_icon("helicopter.png");
 

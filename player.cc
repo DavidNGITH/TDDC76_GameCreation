@@ -4,20 +4,21 @@
 #include <string>
 #include "context.h"
 #include "static_object.h"
+#include <string>
 
 //HARD CODED:
-Player::Player()//(sf::Texture player_texture)
+Player::Player(std::string player_texture)
 : hp{100}, bearing{-90}, score{0}, barrel_rotation_speed {30}, old_position{}
 {
     ////////////// HARD CODED /////////////
     speed = 100;
-    position_x = 900;
+    position_x = rand() % 1900;
     position_y = 878;
 
 
     ////////////////////// Hard coded: Read texture file
 
-    load_icon("Textures/blue_tank.png");
+    load_icon(player_texture);
     
     ////////////// HARD CODED /////////////
     sf::Vector2u texture_size { texture.getSize() };
@@ -41,6 +42,7 @@ Player::Player()//(sf::Texture player_texture)
     barrel_sprite.setRotation(bearing);
     set_barrel_pos();
 
+    hud = new Hud;
     
 
 
@@ -135,6 +137,7 @@ void Player::render(sf::RenderWindow& window, Context& context)
 {
     window.draw(icon);
     window.draw(barrel_sprite);
+    hud -> render(window);
 }
 
 void Player::collision(Game_object* object)
@@ -170,3 +173,23 @@ int Player::get_score() const&
 {
     return score;
 }
+
+/*void Player::activate_powerup()
+{
+    Powerup* powerup { dynamic_cast<Powerup*>(object) };
+    if (powerup != nullptr)
+    {
+        powerup.remove();
+        if (powerup.get_pwrup_type() == 0)
+        {
+
+        }
+        else if(powerup.get_pwrup_type() == 1)
+        {
+
+        }
+        //if collision with shield, load icon shield
+        //if collision with repairkit, add HP
+    }
+    
+}*/
