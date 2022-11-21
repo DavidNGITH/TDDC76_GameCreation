@@ -30,8 +30,8 @@ private:
     void Aim();
     void Fire();
 
-    double bearing{};
     int score{};
+    double bearing{};
     float const barrel_rotation_speed{};
     sf::Vector2f old_position{};
 

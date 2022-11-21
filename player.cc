@@ -24,7 +24,7 @@ Player::Player()//(sf::Texture player_texture)
     ////////////// HARD CODED /////////////
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y);
-    icon.setScale(0.1, 0.1);
+    icon.setScale(0.05, 0.05);
     icon.setPosition(position_x, position_y);
 
 
@@ -39,7 +39,7 @@ Player::Player()//(sf::Texture player_texture)
     ////////////// HARD CODED //////////////
     sf::Vector2u texture_size_barrel { barrel.getSize() };
     barrel_sprite.setOrigin(10, texture_size_barrel.y / 2);
-    barrel_sprite.setScale(0.05, 0.05);
+    barrel_sprite.setScale(0.025, 0.025);
     barrel_sprite.setRotation(bearing);
     
     set_barrel_pos();
@@ -133,5 +133,5 @@ bool Player::check_collision(Game_object* object)
 
 void Player::set_barrel_pos()
 {
-    barrel_sprite.setPosition(position_x - 5, position_y - 35);
+    barrel_sprite.setPosition(position_x - 3, position_y - 17);
 }
