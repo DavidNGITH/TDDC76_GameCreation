@@ -12,7 +12,7 @@ Powerup::Powerup(double incoming_x, double incoming_y)
 : speed{200}, has_stopped{false}
 {
     position_x = incoming_x;
-    position_y = incoming_y + 40;
+    position_y = incoming_y + 120;
 
     randnum = rand() % 2;
 
@@ -29,7 +29,7 @@ Powerup::Powerup(double incoming_x, double incoming_y)
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y);    
     icon.setScale(0.1, 0.1);
-    icon.setPosition(position_x, position_y + 40);
+    icon.setPosition(position_x, position_y);
     get_poweruptype(); //0 for shield and 1 for repair
 }
 
