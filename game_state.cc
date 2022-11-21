@@ -21,7 +21,7 @@ Game_state::Game_state(Context& context)
     //context.objects.push_back(new Static_object);
     //context.players.push_back(new Player);
 
-    context.current_player = context.players.at(0);
+    context.current_player = context.players.at(active_player);
     /*for(unsigned int i{1}; i < context.players.size(); i++)
     {
         context.objects.push_back(context.players[i]);
@@ -145,7 +145,32 @@ void Game_state::update(Context& context)
     }  
 
     //Check if next players turn
-    
+    while(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    {
+        
+        if(active_player == context.players.size() -1 )
+        {
+            context.current_player = context.players.at(0);
+        }
+        else
+        {
+            context.current_player = context.players.at(active_player + 1);
+        }
+        update_need = true;
+    }
+    if (update_need)
+    {
+        if(active_player == context.players.size() -1 )
+        {   
+            active_player = 0;
+        }
+        else
+        {
+            active_player += 1;
+        }
+        update_need = false;
+    }
+    std::cout << active_player << std::endl;
     //Check if someones won
 
     
