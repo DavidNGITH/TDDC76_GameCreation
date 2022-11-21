@@ -31,6 +31,9 @@ int main()
     while (window.isOpen())
     {
         sf::Event event;
+
+        context.delta = clock.restart();
+
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)

@@ -5,9 +5,9 @@
 Missile::Missile(int position_x, int position_y,int speed, int bearing)
 :speed_x{cos(bearing)*speed}, speed_y{sin(bearing)*speed}, acceleration_y{4}
 {
-    missile.setRadius(2)
-    missile.setFillColor(sf::color::Black);
-    missile.setPosition(position_x, position_y)
+    missile.setRadius(2);
+    missile.setFillColor(sf::Color::Black);
+    missile.setPosition(position_x, position_y);
 }
 
 Missile::~Missile()
@@ -35,6 +35,12 @@ void Missile::render(sf::RenderWindow& window, Context& context)
 }
 
 void Missile::collision(Game_object* object)
+{
+    
+
+}
+
+bool check_collision(Game_object* object)
 {
 
 }

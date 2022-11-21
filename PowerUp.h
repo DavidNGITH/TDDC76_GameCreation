@@ -7,10 +7,9 @@
 class Powerup :public Game_object
 {
     public:
-        Powerup(double position_x, double position_y); //Konstruktor med givna koordinater
-        ~Powerup() = default; //Destruktor
-        Powerup(); //Defaultkonstruktor
-
+        Powerup(double incoming_x, double incoming_y); //(double position_x);
+        ~Powerup() = default;
+        Powerup();
         void update(Context& context) override;
         void render(sf::RenderWindow& window, Context& context) override;
         void handle(Context& context, sf::Event event) override;
