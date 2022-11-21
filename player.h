@@ -22,7 +22,7 @@ public:
 
     double get_bearing() const&;
     int get_score() const&;
-    void activate_powerup();
+    //void activate_powerup();
     
 
 
