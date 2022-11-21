@@ -6,6 +6,7 @@
 #include "menu_state.h"
 #include "game_state.h"
 #include "map.h"
+#include "hud.h"
 
 
 Menu_state::Menu_state()
