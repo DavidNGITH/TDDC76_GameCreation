@@ -3,6 +3,7 @@
 
 #include "SFML/Graphics.hpp"
 #include "game_object.h"
+#include "hud.h"
 #include <string>
 
 class Player : public Game_object
@@ -19,6 +20,9 @@ public:
     bool check_collision(Game_object* object) override;
     void move(Context& context) override;
 
+    double get_bearing() const&;
+    int get_score() const&;
+    void activate_powerup();
     
 
 
@@ -30,13 +34,15 @@ private:
     void Aim();
     void Fire();
 
-    double bearing{};
     int score{};
+    double bearing{};
     float const barrel_rotation_speed{};
     sf::Vector2f old_position{};
 
     sf::Sprite barrel_sprite;
     sf::Texture barrel;
+
+    Hud* hud();
 };
 
 

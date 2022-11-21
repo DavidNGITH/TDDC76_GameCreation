@@ -2,8 +2,6 @@
 #define GAME_OBJECT_H
 
 #include "SFML/Graphics.hpp"
-#include "game_state.h"
-#include "menu_state.h"
 
 struct Context; //fwd declartation
 
