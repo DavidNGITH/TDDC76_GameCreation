@@ -8,7 +8,7 @@
 #include "map.h"
 #include "player.h"
 
-Powerup::Powerup(double incoming_x, double incoming_y) //lägg till coordiante
+Powerup::Powerup(double incoming_x, double incoming_y)
 : speed{200}, has_stopped{false}
 {
     position_x = incoming_x;
@@ -30,13 +30,13 @@ Powerup::Powerup(double incoming_x, double incoming_y) //lägg till coordiante
     icon.setOrigin(texture_size.x / 2, texture_size.y);    
     icon.setScale(0.1, 0.1);
     icon.setPosition(position_x, position_y + 40);
+    get_poweruptype(); //0 for shield and 1 for repair
 }
 
 Powerup::Powerup()
 {
 
 }
-
 
 void Powerup::handle(Context& context, sf::Event event)
 {
@@ -86,7 +86,7 @@ void Powerup::collision(Game_object* object)
     else if (player != nullptr)
     {
         remove();
-        give_powerup(object);
+        //give_powerup(object);
         //if collision with shield, load icon shield
         //if collision with repairkit, add HP
     }
@@ -129,6 +129,13 @@ void Powerup::give_powerup(Game_object* object)
     {
         //object.hp += 100;
     }
+}
+
+int Powerup::get_poweruptype() const&
+{
+    //return the value 0 for shield
+    //return the value 1 for repair
+    return randnum;
 }
 
 /*bool Powerup::add_powerup()
