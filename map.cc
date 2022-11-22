@@ -49,4 +49,8 @@ bool Map::check_collision(Game_object* object)
     (foreground_image.getPixel(object -> icon.getPosition().x, object -> icon.getPosition().y).a) != 0);
 }
 
+void Map::handle(Context& context, sf::Event event){};
+void Map::update(Context& context){};
+void Map::collision(Game_object* object){}; 
+
 

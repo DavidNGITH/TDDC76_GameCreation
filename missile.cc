@@ -9,12 +9,14 @@
 #include <iostream>
 
 Missile::Missile(double incoming_position_x, double incoming_position_y,double speed, double bearing)
-:speed_x{cos((bearing)*M_PI/180)*1000}, speed_y{sin((180-bearing)*M_PI/180)*-1000}, acceleration_y{400}
+:speed_x{cos((180-bearing)*M_PI/180)*800}, speed_y{sin((180-bearing)*M_PI/180)*-800}, acceleration_y{400}
 {
     position_x = incoming_position_x;
     position_y = incoming_position_y+10;
+
     missile.setRadius(5);
     missile.setFillColor(sf::Color::Black);
+    missile.setOrigin(5, 5);
     missile.setPosition(position_x, position_y);
     
 }
@@ -37,15 +39,12 @@ void Missile::update(Context& context)
     position_x += speed_x*context.delta.asSeconds();
     position_y += speed_y*context.delta.asSeconds()+ acceleration_y*context.delta.asSeconds()*context.delta.asSeconds()/2;
     missile.setPosition(position_x, position_y);
-    std::cout<<position_x <<std::endl;
 
     if(missile.getPosition().x < 0 || missile.getPosition().x > 1920)
     {
         std::cout<< "tog bort" << std::endl;
         remove();
     }
-
-    //std::cout<< bearing << std::endl;
 
 
 
@@ -68,23 +67,9 @@ void Missile::collision(Game_object* object)
     if(player !=nullptr || helicopter!=nullptr || static_object!=nullptr || map !=nullptr)
     {
         //Explosion();
+        std::cout<< "Kollision" << std::endl;
+
     }
 
-
-
-
-    // Missil utanför map 
-    if(missile.getPosition().x < 0 || missile.getPosition().x > 1920.f)
-    {
-        std::cout<< "tog bort" << std::endl;
-        remove();
-    }
-
-
-}
-
-bool Missile::check_collision(Game_object* object)
-{
-    return false;
 }
 
