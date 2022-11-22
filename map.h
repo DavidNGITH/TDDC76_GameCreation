@@ -14,11 +14,11 @@ class Map : public Game_object
 
     Map(std::string background, std::string foreground);
 
-    void handle(Context& context, sf::Event event){};
-    void update(Context& context){};
-    void render(sf::RenderWindow& window, Context& context);
-    void collision(Game_object* object){}; 
-    bool check_collision(Game_object* object);
+    void handle(Context& context, sf::Event event) override;
+    void update(Context& context) override;
+    void render(sf::RenderWindow& window, Context& context) override;
+    void collision(Game_object* object) override; 
+    bool check_collision(Game_object* object) override;
 
     //void update(Context& context);
 
