@@ -279,8 +279,8 @@ void Menu_state::add_player()
         std::cout << "blue_tank_added" << std::endl;
         blue_active = true;
         player_selected = false;
-        players.push_back("Textures/blue_tank.png");
-        barrels.push_back("Textures/blue_barrel.png");
+        players.push_back("textures_new/blue_tank.png");
+        barrels.push_back("textures_new/blue_barrel.png");
 
         
     }
@@ -290,8 +290,8 @@ void Menu_state::add_player()
         std::cout << "cyan_tank_added" << std::endl;
         cyan_active = true;
         player_selected = false;
-        players.push_back("Textures/cyan_tank.png");
-        barrels.push_back("Textures/cyan_barrel.png");
+        players.push_back("textures_new/cyan_tank.png");
+        barrels.push_back("textures_new/cyan_barrel.png");
     }
     else if(player_selection.getPosition().x == 895 && player_selection.getPosition().y == 650)
     {   
@@ -299,8 +299,8 @@ void Menu_state::add_player()
         std::cout << "green_tank_added" << std::endl;
         green_active = true;
         player_selected = false;
-        players.push_back("Textures/green_tank.png");
-        barrels.push_back("Textures/green_barrel.png");
+        players.push_back("textures_new/green_tank.png");
+        barrels.push_back("textures_new/green_barrel.png");
     }
     else if(player_selection.getPosition().x == 995 && player_selection.getPosition().y == 650)
     {   
@@ -308,8 +308,8 @@ void Menu_state::add_player()
         std::cout << "pink_tank_added" << std::endl;
         pink_active = true;
         player_selected = false;
-        players.push_back("Textures/pink_tank.png");
-        barrels.push_back("Textures/pink_barrel.png");
+        players.push_back("textures_new/pink_tank.png");
+        barrels.push_back("textures_new/pink_barrel.png");
     }
     else if(player_selection.getPosition().x == 1095 && player_selection.getPosition().y == 650)
     {
@@ -317,8 +317,8 @@ void Menu_state::add_player()
         std::cout << "red_tank_added" << std::endl;
         red_active = true;
         player_selected = false;
-        players.push_back("Textures/red_tank.png");
-        barrels.push_back("Textures/red_barrel.png");
+        players.push_back("textures_new/red_tank.png");
+        barrels.push_back("textures_new/red_barrel.png");
     }
     else if(player_selection.getPosition().x == 1195 && player_selection.getPosition().y == 650)
     {   
@@ -326,8 +326,8 @@ void Menu_state::add_player()
         std::cout << "yellow_tank_added" << std::endl;
         yellow_active = true;
         player_selected = false;
-        players.push_back("Textures/yellow_tank.png");
-        barrels.push_back("Textures/yellow_barrel.png");
+        players.push_back("textures_new/yellow_tank.png");
+        barrels.push_back("textures_new/yellow_barrel.png");
     }
 }
 

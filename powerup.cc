@@ -104,20 +104,7 @@ void Powerup::collision(Game_object* object)
         remove();
     }*/
 }
-
-bool Powerup::check_collision(Game_object* object)
-{
-    if(icon.getGlobalBounds().intersects(object -> icon.getGlobalBounds()))
-    {
-        return true;
-    }
-
-    else
-    {
-        return false;
-    }
-
-}     
+  
 
 void Powerup::give_powerup(Game_object* object)
 {

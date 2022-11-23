@@ -17,12 +17,13 @@ public:
     void render(sf::RenderWindow& window, Context& context) override;
 
     void collision(Game_object* object) override;
-    bool check_collision(Game_object* object) override;
     void move(Context& context) override;
 
     double get_bearing() const&;
     int get_score() const&;
     //void activate_powerup();
+
+    void reset();
     
 
 
@@ -43,6 +44,11 @@ private:
     sf::Texture barrel;
 
     Hud* hud;
+
+    double calc_y_position();
+    double calc_x_position();
+    
+    bool fired{};
 };
 
 
