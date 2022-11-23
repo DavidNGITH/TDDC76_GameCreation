@@ -12,7 +12,7 @@
 
 //HARD CODED:
 Player::Player(std::string player_texture, std::string barrel_texture)
-: hp{100}, bearing{-90}, score{0}, shield_isActive{false},
+: hp{100}, bearing{90}, score{0}, shield_isActive{false},
 barrel_rotation_speed {30}, old_position{}
 {
     ////////////// HARD CODED /////////////
@@ -161,7 +161,7 @@ void Player::collision(Game_object* object, Context& context)
         
         if (powerup -> get_poweruptype() == 0)
         {
-            std::cout << "Vi kom in här" << std::endl;
+            std::cout << "Collided with shield" << std::endl;
             ////////////////////// Hard coded: Read texture file
             
             if (!shield.loadFromFile("shield.png"))
@@ -182,6 +182,7 @@ void Player::collision(Game_object* object, Context& context)
         }
         else if(powerup -> get_poweruptype() == 1)
         {
+            std::cout << "Collided with repair kit" << std::endl;
             hp += 20;
         }
     }
@@ -191,6 +192,11 @@ void Player::collision(Game_object* object, Context& context)
 void Player::set_barrel_pos()
 {
     barrel_sprite.setPosition(position_x, position_y - 17);
+}
+
+void Player::set_shield_pos() 
+{
+    shield_sprite.setPosition(position_x, position_y - 17);
 }
 
 double Player::get_bearing() const&
