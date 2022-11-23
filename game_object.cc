@@ -38,10 +38,10 @@ bool Game_object::check_collision(Game_object* object)
     return icon.getGlobalBounds().intersects(object -> icon.getGlobalBounds());
 }
 
-int Game_object::get_ground_pos(Context& context, double x)
+double Game_object::get_ground_pos(Context& context, double x)
 {
     //HÅRKODAT MÅSTE FIXAS
-    int i{1919};
+    int i{1080};
 
     while (context.map -> foreground_image.getPixel(x , i).a != 0)
     {

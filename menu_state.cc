@@ -142,18 +142,19 @@ void Menu_state::handle(Context& context, sf::Event event)
         {
             if((mouse.x > 747.5 && mouse.x < 1173) && (mouse.y > 326 && mouse.y < 574))
             {  //start button
-
-                //std::cout<< players.size() << std::endl;
-                for(unsigned int i{0} ; i < players.size(); i++)
-                {   
-                    context.players.push_back(new Player(players[i], barrels[i]));
-                    
-                }
                 if(!(players.size() == 0))
                 {
                     context.map = new Map{"Map/background.png", "Map/ground.png"};
+                    for(unsigned int i{0} ; i < players.size(); i++)
+                    {   
+                        context.players.push_back(new Player(players[i], barrels[i], context));
+                    }
                     context.next_state = new Game_state{context};
+
+
                 }
+                //std::cout<< players.size() << std::endl;
+
                 
                 std::cout << context.players.size() << std::endl;
             }

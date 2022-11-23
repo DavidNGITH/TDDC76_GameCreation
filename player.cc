@@ -11,14 +11,15 @@
 
 
 //HARD CODED:
-Player::Player(std::string player_texture, std::string barrel_texture)
+Player::Player(std::string player_texture, std::string barrel_texture, Context& context)
 : hp{100}, bearing{90}, score{0}, shield_isActive{false},
 barrel_rotation_speed {30}, old_position{}
 {
     ////////////// HARD CODED /////////////
     speed = 100;
     position_x = rand() % 1900;
-    position_y = 878;
+    position_y = get_ground_pos(context, 300);
+    //position_y = 878;
     able_to_move = true;
     fired=false;
 

@@ -28,7 +28,7 @@ public:
 
 protected:
     void load_icon(std::string path);
-    int get_ground_pos(Context& context, double x);
+    double get_ground_pos(Context& context, double x);
 
     bool removed{};
     sf::Texture texture;
