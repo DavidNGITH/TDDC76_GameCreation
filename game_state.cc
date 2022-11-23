@@ -145,7 +145,7 @@ void Game_state::update(Context& context)
     }  
 
     //Check if next players turn
-    while(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    if(context.new_turn);
     {
         
         if(active_player == context.players.size() -1 )
