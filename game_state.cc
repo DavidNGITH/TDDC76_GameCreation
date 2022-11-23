@@ -149,6 +149,7 @@ void Game_state::update(Context& context)
     if(context.new_turn)
     {
         context.new_turn = false;
+
         int i{0};
 
         while (context.current_player != context.players.at(i))
@@ -161,10 +162,14 @@ void Game_state::update(Context& context)
             context.current_player = context.players.at(0);
         }
         
+        
         else
         {
             context.current_player = context.players.at(i+1);
         }
+        context.current_player->able_to_move = true;
+        context.current_player->fired = false;
+    
     }
 
 
