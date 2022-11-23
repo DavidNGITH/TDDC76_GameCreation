@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "game_object.h"
+#include "map.h"
 #include "state.h"
 
 
@@ -12,7 +13,7 @@ struct Context
 {
     sf::Time                    delta;
     State*                      next_state;
-    Game_object*                map;
+    Map*                        map;
     std::vector<Game_object*>&  objects;
     std::vector<Game_object*>&  new_objects;
     std::vector<Game_object*>&  players;

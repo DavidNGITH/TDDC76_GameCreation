@@ -146,7 +146,6 @@ void Menu_state::handle(Context& context, sf::Event event)
                 //std::cout<< players.size() << std::endl;
                 for(unsigned int i{0} ; i < players.size(); i++)
                 {   
-                    std::cout << i << std::endl;
                     context.players.push_back(new Player(players[i], barrels[i]));
                     
                 }

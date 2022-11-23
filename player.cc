@@ -62,7 +62,7 @@ void Player::Aim()
 
 void Player::Fire(Context& context)
 {   
-
+    std::cout << get_ground_pos(context, position_x) << std::endl;
     
     if (!fired)
     {
