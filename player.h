@@ -22,7 +22,6 @@ public:
 
     double get_bearing() const&;
     int get_score() const&;
-    //void activate_powerup();
     
 
 
@@ -31,6 +30,7 @@ protected:
 
 private:
     void set_barrel_pos();
+    void set_shield_pos();
     void Aim();
     void Fire();
 
@@ -41,6 +41,10 @@ private:
 
     sf::Sprite barrel_sprite;
     sf::Texture barrel;
+
+    bool shield_isActive{};
+    sf::Sprite shield_sprite;
+    sf::Texture shield;
 
     Hud* hud;
 };
