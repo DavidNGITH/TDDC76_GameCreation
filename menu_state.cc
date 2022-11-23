@@ -140,11 +140,11 @@ Menu_state::Menu_state()
     input_box.setPosition(1400, 650);
     input_box.setScale(0.30,0.30);
 
-    font.loadFromFile("Textures/CaviarDreams.ttf");
+    font.loadFromFile("Textures/Minecraft.ttf");
 
-    playerText.setPosition(1295,615);
+    playerText.setPosition(1295,630);
     playerText.setColor(sf::Color::Cyan);
-    playerText.setCharacterSize(60);
+    playerText.setCharacterSize(38);
     playerText.setFont(font);
     playerText.Bold;
 
@@ -159,7 +159,7 @@ void Menu_state::handle(Context& context, sf::Event event)
         sf::Event::MouseButtonEvent mouse { event.mouseButton };
         if (mouse.button == sf::Mouse::Button::Left)
         {
-            if((mouse.x > 747.5 && mouse.x < 1173) && (mouse.y > 326 && mouse.y < 574))
+            if(start_button.getGlobalBounds().contains(mouse.x,mouse.y))
             {  //start button
 
                 //std::cout<< players.size() << std::endl;
@@ -177,47 +177,47 @@ void Menu_state::handle(Context& context, sf::Event event)
                 
                 std::cout << context.players.size() << std::endl;
             }
-            else if((mouse.x > 1600 && mouse.x < 1800) && (mouse.y > 620 && mouse.y < 680))
+            else if(add_player_img.getGlobalBounds().contains(mouse.x,mouse.y))
             {
                 add_player();
             }
-            else if(((mouse.x > 659 && mouse.x < 741) && (mouse.y > 600 && mouse.y < 700)) && !blue_active)
+            else if(blue_tank.getGlobalBounds().contains(mouse.x,mouse.y) && !blue_active)
             {
                 player_selection.setPosition(695,650);
                 player_selected = true;
                 //blue
             }
-            else if(((mouse.x > 759 && mouse.x < 841) && (mouse.y > 600 && mouse.y < 700)) && !cyan_active)
+            else if(cyan_tank.getGlobalBounds().contains(mouse.x,mouse.y) && !cyan_active)
             {
                 player_selection.setPosition(795,650);
                 player_selected = true;
                 //cyan
             }
-            else if(((mouse.x > 859 && mouse.x < 941) && (mouse.y > 600 && mouse.y < 700)) && !green_active)
+            else if(green_tank.getGlobalBounds().contains(mouse.x,mouse.y) && !green_active)
             {
                 player_selection.setPosition(895,650);
                 player_selected = true;
                 //green
             }
-            else if(((mouse.x > 959 && mouse.x < 1041) && (mouse.y > 600 && mouse.y < 700)) && !pink_active)
+            else if(pink_tank.getGlobalBounds().contains(mouse.x,mouse.y) && !pink_active)
             {
                 player_selection.setPosition(995,650);
                 player_selected = true;
                 //pink
             }
-            else if(((mouse.x > 1059 && mouse.x < 1141) && (mouse.y > 600 && mouse.y < 700)) && !red_active)
+            else if(red_tank.getGlobalBounds().contains(mouse.x,mouse.y)&& !red_active)
             {
                 player_selection.setPosition(1095,650);
                 player_selected = true;
                 //red
             }
-            else if(((mouse.x > 1159 && mouse.x < 1241) && (mouse.y > 600 && mouse.y < 700)) && !yellow_active)
+            else if(yellow_tank.getGlobalBounds().contains(mouse.x,mouse.y) && !yellow_active)
             {
                 player_selection.setPosition(1195,650);
                 player_selected = true;
                 //yellow
             }
-            else if(((mouse.x > 458 && mouse.x < 842) && (mouse.y > 742 && mouse.y < 958)))
+            else if(map_preview.getGlobalBounds().contains(mouse.x,mouse.y))
             {
                 map_border.setPosition(650,850);
                 map_selected = true;
@@ -228,7 +228,7 @@ void Menu_state::handle(Context& context, sf::Event event)
         }
 
     }
-    if(playerInput.length() < 6)
+    if(playerInput.length() < 7)
     {
         if(event.type == sf::Event::TextEntered)
         {
