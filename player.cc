@@ -4,11 +4,8 @@
 #include <string>
 #include "context.h"
 #include "static_object.h"
-<<<<<<< HEAD
 #include <string>
-=======
 #include "Missile.h"
->>>>>>> missile_2
 
 //HARD CODED:
 Player::Player(std::string player_texture, std::string barrel_texture)

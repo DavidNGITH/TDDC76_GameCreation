@@ -19,11 +19,8 @@ FILE12=shower_missile
 
 
 
-<<<<<<< HEAD
-OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE5).o $(FILE6).o $(FILE9).o $(FILE10).o $(FILE8).o 
-=======
-OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE6).o $(FILE7).o $(FILE9).o $(FILE10).o $(FILE8).o 
->>>>>>> missile_2
+
+OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE5).o $(FILE6).o $(FILE7).o $(FILE9).o $(FILE10).o $(FILE8).o 
 
 output: $(OBJS)
 	$(CC) $(OBJS) -o a.out $(LIBS)
