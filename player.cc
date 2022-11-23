@@ -11,12 +11,14 @@
 
 //HARD CODED:
 Player::Player(std::string player_texture, std::string barrel_texture)
-: hp{100}, bearing{90}, score{0}, barrel_rotation_speed {30}, old_position{}, fired{false}
+: hp{100}, bearing{90}, score{0}, barrel_rotation_speed {30}, old_position{}
 {
     ////////////// HARD CODED /////////////
     speed = 100;
     position_x = rand() % 1900;
     position_y = 878;
+    able_to_move = true;
+    fired=false;
 
 
     ////////////////////// Hard coded: Read texture file
@@ -81,6 +83,8 @@ void Player::Aim()
 
 void Player::Fire(Context& context)
 {   
+
+    
     if (!fired)
     {
         context.new_objects.push_back(new Missile{calc_x_position(), calc_y_position(), speed, bearing});
@@ -93,6 +97,8 @@ void Player::handle(Context& context, sf::Event event)
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
         Fire(context);
+        able_to_move = false;
+        
     }
 }
 
@@ -102,45 +108,49 @@ void Player::update(Context& context)
 }
 
 void Player::move(Context& context)
+
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-    {
-        old_position = icon.getPosition();
-        position_x += context.delta.asSeconds() * -speed;
-        icon.setPosition (position_x, position_y);
-
-        set_barrel_pos();
-    }
-
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-    {
-        old_position = icon.getPosition();
-        position_x += context.delta.asSeconds() * speed;
-        icon.setPosition (position_x, position_y);
-
-        set_barrel_pos();
-    }
-
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-    {
-        if (bearing <= 180)
+    if(able_to_move)
+    {    
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
         {
-            bearing += context.delta.asSeconds() * barrel_rotation_speed;
-            barrel_sprite.setRotation(bearing);
-            Aim();
-        }
-        
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-    {
-        if (bearing >=0)
-        {
-            bearing -= context.delta.asSeconds() * barrel_rotation_speed;
-            barrel_sprite.setRotation(bearing);
-            Aim();
+            old_position = icon.getPosition();
+            position_x += context.delta.asSeconds() * -speed;
+            icon.setPosition (position_x, position_y);
+
+            set_barrel_pos();
         }
 
-    }
+        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        {
+            old_position = icon.getPosition();
+            position_x += context.delta.asSeconds() * speed;
+            icon.setPosition (position_x, position_y);
+
+            set_barrel_pos();
+        }
+
+        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        {
+            if (bearing <= 180)
+            {
+                bearing += context.delta.asSeconds() * barrel_rotation_speed;
+                barrel_sprite.setRotation(bearing);
+                Aim();
+            }
+            
+        }
+        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        {
+            if (bearing >=0)
+            {
+                bearing -= context.delta.asSeconds() * barrel_rotation_speed;
+                barrel_sprite.setRotation(bearing);
+                Aim();
+            }
+
+        }
+    }    
 }
 
 void Player::render(sf::RenderWindow& window, Context& context)

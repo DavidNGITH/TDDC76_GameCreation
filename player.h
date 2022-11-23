@@ -25,7 +25,7 @@ public:
 
     void reset();
     
-
+    
 
 protected:
     int hp{};
@@ -48,7 +48,8 @@ private:
     double calc_y_position();
     double calc_x_position();
     
-    bool fired{};
+    
+    
 };
 
 

@@ -8,16 +8,12 @@
 class Standard_Missile : public Missile
 {
 public:
-
-    void Exlosion();
-
-
-
+    void Explosion();
 
 private:
     std::string type{"Standard Missile"};
-    int Damage{};
-    int Exlosion_radius{};
+    int const Damage{20}; //bestämd antal hp som missilen skall skada
+    int const Exlosion_radius{10}; // bestämd explosions radie
 
 
 
