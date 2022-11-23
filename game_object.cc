@@ -30,3 +30,8 @@ void Game_object::load_icon(std::string path)
 
     icon.setTexture(texture);
 }
+
+bool Game_object::check_collision(Game_object* object)
+{
+    return icon.getGlobalBounds().intersects(object -> icon.getGlobalBounds());
+}

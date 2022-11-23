@@ -17,6 +17,7 @@ struct Context
     std::vector<Game_object*>&  new_objects;
     std::vector<Game_object*>&  players;
     Game_object*                current_player;
+    bool                        new_turn;
     
 };
 

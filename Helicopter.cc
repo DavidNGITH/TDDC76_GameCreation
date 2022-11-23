@@ -9,13 +9,14 @@ Helicopter::Helicopter()
 {   
     //Hårdkodat
     position_x = 0;
-    position_y = 100;
+    position_y = 150;
 
-    load_icon("helicopter.png");
+    load_icon("textures_new/helicopter.png");
 
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y / 2);
     icon.setPosition(position_x, position_y);
+    icon.setScale(5,5);
 
     //sets first stop position
     stop_position();
@@ -97,7 +98,7 @@ void Helicopter::render(sf::RenderWindow& window, Context& context)
     
 }
 
-void Helicopter::collision(Game_object* object)
+void Helicopter::collision(Game_object* object, Context& context)
 {
     /*//reset all parameters, and reset position.
     //is_active = 0;
@@ -112,11 +113,6 @@ void Helicopter::handle(Context& context, sf::Event event)
     //ska vara tom ty inga inputs styr helikoptern.
 }
 
-bool Helicopter::check_collision(Game_object* object)
-{
-    //check if helicopter has collided with a missile.
-    return false;
-}
 
 void Helicopter::create_powerup(Context& context) const
 {

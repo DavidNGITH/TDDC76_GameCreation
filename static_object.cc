@@ -31,19 +31,7 @@ void Static_object::render(sf::RenderWindow& window, Context& context)
     window.draw(icon);
 };
 
-void Static_object::collision(Game_object* object)
+void Static_object::collision(Game_object* object, Context& context)
 {};
 
-bool Static_object::check_collision(Game_object* object)
-{
-    if(icon.getGlobalBounds().intersects(object -> icon.getGlobalBounds()))
-    {
-        return true;
-    }
 
-    else
-    {
-        return false;
-    }
-    
-}
