@@ -19,6 +19,7 @@ Player::Player(std::string player_texture, std::string barrel_texture)
     position_y = 878;
     able_to_move = true;
     fired=false;
+    
 
 
     ////////////////////// Hard coded: Read texture file

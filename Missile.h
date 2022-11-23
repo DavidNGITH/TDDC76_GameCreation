@@ -19,7 +19,8 @@ public:
     void collision(Game_object* object, Context& context) override;
  
 
-
+protected:
+    bool expolde{};
 
 private:
     sf::CircleShape missile;
