@@ -8,6 +8,7 @@
 #include "map.h"
 #include "player.h"
 #include "hud.h"
+#include <string>
 //test
 
 Menu_state::Menu_state()
@@ -73,7 +74,7 @@ Menu_state::Menu_state()
     width = add_player_img_texture.getSize().x;
     height = add_player_img_texture.getSize().y;
     add_player_img.setOrigin(width/2, height/2);
-    add_player_img.setPosition(1600, 650);
+    add_player_img.setPosition(1700, 650);
     add_player_img.setScale(0.25,0.25);
 
     blue_tank_texture = set_texture("Textures/blue_tank.png");
@@ -130,6 +131,24 @@ Menu_state::Menu_state()
     player_selection.setOrigin(width/2, height/2);
     player_selection.setPosition(0, 0);
     player_selection.setScale(0.04,0.06);
+
+    input_box_texture = set_texture("textures_new/input_box.png");
+    input_box.setTexture(input_box_texture);
+    width = input_box_texture.getSize().x;
+    height = input_box_texture.getSize().y;
+    input_box.setOrigin(width/2, height/2);
+    input_box.setPosition(1400, 650);
+    input_box.setScale(0.30,0.30);
+
+    font.loadFromFile("Textures/Minecraft.ttf");
+
+    playerText.setPosition(1295,630);
+    playerText.setColor(sf::Color::Cyan);
+    playerText.setCharacterSize(38);
+    playerText.setFont(font);
+    playerText.Bold;
+
+
 }
 
 
@@ -140,8 +159,16 @@ void Menu_state::handle(Context& context, sf::Event event)
         sf::Event::MouseButtonEvent mouse { event.mouseButton };
         if (mouse.button == sf::Mouse::Button::Left)
         {
-            if((mouse.x > 747.5 && mouse.x < 1173) && (mouse.y > 326 && mouse.y < 574))
+            if(start_button.getGlobalBounds().contains(mouse.x,mouse.y))
             {  //start button
+
+                //std::cout<< players.size() << std::endl;
+                for(unsigned int i{0} ; i < players.size(); i++)
+                {   
+                    std::cout << i << std::endl;
+                    context.players.push_back(new Player(players[i], barrels[i],names[i]));
+                    
+                }
                 if(!(players.size() == 0))
                 {
                     context.map = new Map{"Map/background.png", "Map/ground.png"};
@@ -158,54 +185,78 @@ void Menu_state::handle(Context& context, sf::Event event)
                 
                 std::cout << context.players.size() << std::endl;
             }
-            else if((mouse.x > 1500 && mouse.x < 1700) && (mouse.y > 620 && mouse.y < 680))
+            else if(add_player_img.getGlobalBounds().contains(mouse.x,mouse.y))
             {
                 add_player();
             }
-            else if(((mouse.x > 659 && mouse.x < 741) && (mouse.y > 600 && mouse.y < 700)) && !blue_active)
+            else if(blue_tank.getGlobalBounds().contains(mouse.x,mouse.y) && !blue_active)
             {
                 player_selection.setPosition(695,650);
                 player_selected = true;
                 //blue
             }
-            else if(((mouse.x > 759 && mouse.x < 841) && (mouse.y > 600 && mouse.y < 700)) && !cyan_active)
+            else if(cyan_tank.getGlobalBounds().contains(mouse.x,mouse.y) && !cyan_active)
             {
                 player_selection.setPosition(795,650);
                 player_selected = true;
                 //cyan
             }
-            else if(((mouse.x > 859 && mouse.x < 941) && (mouse.y > 600 && mouse.y < 700)) && !green_active)
+            else if(green_tank.getGlobalBounds().contains(mouse.x,mouse.y) && !green_active)
             {
                 player_selection.setPosition(895,650);
                 player_selected = true;
                 //green
             }
-            else if(((mouse.x > 959 && mouse.x < 1041) && (mouse.y > 600 && mouse.y < 700)) && !pink_active)
+            else if(pink_tank.getGlobalBounds().contains(mouse.x,mouse.y) && !pink_active)
             {
                 player_selection.setPosition(995,650);
                 player_selected = true;
                 //pink
             }
-            else if(((mouse.x > 1059 && mouse.x < 1141) && (mouse.y > 600 && mouse.y < 700)) && !red_active)
+            else if(red_tank.getGlobalBounds().contains(mouse.x,mouse.y)&& !red_active)
             {
                 player_selection.setPosition(1095,650);
                 player_selected = true;
                 //red
             }
-            else if(((mouse.x > 1159 && mouse.x < 1241) && (mouse.y > 600 && mouse.y < 700)) && !yellow_active)
+            else if(yellow_tank.getGlobalBounds().contains(mouse.x,mouse.y) && !yellow_active)
             {
                 player_selection.setPosition(1195,650);
                 player_selected = true;
                 //yellow
             }
-            else if(((mouse.x > 458 && mouse.x < 842) && (mouse.y > 742 && mouse.y < 958)))
+            else if(map_preview.getGlobalBounds().contains(mouse.x,mouse.y))
             {
                 map_border.setPosition(650,850);
                 map_selected = true;
                 //campus
             }
+                
+           
         }
+
     }
+    if(playerInput.length() < 7)
+    {
+        if(event.type == sf::Event::TextEntered)
+        {
+            
+            playerInput += static_cast<char>(event.text.unicode);
+            playerText.setString(playerInput);
+            
+        }
+        
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
+    {   
+        if(playerInput.length() > 0)
+        {
+            playerInput.pop_back();
+            playerText.setString(playerInput);
+        }    
+    }
+            
+    
 }
 
 void Menu_state::update(Context& context)
@@ -226,6 +277,11 @@ void Menu_state::render(sf::RenderWindow& window, Context& context)
     window.draw(map_preview);
 
     window.draw(add_player_img);
+
+    window.draw(input_box);
+
+    window.draw(playerText);
+
 
     if(!blue_active)
     {
@@ -281,6 +337,10 @@ void Menu_state::add_player()
         player_selected = false;
         players.push_back("textures_new/blue_tank.png");
         barrels.push_back("textures_new/blue_barrel.png");
+        names.push_back(playerInput);
+
+        playerInput = "";
+        playerText.setString(playerInput);
 
         
     }
@@ -292,6 +352,10 @@ void Menu_state::add_player()
         player_selected = false;
         players.push_back("textures_new/cyan_tank.png");
         barrels.push_back("textures_new/cyan_barrel.png");
+        names.push_back(playerInput);
+
+        playerInput = "";
+        playerText.setString(playerInput);
     }
     else if(player_selection.getPosition().x == 895 && player_selection.getPosition().y == 650)
     {   
@@ -301,6 +365,10 @@ void Menu_state::add_player()
         player_selected = false;
         players.push_back("textures_new/green_tank.png");
         barrels.push_back("textures_new/green_barrel.png");
+        names.push_back(playerInput);
+
+        playerInput = "";
+        playerText.setString(playerInput);
     }
     else if(player_selection.getPosition().x == 995 && player_selection.getPosition().y == 650)
     {   
@@ -310,6 +378,10 @@ void Menu_state::add_player()
         player_selected = false;
         players.push_back("textures_new/pink_tank.png");
         barrels.push_back("textures_new/pink_barrel.png");
+        names.push_back(playerInput);
+
+        playerInput = "";
+        playerText.setString(playerInput);
     }
     else if(player_selection.getPosition().x == 1095 && player_selection.getPosition().y == 650)
     {
@@ -319,6 +391,10 @@ void Menu_state::add_player()
         player_selected = false;
         players.push_back("textures_new/red_tank.png");
         barrels.push_back("textures_new/red_barrel.png");
+        names.push_back(playerInput);
+
+        playerInput = "";
+        playerText.setString(playerInput);
     }
     else if(player_selection.getPosition().x == 1195 && player_selection.getPosition().y == 650)
     {   
@@ -328,6 +404,10 @@ void Menu_state::add_player()
         player_selected = false;
         players.push_back("textures_new/yellow_tank.png");
         barrels.push_back("textures_new/yellow_barrel.png");
+        names.push_back(playerInput);
+
+        playerInput = "";
+        playerText.setString(playerInput);
     }
 }
 
