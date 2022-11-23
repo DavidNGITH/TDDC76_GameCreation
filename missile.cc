@@ -14,10 +14,15 @@ Missile::Missile(double incoming_position_x, double incoming_position_y,double s
     position_x = incoming_position_x;
     position_y = incoming_position_y+10;
 
-    missile.setRadius(5);
+    /*missile.setRadius(4);
     missile.setFillColor(sf::Color::Black);
-    missile.setOrigin(5, 5);
-    missile.setPosition(position_x, position_y);
+    missile.setOrigin(4, 4);
+    missile.setPosition(position_x, position_y);*/
+
+    load_icon("textures_new/ball.png");
+    sf::Vector2u texture_size { texture.getSize() };
+    icon.setOrigin(texture_size.x / 2, texture_size.y/2);
+    icon.setPosition(position_x, position_y);
     
 }
 
@@ -38,9 +43,9 @@ void Missile::update(Context& context)
     speed_y += acceleration_y * context.delta.asSeconds();
     position_x += speed_x*context.delta.asSeconds();
     position_y += speed_y*context.delta.asSeconds()+ acceleration_y*context.delta.asSeconds()*context.delta.asSeconds()/2;
-    missile.setPosition(position_x, position_y);
+    icon.setPosition(position_x, position_y);
 
-    if(missile.getPosition().x < 0 || missile.getPosition().x > 1920)
+    if(icon.getPosition().x < 0 || icon.getPosition().x > 1920)
     {
         std::cout<< "tog bort" << std::endl;
         remove();
@@ -52,7 +57,7 @@ void Missile::update(Context& context)
 
 void Missile::render(sf::RenderWindow& window, Context& context)
 {
-    window.draw(missile);
+    window.draw(icon);
 }
 
 void Missile::collision(Game_object* object)
@@ -68,6 +73,7 @@ void Missile::collision(Game_object* object)
     {
         //Explosion();
         std::cout<< "Kollision" << std::endl;
+        remove();
 
     }
 
