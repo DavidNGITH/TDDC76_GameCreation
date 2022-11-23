@@ -11,7 +11,7 @@
 
 
 //HARD CODED:
-Player::Player(std::string player_texture, std::string barrel_texture)
+Player::Player(std::string player_texture, std::string barrel_texture, std::string name)
 : hp{100}, bearing{90}, score{0}, shield_isActive{false},
 barrel_rotation_speed {30}, old_position{}
 {

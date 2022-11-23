@@ -67,7 +67,7 @@ class Menu_state : public State
     sf::Sprite player_selection{};
     sf::Sprite input_box{};
 
-    sf::String playerInput;
+    std::string playerInput;
     sf::Text playerText;
     sf::Font font;
 
@@ -87,7 +87,7 @@ class Menu_state : public State
 
     std::vector<std::string> players;
     std::vector<std::string> barrels;
-   
+    std::vector<std::string> names;   
 };
 
 

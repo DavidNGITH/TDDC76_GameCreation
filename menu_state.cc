@@ -8,6 +8,7 @@
 #include "map.h"
 #include "player.h"
 #include "hud.h"
+#include <string>
 //test
 
 Menu_state::Menu_state()
@@ -141,6 +142,12 @@ Menu_state::Menu_state()
 
     font.loadFromFile("Textures/CaviarDreams.ttf");
 
+    playerText.setPosition(1295,615);
+    playerText.setColor(sf::Color::Cyan);
+    playerText.setCharacterSize(60);
+    playerText.setFont(font);
+    playerText.Bold;
+
 
 }
 
@@ -159,7 +166,7 @@ void Menu_state::handle(Context& context, sf::Event event)
                 for(unsigned int i{0} ; i < players.size(); i++)
                 {   
                     std::cout << i << std::endl;
-                    context.players.push_back(new Player(players[i], barrels[i]));
+                    context.players.push_back(new Player(players[i], barrels[i],names[i]));
                     
                 }
                 if(!(players.size() == 0))
@@ -170,7 +177,7 @@ void Menu_state::handle(Context& context, sf::Event event)
                 
                 std::cout << context.players.size() << std::endl;
             }
-            else if((mouse.x > 1500 && mouse.x < 1700) && (mouse.y > 620 && mouse.y < 680))
+            else if((mouse.x > 1600 && mouse.x < 1800) && (mouse.y > 620 && mouse.y < 680))
             {
                 add_player();
             }
@@ -216,24 +223,31 @@ void Menu_state::handle(Context& context, sf::Event event)
                 map_selected = true;
                 //campus
             }
-            else if (((mouse.x > 1285 && mouse.x < 1513) && (mouse.y > 616 && mouse.y < 684)))
-            {   
-                text_enter = true;
-                while(text_enter)
-                {   
-                    if(event.type == sf::Event::TextEntered)
-                    {
-                        playerInput += event.text.unicode;
-                        playerText.setString(playerInput);
-                    }
-                    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
-                    {
-                        text_enter = false;
-                    }
-                }
-            }
+                
+           
         }
+
     }
+    if(playerInput.length() < 6)
+    {
+        if(event.type == sf::Event::TextEntered)
+        {
+            
+            playerInput += static_cast<char>(event.text.unicode);
+            playerText.setString(playerInput);
+            
+        }
+        
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
+    {   
+        if(playerInput.length() > 0)
+        {
+            playerInput.pop_back();
+            playerText.setString(playerInput);
+        }    
+    }
+            
     
 }
 
@@ -315,6 +329,10 @@ void Menu_state::add_player()
         player_selected = false;
         players.push_back("textures_new/blue_tank.png");
         barrels.push_back("textures_new/blue_barrel.png");
+        names.push_back(playerInput);
+
+        playerInput = "";
+        playerText.setString(playerInput);
 
         
     }
@@ -326,6 +344,10 @@ void Menu_state::add_player()
         player_selected = false;
         players.push_back("textures_new/cyan_tank.png");
         barrels.push_back("textures_new/cyan_barrel.png");
+        names.push_back(playerInput);
+
+        playerInput = "";
+        playerText.setString(playerInput);
     }
     else if(player_selection.getPosition().x == 895 && player_selection.getPosition().y == 650)
     {   
@@ -335,6 +357,10 @@ void Menu_state::add_player()
         player_selected = false;
         players.push_back("textures_new/green_tank.png");
         barrels.push_back("textures_new/green_barrel.png");
+        names.push_back(playerInput);
+
+        playerInput = "";
+        playerText.setString(playerInput);
     }
     else if(player_selection.getPosition().x == 995 && player_selection.getPosition().y == 650)
     {   
@@ -344,6 +370,10 @@ void Menu_state::add_player()
         player_selected = false;
         players.push_back("textures_new/pink_tank.png");
         barrels.push_back("textures_new/pink_barrel.png");
+        names.push_back(playerInput);
+
+        playerInput = "";
+        playerText.setString(playerInput);
     }
     else if(player_selection.getPosition().x == 1095 && player_selection.getPosition().y == 650)
     {
@@ -353,6 +383,10 @@ void Menu_state::add_player()
         player_selected = false;
         players.push_back("textures_new/red_tank.png");
         barrels.push_back("textures_new/red_barrel.png");
+        names.push_back(playerInput);
+
+        playerInput = "";
+        playerText.setString(playerInput);
     }
     else if(player_selection.getPosition().x == 1195 && player_selection.getPosition().y == 650)
     {   
@@ -362,6 +396,10 @@ void Menu_state::add_player()
         player_selected = false;
         players.push_back("textures_new/yellow_tank.png");
         barrels.push_back("textures_new/yellow_barrel.png");
+        names.push_back(playerInput);
+
+        playerInput = "";
+        playerText.setString(playerInput);
     }
 }
 
