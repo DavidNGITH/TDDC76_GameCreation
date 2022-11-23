@@ -4,8 +4,11 @@
 #include <string>
 #include "context.h"
 #include "static_object.h"
+#include "Missile.h"
 #include "PowerUp.h"
 #include <string>
+#include <cmath>
+
 
 //HARD CODED:
 Player::Player(std::string player_texture, std::string barrel_texture)
@@ -16,6 +19,8 @@ barrel_rotation_speed {30}, old_position{}
     speed = 100;
     position_x = rand() % 1900;
     position_y = 878;
+    able_to_move = true;
+    fired=false;
 
 
     ////////////////////// Hard coded: Read texture file
@@ -25,7 +30,7 @@ barrel_rotation_speed {30}, old_position{}
     ////////////// HARD CODED /////////////
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y);
-    icon.setScale(0.05, 0.05);
+    icon.setScale(1.5, 1.5);
     icon.setPosition(position_x, position_y);
 
 
@@ -39,10 +44,11 @@ barrel_rotation_speed {30}, old_position{}
     
     ////////////// HARD CODED //////////////
     sf::Vector2u texture_size_barrel { barrel.getSize() };
-    barrel_sprite.setOrigin(10, texture_size_barrel.y / 2);
-    barrel_sprite.setScale(0.025, 0.025);
+    barrel_sprite.setOrigin(texture_size_barrel.x, texture_size_barrel.y / 2);
+    barrel_sprite.setScale(1, 1);
     barrel_sprite.setRotation(bearing);
     set_barrel_pos();
+
 
     hud = new Hud;
     
@@ -54,55 +60,76 @@ barrel_rotation_speed {30}, old_position{}
 void Player::Aim()
 {}
 
-void Player::Fire()
-{}
+void Player::Fire(Context& context)
+{   
+
+    
+    if (!fired)
+    {
+        context.new_objects.push_back(new Missile{calc_x_position(), calc_y_position(), speed, bearing});
+        fired = true;
+    }
+}
 
 void Player::handle(Context& context, sf::Event event)
-{}
+{
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    {
+        Fire(context);
+        able_to_move = false;
+        
+    }
+}
 
 void Player::update(Context& context)
 {}
 
 void Player::move(Context& context)
+
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-    {
-        old_position = icon.getPosition();
-        position_x += context.delta.asSeconds() * -speed;
-        icon.setPosition (position_x, position_y);
+    if(able_to_move)
+    {    
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        {
+            old_position = icon.getPosition();
+            position_x += context.delta.asSeconds() * -speed;
+            icon.setPosition (position_x, position_y);
 
         set_barrel_pos();
         set_shield_pos();
     }
 
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-    {
-        old_position = icon.getPosition();
-        position_x += context.delta.asSeconds() * speed;
-        icon.setPosition (position_x, position_y);
+        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        {
+            old_position = icon.getPosition();
+            position_x += context.delta.asSeconds() * speed;
+            icon.setPosition (position_x, position_y);
 
         set_barrel_pos();
         set_shield_pos();
     }
 
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-    {
-        if (bearing <= 0)
+        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
-            bearing += context.delta.asSeconds() * barrel_rotation_speed;
-            barrel_sprite.setRotation(bearing);
+            if (bearing <= 180)
+            {
+                bearing += context.delta.asSeconds() * barrel_rotation_speed;
+                barrel_sprite.setRotation(bearing);
+                Aim();
+            }
+            
         }
-        
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-    {
-        if (bearing >=-180)
+        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         {
-            bearing -= context.delta.asSeconds() * barrel_rotation_speed;
-            barrel_sprite.setRotation(bearing);
-        }
+            if (bearing >=0)
+            {
+                bearing -= context.delta.asSeconds() * barrel_rotation_speed;
+                barrel_sprite.setRotation(bearing);
+                Aim();
+            }
 
-    }
+        }
+    }    
 }
 
 void Player::render(sf::RenderWindow& window, Context& context)
@@ -113,7 +140,7 @@ void Player::render(sf::RenderWindow& window, Context& context)
     hud -> render(window);
 }
 
-void Player::collision(Game_object* object)
+void Player::collision(Game_object* object, Context& context)
 {
     Static_object* static_object { dynamic_cast<Static_object*>(object) };
     Powerup* powerup { dynamic_cast<Powerup*>(object) };
@@ -125,7 +152,6 @@ void Player::collision(Game_object* object)
 
         icon.setPosition(position_x, position_y);
         set_barrel_pos();
-         
     }
     
     
@@ -161,19 +187,10 @@ void Player::collision(Game_object* object)
     }
 }
 
-bool Player::check_collision(Game_object* object)
-{
-    return false;
-}
 
 void Player::set_barrel_pos()
 {
-    barrel_sprite.setPosition(position_x - 3, position_y - 17);
-}
-
-void Player::set_shield_pos()
-{
-    shield_sprite.setPosition(position_x - 3, position_y - 17);
+    barrel_sprite.setPosition(position_x, position_y - 17);
 }
 
 double Player::get_bearing() const&
@@ -184,4 +201,20 @@ double Player::get_bearing() const&
 int Player::get_score() const&
 {
     return score;
+}
+
+
+void Player::reset()
+{
+    fired = false;
+}
+
+double Player::calc_x_position()
+{
+    return position_x - cos(bearing*M_PI/180) * barrel.getSize().x;
+}
+
+double Player::calc_y_position()
+{
+    return position_y - 30 - sin(bearing * M_PI/180) * barrel.getSize().x;
 }

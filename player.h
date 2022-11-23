@@ -16,14 +16,15 @@ public:
     void update(Context& context) override;
     void render(sf::RenderWindow& window, Context& context) override;
 
-    void collision(Game_object* object) override;
-    bool check_collision(Game_object* object) override;
+    void collision(Game_object* object, Context& context) override;
     void move(Context& context) override;
 
     double get_bearing() const&;
     int get_score() const&;
-    
 
+    void reset();
+    
+    
 
 protected:
     int hp{};
@@ -32,7 +33,7 @@ private:
     void set_barrel_pos();
     void set_shield_pos();
     void Aim();
-    void Fire();
+    void Fire(Context& context);
 
     int score{};
     double bearing{};
@@ -47,6 +48,12 @@ private:
     sf::Texture shield;
 
     Hud* hud;
+
+    double calc_y_position();
+    double calc_x_position();
+    
+    
+    
 };
 
 

@@ -15,8 +15,8 @@ public:
     virtual void handle(Context& context, sf::Event event) = 0;
     virtual void update(Context& context) = 0;
     virtual void render(sf::RenderWindow& window, Context& context) = 0;
-    virtual void collision(Game_object* object) = 0; 
-    virtual bool check_collision(Game_object* object) = 0;
+    virtual void collision(Game_object* object, Context& context)  = 0; 
+    virtual bool check_collision(Game_object* object);
     virtual void move(Context& context);
     
     bool is_removed();
@@ -24,6 +24,8 @@ public:
     void load_icon(std::string path);
 
     sf::Sprite icon;
+    bool able_to_move{};
+    bool fired{};
 
 protected:
     bool removed{};

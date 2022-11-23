@@ -21,6 +21,10 @@ class Game_state : public State
 
     private:
     //Game_object* current_player;
+
+    int active_player{0};
+
+    bool update_need = false;
     
 };
 
