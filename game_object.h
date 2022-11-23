@@ -24,6 +24,8 @@ public:
     void load_icon(std::string path);
 
     sf::Sprite icon;
+    bool able_to_move{};
+    bool fired{};
 
 protected:
     bool removed{};
