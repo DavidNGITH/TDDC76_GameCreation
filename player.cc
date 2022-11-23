@@ -11,7 +11,7 @@
 
 
 //HARD CODED:
-Player::Player(std::string player_texture, std::string barrel_texture)
+Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name)
 : hp{100}, bearing{90}, score{0}, shield_isActive{false},
 barrel_rotation_speed {30}, old_position{}
 {
@@ -26,6 +26,14 @@ barrel_rotation_speed {30}, old_position{}
     ////////////////////// Hard coded: Read texture file
 
     load_icon(player_texture);
+
+    font.loadFromFile("Textures/Minecraft.ttf");
+    name_text.setFont(font);
+    name_text.setCharacterSize(20);
+    name_text.setColor(sf::Color::Black);
+    name_text.setString(player_name);
+    name_text.setOrigin(name_text.getLocalBounds().width/2,name_text.getLocalBounds().height/2);
+    name_text.setPosition(position_x, position_y - 80);
     
     ////////////// HARD CODED /////////////
     sf::Vector2u texture_size { texture.getSize() };
@@ -97,6 +105,7 @@ void Player::move(Context& context)
 
         set_barrel_pos();
         set_shield_pos();
+        set_name_pos();
     }
 
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
@@ -107,6 +116,7 @@ void Player::move(Context& context)
 
         set_barrel_pos();
         set_shield_pos();
+        set_name_pos();
     }
 
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -137,6 +147,7 @@ void Player::render(sf::RenderWindow& window, Context& context)
     window.draw(icon);
     window.draw(barrel_sprite);
     window.draw(shield_sprite);
+    window.draw(name_text);
     hud -> render(window);
 }
 
@@ -152,6 +163,7 @@ void Player::collision(Game_object* object, Context& context)
 
         icon.setPosition(position_x, position_y);
         set_barrel_pos();
+        set_name_pos();
     }
     
     
@@ -192,6 +204,13 @@ void Player::collision(Game_object* object, Context& context)
 void Player::set_barrel_pos()
 {
     barrel_sprite.setPosition(position_x, position_y - 17);
+
+}
+
+void Player::set_name_pos()
+{
+    name_text.setPosition(position_x, position_y - 80);
+    
 }
 
 void Player::set_shield_pos() 
