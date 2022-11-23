@@ -69,7 +69,7 @@ void Powerup::render(sf::RenderWindow& window, Context& context)
 }
 
 
-void Powerup::collision(Game_object* object)
+void Powerup::collision(Game_object* object, Context& context)
 {
     Map* map { dynamic_cast<Map*>(object) };
     Player* player { dynamic_cast<Player*>(object) };

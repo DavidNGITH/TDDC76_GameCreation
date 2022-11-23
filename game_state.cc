@@ -78,8 +78,8 @@ void Game_state::update(Context& context)
         {  
             if (context.objects.at(i) -> check_collision(context.objects.at(j)))
             {
-                context.objects.at(i) -> collision(context.objects.at(j));
-                context.objects.at(j) -> collision(context.objects.at(i));
+                context.objects.at(i) -> collision(context.objects.at(j), context);
+                context.objects.at(j) -> collision(context.objects.at(i), context);
             }
         }
     }
@@ -89,7 +89,7 @@ void Game_state::update(Context& context)
     {
         if(context.map -> check_collision(context.objects.at(i)))
         {
-            context.objects.at(i) -> collision(context.map);
+            context.objects.at(i) -> collision(context.map, context);
         }
     }
 
@@ -138,17 +138,40 @@ void Game_state::update(Context& context)
         {
             if (context.objects.at(j) -> check_collision(context.players.at(i)))
             {
-                context.players.at(i) -> collision(context.objects.at(j));
-                context.objects.at(j) -> collision(context.players.at(i));
+                context.players.at(i) -> collision(context.objects.at(j), context);
+                context.objects.at(j) -> collision(context.players.at(i), context);
             }
         }
-    }  
+    } 
+
 
     //Check if next players turn
-    if(context.new_turn);
+    if(context.new_turn)
     {
+        context.new_turn = false;
+        int i{0};
+
+        while (context.current_player != context.players.at(i))
+        {
+            i += 1;
+        }
+
+        if (i == context.players.size() - 1)
+        {
+            context.current_player = context.players.at(0);
+        }
         
-        if(active_player == context.players.size() -1 )
+        else
+        {
+            context.current_player = context.players.at(i+1);
+        }
+    }
+
+
+
+
+        
+        /*if(active_player == context.players.size() -1 )
         {
             context.current_player = context.players.at(0);
         }
@@ -157,6 +180,7 @@ void Game_state::update(Context& context)
             context.current_player = context.players.at(active_player + 1);
         }
         update_need = true;
+        context.new_turn = false;
     }
     if (update_need)
     {
@@ -171,7 +195,7 @@ void Game_state::update(Context& context)
         update_need = false;
     }
     std::cout << active_player << std::endl;
-    //Check if someones won
+    //Check if someones won*/
 
     
 

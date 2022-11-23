@@ -16,7 +16,7 @@ public:
     void update(Context& context) override;
     void render(sf::RenderWindow& window, Context& context) override;
 
-    void collision(Game_object* object) override;
+    void collision(Game_object* object, Context& context) override;
     void move(Context& context) override;
 
     double get_bearing() const&;

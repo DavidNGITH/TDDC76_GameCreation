@@ -98,7 +98,7 @@ void Helicopter::render(sf::RenderWindow& window, Context& context)
     
 }
 
-void Helicopter::collision(Game_object* object)
+void Helicopter::collision(Game_object* object, Context& context)
 {
     /*//reset all parameters, and reset position.
     //is_active = 0;

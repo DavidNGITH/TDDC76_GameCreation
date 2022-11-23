@@ -51,6 +51,6 @@ bool Map::check_collision(Game_object* object)
 
 void Map::handle(Context& context, sf::Event event){};
 void Map::update(Context& context){};
-void Map::collision(Game_object* object){}; 
+void Map::collision(Game_object* object, Context& context){}; 
 
 
