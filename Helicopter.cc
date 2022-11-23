@@ -9,13 +9,14 @@ Helicopter::Helicopter()
 {   
     //Hårdkodat
     position_x = 0;
-    position_y = 100;
+    position_y = 150;
 
-    load_icon("helicopter.png");
+    load_icon("textures_new/helicopter.png");
 
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y / 2);
     icon.setPosition(position_x, position_y);
+    icon.setScale(5,5);
 
     //sets first stop position
     stop_position();
