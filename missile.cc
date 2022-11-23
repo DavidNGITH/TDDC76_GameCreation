@@ -49,6 +49,7 @@ void Missile::update(Context& context)
     {
         std::cout<< "tog bort" << std::endl;
         context.new_turn = true;
+        able_to_move = true;
         remove();
     }
 
@@ -75,6 +76,9 @@ void Missile::collision(Game_object* object, Context& context)
         //Explosion();
         std::cout<< "Kollision" << std::endl;
         context.new_turn = true;
+        able_to_move = true;
+
+        
         remove();
 
     }
