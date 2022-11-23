@@ -1,4 +1,6 @@
 #include "game_object.h"
+#include "map.h"
+#include "context.h"
 #include <iostream>
 
 
@@ -34,4 +36,19 @@ void Game_object::load_icon(std::string path)
 bool Game_object::check_collision(Game_object* object)
 {
     return icon.getGlobalBounds().intersects(object -> icon.getGlobalBounds());
+}
+
+double Game_object::get_ground_pos(Context& context, double x)
+{
+    int i = context.map ->get_window_size().y-10;
+
+    while (static_cast<int>(context.map -> foreground_image.getPixel(x , i).a) != 0)
+    {
+        i -= 1;
+    }
+
+    return i;
+
+    /*return (static_cast<int>
+    (foreground_image.getPixel(object -> icon.getPosition().x, object -> icon.getPosition().y).a) != 0);*/
 }

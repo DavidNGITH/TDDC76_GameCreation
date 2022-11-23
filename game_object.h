@@ -21,13 +21,15 @@ public:
     
     bool is_removed();
     void remove();
-    void load_icon(std::string path);
 
     sf::Sprite icon;
     bool able_to_move{};
     bool fired{};
 
 protected:
+    void load_icon(std::string path);
+    double get_ground_pos(Context& context, double x);
+
     bool removed{};
     sf::Texture texture;
     double position_x{};
