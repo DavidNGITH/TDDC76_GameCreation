@@ -44,7 +44,7 @@ void Map::render(sf::RenderWindow& window, Context& context)
 }
 
 bool Map::check_collision(Game_object* object)
-{
+{   
     return (static_cast<int>
     (foreground_image.getPixel(object -> icon.getPosition().x, object -> icon.getPosition().y).a) != 0);
 }
