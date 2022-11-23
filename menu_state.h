@@ -46,6 +46,7 @@ class Menu_state : public State
     sf::Texture pink_tank_texture{};
     sf::Texture red_tank_texture{};
     sf::Texture yellow_tank_texture{};
+    sf::Texture input_box_texture{};
     
     
 
@@ -64,6 +65,11 @@ class Menu_state : public State
     sf::Sprite red_tank{};
     sf::Sprite yellow_tank{};
     sf::Sprite player_selection{};
+    sf::Sprite input_box{};
+
+    sf::String playerInput;
+    sf::Text playerText;
+    sf::Font font;
 
     bool player_selected{};
     bool map_selected{};
@@ -75,6 +81,7 @@ class Menu_state : public State
     bool green_active{};
     bool red_active{};
 
+    bool text_enter{};
     
 
 

@@ -73,7 +73,7 @@ Menu_state::Menu_state()
     width = add_player_img_texture.getSize().x;
     height = add_player_img_texture.getSize().y;
     add_player_img.setOrigin(width/2, height/2);
-    add_player_img.setPosition(1600, 650);
+    add_player_img.setPosition(1700, 650);
     add_player_img.setScale(0.25,0.25);
 
     blue_tank_texture = set_texture("Textures/blue_tank.png");
@@ -130,6 +130,18 @@ Menu_state::Menu_state()
     player_selection.setOrigin(width/2, height/2);
     player_selection.setPosition(0, 0);
     player_selection.setScale(0.04,0.06);
+
+    input_box_texture = set_texture("textures_new/input_box.png");
+    input_box.setTexture(input_box_texture);
+    width = input_box_texture.getSize().x;
+    height = input_box_texture.getSize().y;
+    input_box.setOrigin(width/2, height/2);
+    input_box.setPosition(1400, 650);
+    input_box.setScale(0.30,0.30);
+
+    font.loadFromFile("Textures/CaviarDreams.ttf");
+
+
 }
 
 
@@ -204,8 +216,25 @@ void Menu_state::handle(Context& context, sf::Event event)
                 map_selected = true;
                 //campus
             }
+            else if (((mouse.x > 1285 && mouse.x < 1513) && (mouse.y > 616 && mouse.y < 684)))
+            {   
+                text_enter = true;
+                while(text_enter)
+                {   
+                    if(event.type == sf::Event::TextEntered)
+                    {
+                        playerInput += event.text.unicode;
+                        playerText.setString(playerInput);
+                    }
+                    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+                    {
+                        text_enter = false;
+                    }
+                }
+            }
         }
     }
+    
 }
 
 void Menu_state::update(Context& context)
@@ -226,6 +255,11 @@ void Menu_state::render(sf::RenderWindow& window, Context& context)
     window.draw(map_preview);
 
     window.draw(add_player_img);
+
+    window.draw(input_box);
+
+    window.draw(playerText);
+
 
     if(!blue_active)
     {
