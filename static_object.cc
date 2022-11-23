@@ -1,4 +1,5 @@
 #include "static_object.h"
+#include "context.h"
 #include "SFML/Graphics.hpp"
 
 #include <iostream> //TA BORT SEN
@@ -7,12 +8,12 @@
 
 
 
-Static_object::Static_object()
+Static_object::Static_object(Context& context)
 {
     load_icon("textures_new/tree.png");
 
-    position_x = rand()%(1820-100 + 1) + 100;
-    position_y = 872;
+    position_x = rand() % (context.map -> get_window_size().x - 100) + 100;
+    position_y = get_ground_pos(context, position_x);
 
     icon.setScale(2, 2);
     sf::Vector2u texture_size { texture.getSize() };

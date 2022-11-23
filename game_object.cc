@@ -40,10 +40,9 @@ bool Game_object::check_collision(Game_object* object)
 
 double Game_object::get_ground_pos(Context& context, double x)
 {
-    //HÅRKODAT MÅSTE FIXAS
-    int i{1080};
+    int i = context.map ->get_window_size().y-10;
 
-    while (context.map -> foreground_image.getPixel(x , i).a != 0)
+    while (static_cast<int>(context.map -> foreground_image.getPixel(x , i).a) != 0)
     {
         i -= 1;
     }

@@ -19,6 +19,7 @@ class Map : public Game_object
     void render(sf::RenderWindow& window, Context& context) override;
     void collision(Game_object* object, Context& context) override; 
     bool check_collision(Game_object* object) override;
+    sf::Vector2u get_window_size();
 
     sf::Image foreground_image;    
 
