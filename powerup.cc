@@ -40,10 +40,9 @@ Powerup::Powerup()
 
 void Powerup::handle(Context& context, sf::Event event)
 {
-    //Tom? Yesbox
+
 }
 
-//HÅRDKODAD POSITION I UPDATE
 void Powerup::update(Context& context)
 {
     if (!has_stopped)
@@ -54,12 +53,7 @@ void Powerup::update(Context& context)
         position_y += context.delta.asSeconds() * speed;
         icon.setPosition(position_x, position_y);
     }
-    
-
-    //float current_speed = speed;
-
-    //if not kollision med mark
-    
+   
     
 }
 
@@ -86,35 +80,6 @@ void Powerup::collision(Game_object* object, Context& context)
     else if (player != nullptr)
     {
         remove();
-        //give_powerup(object);
-        //if collision with shield, load icon shield
-        //if collision with repairkit, add HP
-    }
-    
-    //Tom?
-    //Kolla om objektet kolliderar med marken
-    /*
-    if ()
-    {
-        icon.setPosition(old_position);
-    }
-    else
-    {
-        //Uppdatera attribut för player
-        remove();
-    }*/
-}
-  
-
-void Powerup::give_powerup(Game_object* object)
-{
-    if (randnum == 0)
-    {
-        //load_icon("shield.png");
-    }
-    else
-    {
-        //object.hp += 100;
     }
 }
 
@@ -124,8 +89,3 @@ int Powerup::get_poweruptype() const&
     //return the value 1 for repair
     return randnum;
 }
-
-/*bool Powerup::add_powerup()
-{
-    //På något sätt addera ett objekt av Powerup till spelaren som fick powerupen
-}*/
