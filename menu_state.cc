@@ -77,53 +77,53 @@ Menu_state::Menu_state()
     add_player_img.setPosition(1700, 650);
     add_player_img.setScale(0.25,0.25);
 
-    blue_tank_texture = set_texture("Textures/blue_tank.png");
+    blue_tank_texture = set_texture("textures_new/blue_tank.png");
     blue_tank.setTexture(blue_tank_texture);
     width = blue_tank_texture.getSize().x;
     height = blue_tank_texture.getSize().y;
     blue_tank.setOrigin(width/2, height/2);
     blue_tank.setPosition(700, 650);
-    blue_tank.setScale(0.10,0.10);
+    blue_tank.setScale(2,2);
 
-    cyan_tank_texture = set_texture("Textures/cyan_tank.png");
+    cyan_tank_texture = set_texture("textures_new/cyan_tank.png");
     cyan_tank.setTexture(cyan_tank_texture);
     width = cyan_tank_texture.getSize().x;
     height = cyan_tank_texture.getSize().y;
     cyan_tank.setOrigin(width/2, height/2);
     cyan_tank.setPosition(800, 650);
-    cyan_tank.setScale(0.10,0.10);
+    cyan_tank.setScale(2,2);
 
-    green_tank_texture = set_texture("Textures/green_tank.png");
+    green_tank_texture = set_texture("textures_new/green_tank.png");
     green_tank.setTexture(green_tank_texture);
     width = green_tank_texture.getSize().x;
     height = green_tank_texture.getSize().y;
     green_tank.setOrigin(width/2, height/2);
     green_tank.setPosition(900, 650);
-    green_tank.setScale(0.10,0.10);
+    green_tank.setScale(2,2);
 
-    pink_tank_texture = set_texture("Textures/pink_tank.png");
+    pink_tank_texture = set_texture("textures_new/pink_tank.png");
     pink_tank.setTexture(pink_tank_texture);
     width = pink_tank_texture.getSize().x;
     height = pink_tank_texture.getSize().y;
     pink_tank.setOrigin(width/2, height/2);
     pink_tank.setPosition(1000, 650);
-    pink_tank.setScale(0.10,0.10);
+    pink_tank.setScale(2,2);
 
-    red_tank_texture = set_texture("Textures/red_tank.png");
+    red_tank_texture = set_texture("textures_new/red_tank.png");
     red_tank.setTexture(red_tank_texture);
     width = red_tank_texture.getSize().x;
     height = red_tank_texture.getSize().y;
     red_tank.setOrigin(width/2, height/2);
     red_tank.setPosition(1100, 650);
-    red_tank.setScale(0.10,0.10);
+    red_tank.setScale(2,2);
 
-    yellow_tank_texture = set_texture("Textures/yellow_tank.png");
+    yellow_tank_texture = set_texture("textures_new/yellow_tank.png");
     yellow_tank.setTexture(yellow_tank_texture);
     width = yellow_tank_texture.getSize().x;
     height = yellow_tank_texture.getSize().y;
     yellow_tank.setOrigin(width/2, height/2);
     yellow_tank.setPosition(1200, 650);
-    yellow_tank.setScale(0.10,0.10);
+    yellow_tank.setScale(2,2);
 
     player_selection.setTexture(map_border_texture);
     width = map_border_texture.getSize().x;
@@ -161,20 +161,12 @@ void Menu_state::handle(Context& context, sf::Event event)
         {
             if(start_button.getGlobalBounds().contains(mouse.x,mouse.y))
             {  //start button
-
-                //std::cout<< players.size() << std::endl;
-                for(unsigned int i{0} ; i < players.size(); i++)
-                {   
-                    std::cout << i << std::endl;
-                    context.players.push_back(new Player(players[i], barrels[i],names[i]));
-                    
-                }
                 if(!(players.size() == 0))
                 {
                     context.map = new Map{"Map/background.png", "Map/ground.png"};
                     for(unsigned int i{0} ; i < players.size(); i++)
                     {   
-                        context.players.push_back(new Player(players[i], barrels[i], context));
+                        context.players.push_back(new Player(players[i], barrels[i], names[i], context));
                     }
                     context.next_state = new Game_state{context};
 
