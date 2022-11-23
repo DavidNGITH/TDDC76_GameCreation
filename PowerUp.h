@@ -14,7 +14,7 @@ class Powerup :public Game_object
         void render(sf::RenderWindow& window, Context& context) override;
         void handle(Context& context, sf::Event event) override;
 
-        void collision(Game_object* object) override; 
+        void collision(Game_object* object, Context& context) override; 
 
         int get_poweruptype() const&;
 

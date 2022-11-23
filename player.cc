@@ -150,7 +150,7 @@ void Player::render(sf::RenderWindow& window, Context& context)
     hud -> render(window);
 }
 
-void Player::collision(Game_object* object)
+void Player::collision(Game_object* object, Context& context)
 {
     Static_object* static_object { dynamic_cast<Static_object*>(object) };
 

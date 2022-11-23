@@ -48,6 +48,7 @@ void Missile::update(Context& context)
     if(icon.getPosition().x < 0 || icon.getPosition().x > 1920)
     {
         std::cout<< "tog bort" << std::endl;
+        context.new_turn = true;
         remove();
     }
 
@@ -60,7 +61,7 @@ void Missile::render(sf::RenderWindow& window, Context& context)
     window.draw(icon);
 }
 
-void Missile::collision(Game_object* object)
+void Missile::collision(Game_object* object, Context& context)
 {
     // Koliderar tank, helicoter mark eller statiska obeject
 
@@ -73,6 +74,7 @@ void Missile::collision(Game_object* object)
     {
         //Explosion();
         std::cout<< "Kollision" << std::endl;
+        context.new_turn = true;
         remove();
 
     }
