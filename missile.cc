@@ -7,6 +7,7 @@
 #include "map.h"
 #include "context.h"
 #include <iostream>
+#include "standard_missile.h"
 
 Missile::Missile(double incoming_position_x, double incoming_position_y,double speed, double bearing)
 :speed_x{cos((180-bearing)*M_PI/180)*800}, speed_y{sin((180-bearing)*M_PI/180)*-800}, acceleration_y{400}, expolde{false}
@@ -22,7 +23,7 @@ Missile::Missile(double incoming_position_x, double incoming_position_y,double s
     load_icon("textures_new/ball.png");
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y/2);
-    icon.setPosition(position_x, position_y);
+    icon.setPosition(position_x, position_y-10);
     
 }
 
@@ -40,19 +41,30 @@ void Missile::handle(Context& context, sf::Event event)
 
 void Missile::update(Context& context)
 {
-    speed_y += acceleration_y * context.delta.asSeconds();
-    position_x += speed_x*context.delta.asSeconds();
-    position_y += speed_y*context.delta.asSeconds()+ acceleration_y*context.delta.asSeconds()*context.delta.asSeconds()/2;
-    icon.setPosition(position_x, position_y);
-
-    if(icon.getPosition().x < 0 || icon.getPosition().x > 1920)
+    if(expolde)
     {
-        std::cout<< "tog bort" << std::endl;
-        context.new_turn = true;
-        able_to_move = true;
-        remove();
+        Explosion(context);
+        
     }
+    else
+    {
 
+    
+        speed_y += acceleration_y * context.delta.asSeconds();
+        position_x += speed_x*context.delta.asSeconds();
+        position_y += speed_y*context.delta.asSeconds()+ acceleration_y*context.delta.asSeconds()*context.delta.asSeconds()/2;
+        icon.setPosition(position_x, position_y);
+
+        if(icon.getPosition().x < 0 || icon.getPosition().x > 1920)
+        {
+            std::cout<< "tog bort" << std::endl;
+            context.new_turn = true;
+            able_to_move = true;
+
+
+            remove();
+        }
+    }
 
 
 }
@@ -60,6 +72,7 @@ void Missile::update(Context& context)
 void Missile::render(sf::RenderWindow& window, Context& context)
 {
     window.draw(icon);
+    std::cout << "render" << std::endl;
 }
 
 void Missile::collision(Game_object* object, Context& context)
@@ -71,18 +84,37 @@ void Missile::collision(Game_object* object, Context& context)
     Static_object* static_object { dynamic_cast<Static_object*>(object) };
     Map* map { dynamic_cast<Map*>(object) };
 
-    if(player !=nullptr || helicopter!=nullptr || static_object!=nullptr || map !=nullptr)
+    if((player !=nullptr || helicopter!=nullptr || static_object!=nullptr || map !=nullptr) && !expolde)
     {
         //Explosion();
         std::cout<< "Kollision" << std::endl;
         context.new_turn = true;
         able_to_move = true;
         expolde = true;
-
         
-        remove();
-
     }
 
 }
 
+void Missile::Explosion(Context& context)
+{
+    
+    load_icon("textures_new/boom.png");
+    std::cout<< "boom" << std::endl;
+    sf::Vector2u texture_size { texture.getSize() };
+    icon.setOrigin(texture_size.x / 2, texture_size.y/2);
+    icon.setPosition(position_x, position_y);
+    //icon.setPosition(500, 500);
+    icon.setScale(0.1,0.1);
+    i+= context.delta.asSeconds();
+    std::cout<< i << std::endl;
+    std::cout<< position_x << position_y << std::endl;
+
+
+
+    if(i > 1)
+    {
+        remove();
+    }
+
+}
