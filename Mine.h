@@ -16,14 +16,14 @@ public:
     void handle(Context& context, sf::Event event) override;
 
 
-    void collision(Game_object* object) override; 
+    void collision(Game_object* object, Context& context) override; 
     //bool check_collision(Game_object* object) override;
 
 
 
 private:
     double speed_x{};
-    double speed y{};
+    double speed_y{};
     double acceleration_y{};
 
 
