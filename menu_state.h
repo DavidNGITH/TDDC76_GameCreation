@@ -33,12 +33,13 @@ class Menu_state : public State
     sf::Texture set_texture(std::string path);
 
     sf::Texture title_texture{};
-    sf::Texture map_selection_texture{};
+    sf::Texture map_texture{};
     sf::Texture player_texture{};
     sf::Texture background_texture{};
     sf::Texture start_button_texture{};
-    sf::Texture map_border_texture{};
-    sf::Texture map_preview_texture{};
+    sf::Texture map_selection_texture{};
+    sf::Texture map_campus_preview_texture{};
+    sf::Texture map_halloween_preview_texture{};
     sf::Texture add_player_img_texture{};
     sf::Texture blue_tank_texture{};
     sf::Texture cyan_tank_texture{};
@@ -47,16 +48,22 @@ class Menu_state : public State
     sf::Texture red_tank_texture{};
     sf::Texture yellow_tank_texture{};
     sf::Texture input_box_texture{};
+    sf::Texture halloween_texture{};
+    sf::Texture campus_texture{};
     
     
 
-    sf::Sprite map_selection{};
+    sf::Sprite map{};
     sf::Sprite title{};
     sf::Sprite player{};
     sf::Sprite background{};
+    sf::Sprite campus{};
+    sf::Sprite halloween{};
     sf::Sprite start_button{};
-    sf::Sprite map_border{};
-    sf::Sprite map_preview{};
+    sf::Sprite map_selection{};
+    
+    sf::Sprite map_campus_preview{};
+
     sf::Sprite add_player_img{};
     sf::Sprite blue_tank{};
     sf::Sprite cyan_tank{};
@@ -81,7 +88,13 @@ class Menu_state : public State
     bool green_active{};
     bool red_active{};
 
+    bool campus_active{};
+    bool halloween_active{};
+
     bool text_enter{};
+
+    std::string map_background{};
+    std::string map_foreground{};
     
 
 
