@@ -22,6 +22,11 @@ Menu_state::Menu_state()
     campus_texture = set_texture("Map/campus.png");
     halloween_texture = set_texture("Map/halloween.png");
 
+    campus_foreground_texture = set_texture("Map/campus_foreground.png");
+    halloween_foreground_texture = set_texture("Map/halloween_foreground.png");
+
+
+
     start_button_texture = set_texture("Textures/start_game.png");
     start_button.setTexture(start_button_texture);
     width = start_button_texture.getSize().x;
@@ -76,6 +81,20 @@ Menu_state::Menu_state()
     campus.setOrigin(width/2, height/2);
     campus.setPosition(950, 850);
     campus.setScale(0.1,0.1);
+
+    halloween_foreground.setTexture(halloween_foreground_texture);
+    width = halloween_foreground_texture.getSize().x;
+    height = halloween_foreground_texture.getSize().y;
+    halloween_foreground.setOrigin(width/2, height/2);
+    halloween_foreground.setPosition(650, 850);
+    halloween_foreground.setScale(0.1,0.1);
+
+    campus_foreground.setTexture(campus_foreground_texture);
+    width = campus_foreground_texture.getSize().x;
+    height = campus_foreground_texture.getSize().y;
+    campus_foreground.setOrigin(width/2, height/2);
+    campus_foreground.setPosition(950, 850);
+    campus_foreground.setScale(0.1,0.1);
 
     add_player_img_texture = set_texture("Textures/add_player_img.png");
     add_player_img.setTexture(add_player_img_texture);
@@ -174,13 +193,11 @@ void Menu_state::handle(Context& context, sf::Event event)
                 {
                     map_foreground = "Map/campus_foreground.png";
                     map_background = "Map/campus.png";
-                    std::cout << "campus" << std::endl;
                 }
                 else if(map_selection.getPosition().x == halloween.getPosition().x && map_selection.getPosition().y == halloween.getPosition().y)
                 {
                     map_foreground = "Map/halloween_foreground.png";
                     map_background = "Map/halloween.png";
-                    std::cout << "halloween" << std::endl;
                 }
 
                 if(!(players.size() == 0) && (map_selection.getPosition().x != 0))
@@ -304,11 +321,16 @@ void Menu_state::render(sf::RenderWindow& window, Context& context)
 
     window.draw(halloween);
 
+    window.draw(campus_foreground);
+
+    window.draw(halloween_foreground);
+
     window.draw(add_player_img);
 
     window.draw(input_box);
 
     window.draw(playerText);
+
 
 
 

@@ -50,15 +50,18 @@ class Menu_state : public State
     sf::Texture input_box_texture{};
     sf::Texture halloween_texture{};
     sf::Texture campus_texture{};
-    
-    
 
+    sf::Texture campus_foreground_texture{};
+    sf::Texture halloween_foreground_texture{};
+    
     sf::Sprite map{};
     sf::Sprite title{};
     sf::Sprite player{};
     sf::Sprite background{};
     sf::Sprite campus{};
     sf::Sprite halloween{};
+    sf::Sprite campus_foreground{};
+    sf::Sprite halloween_foreground{};
     sf::Sprite start_button{};
     sf::Sprite map_selection{};
     
