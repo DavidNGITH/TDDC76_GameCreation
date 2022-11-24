@@ -12,8 +12,13 @@
 
 //HARD CODED:
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
+<<<<<<< player.cc
 : hp{100}, bearing{90}, score{0}, shield_isActive{false},
 barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}
+=======
+: hp{100}, bearing{90}, score{0}, shield_isActive{false}, playerstring{player_name},
+barrel_rotation_speed {30}, old_position{}
+>>>>>>> player.cc
 {
     ////////////// HARD CODED /////////////
     speed = 100;
@@ -62,7 +67,14 @@ barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}
     set_barrel_pos();
 
 
+<<<<<<< player.cc
     hud = new Hud;
+=======
+    hud = new Hud();
+    
+
+
+>>>>>>> player.cc
 
 }
 
@@ -84,12 +96,13 @@ void Player::handle(Context& context, sf::Event event)
     {
         Fire(context);
         able_to_move = false;
-        
     }
 }
 
 void Player::update(Context& context)
-{}
+{
+    hud -> update(hp, bearing, score, player_name_var);
+}
 
 void Player::move(Context& context)
 
@@ -150,7 +163,10 @@ void Player::render(sf::RenderWindow& window, Context& context)
         window.draw(shield_sprite);
     }
     window.draw(name_text);
-    hud -> render(window);
+    if (context.current_player == this)
+    {
+        hud -> render(window);
+    }
 }
 
 void Player::collision(Game_object* object, Context& context)
