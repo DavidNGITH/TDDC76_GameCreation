@@ -9,7 +9,7 @@
 #include <iostream>
 
 Missile::Missile(double incoming_position_x, double incoming_position_y,double speed, double bearing)
-:speed_x{cos((180-bearing)*M_PI/180)*800}, speed_y{sin((180-bearing)*M_PI/180)*-800}, acceleration_y{400}
+:speed_x{cos((180-bearing)*M_PI/180)*800}, speed_y{sin((180-bearing)*M_PI/180)*-800}, acceleration_y{400}, expolde{false}
 {
     position_x = incoming_position_x;
     position_y = incoming_position_y+10;
@@ -49,6 +49,7 @@ void Missile::update(Context& context)
     {
         std::cout<< "tog bort" << std::endl;
         context.new_turn = true;
+        able_to_move = true;
         remove();
     }
 
@@ -75,6 +76,10 @@ void Missile::collision(Game_object* object, Context& context)
         //Explosion();
         std::cout<< "Kollision" << std::endl;
         context.new_turn = true;
+        able_to_move = true;
+        expolde = true;
+
+        
         remove();
 
     }

@@ -10,7 +10,7 @@ class Player : public Game_object
 {
 public:
     //HARD CODED:
-    Player(std::string player_texture, std::string barrel_texture);
+    Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context);
 
     void handle(Context& context, sf::Event event) override;
     void update(Context& context) override;
@@ -21,19 +21,21 @@ public:
 
     double get_bearing() const&;
     int get_score() const&;
-    //void activate_powerup();
 
     void reset();
     
-
+    
 
 protected:
     int hp{};
 
 private:
     void set_barrel_pos();
+    void set_shield_pos();
+    void set_name_pos();
     void Aim();
     void Fire(Context& context);
+    
 
     int score{};
     double bearing{};
@@ -43,12 +45,20 @@ private:
     sf::Sprite barrel_sprite;
     sf::Texture barrel;
 
+    sf::Text name_text;
+    sf::Font font;
+
+    bool shield_isActive{};
+    sf::Sprite shield_sprite;
+    sf::Texture shield;
+
     Hud* hud;
 
     double calc_y_position();
     double calc_x_position();
     
-    bool fired{};
+    
+    
 };
 
 

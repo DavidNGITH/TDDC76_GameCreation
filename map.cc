@@ -15,6 +15,7 @@ Map::Map(std::string background, std::string foreground)
     }
     
     background_sprite.setTexture(background_texture);
+    background_sprite.setPosition(0,0);
 
     
 
@@ -24,6 +25,7 @@ Map::Map(std::string background, std::string foreground)
     }
     
     foreground_sprite.setTexture(foreground_texture);
+    foreground_sprite.setPosition(0,0);
 
 
     if(!foreground_image.loadFromFile(foreground))
@@ -47,6 +49,11 @@ bool Map::check_collision(Game_object* object)
 {   
     return (static_cast<int>
     (foreground_image.getPixel(object -> icon.getPosition().x, object -> icon.getPosition().y).a) != 0);
+}
+
+sf::Vector2u Map::get_window_size()
+{
+    return background_texture.getSize();
 }
 
 void Map::handle(Context& context, sf::Event event){};

@@ -2,6 +2,7 @@
 #include "game_object.h"
 #include "context.h"
 #include "PowerUp.h"
+#include "Missile.h"
 #include <iostream>
 
 Helicopter::Helicopter()
@@ -37,7 +38,6 @@ bool Helicopter::should_spawn()
     }
 }
 
-
 void Helicopter::update(Context& context)
 {
     if (is_active == 1)
@@ -72,23 +72,15 @@ void Helicopter::update(Context& context)
         }
     }
 
-    //first check if it's a new turn, and if it is, run randomize spawn.
+    //Checks whether the helicopter should spawn after it has had an collision
     else
     {
-        if ((current_player == context.current_player) || (current_player == nullptr))
+        if (should_spawn())
         {
-        
-            if (should_spawn())
-            {
-                current_player = context.current_player;
-                is_active = 1;
-
-            }
+            current_player = context.current_player;
+            is_active = 1;
         }
     }
-
-
-
 }
 
 void Helicopter::render(sf::RenderWindow& window, Context& context)
@@ -100,17 +92,22 @@ void Helicopter::render(sf::RenderWindow& window, Context& context)
 
 void Helicopter::collision(Game_object* object, Context& context)
 {
-    /*//reset all parameters, and reset position.
-    //is_active = 0;
-    has_stopped = 0;
-    has_dropped = 0;
-    //icon.setPosition(-40, 100);
-    stop_coordinate = stop_position();*/
+    //reset all parameters, and reset position.
+    Missile* missile { dynamic_cast<Missile*>(object) };
+    if (missile != nullptr)
+    {
+        is_active = 0;
+        has_stopped = 0;
+        has_dropped = 0;
+        position_x = 0;
+        position_y = 150;
+        stop_position();
+    }
 }
 
 void Helicopter::handle(Context& context, sf::Event event)
 {
-    //ska vara tom ty inga inputs styr helikoptern.
+    //Empty, no inputs to helicopter
 }
 
 
@@ -122,9 +119,8 @@ void Helicopter::create_powerup(Context& context) const
 
 void Helicopter::stop_position()
 {
+    //randomizes the stop_position.
     stop_coordinate = ((rand() % 1520) + 200);
-    //randomize stop_position
 
-    
 }
 
