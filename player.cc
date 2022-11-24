@@ -5,13 +5,15 @@
 #include "context.h"
 #include "static_object.h"
 #include "Missile.h"
+#include "PowerUp.h"
 #include <string>
 #include <cmath>
 
 
 //HARD CODED:
-Player::Player(std::string player_texture, std::string barrel_texture)
-: hp{100}, bearing{90}, score{0}, barrel_rotation_speed {30}, old_position{}
+Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name)
+: hp{100}, bearing{90}, score{0}, shield_isActive{false},
+barrel_rotation_speed {30}, old_position{}
 {
     ////////////// HARD CODED /////////////
     speed = 100;
@@ -25,6 +27,14 @@ Player::Player(std::string player_texture, std::string barrel_texture)
     ////////////////////// Hard coded: Read texture file
 
     load_icon(player_texture);
+
+    font.loadFromFile("Textures/Minecraft.ttf");
+    name_text.setFont(font);
+    name_text.setCharacterSize(20);
+    name_text.setColor(sf::Color::Black);
+    name_text.setString(player_name);
+    name_text.setOrigin(name_text.getLocalBounds().width/2,name_text.getLocalBounds().height/2);
+    name_text.setPosition(position_x, position_y - 80);
     
     ////////////// HARD CODED /////////////
     sf::Vector2u texture_size { texture.getSize() };
@@ -36,7 +46,7 @@ Player::Player(std::string player_texture, std::string barrel_texture)
     ////////////////////// Hard coded: Read texture file
     if (!barrel.loadFromFile(barrel_texture))
     {
-        std::cerr << "Can't open: blue_barrel.png" << std::endl;
+        std::cerr << "Can't open: " << barrel_texture << std::endl;
     }
 
     barrel_sprite.setTexture(barrel);
@@ -57,30 +67,7 @@ Player::Player(std::string player_texture, std::string barrel_texture)
 }
 
 void Player::Aim()
-{
-    /*
-    Skapa text 
-    
-    sf::Font font{};
-    if ( !font.loadFromFile ("Textures/CaviarDreams.ttf") )
-    {
-        // kunde inte ladda typsnitt
-        std::cerr << "Can't open: CaviarDreams.ttf" << std::endl;
-    }
-
-    // skapa text objekt
-    sf::Text bearing_text { "Aim: " + std::to_string(bearing), font };
-    bearing_text.setFillColor(sf::Color::Black);
-    auto bounds { bearing_text.getGlobalBounds () };
-    bearing_text.setPosition ((1920 - bounds.width) / 2, 200);
-    //GLÖM EJ WINDOW.DRAW i render!!
-    */
-
-    
-
-
-
-}
+{}
 
 void Player::Fire(Context& context)
 {   
@@ -104,9 +91,7 @@ void Player::handle(Context& context, sf::Event event)
 }
 
 void Player::update(Context& context)
-{
-
-}
+{}
 
 void Player::move(Context& context)
 
@@ -119,8 +104,10 @@ void Player::move(Context& context)
             position_x += context.delta.asSeconds() * -speed;
             icon.setPosition (position_x, position_y);
 
-            set_barrel_pos();
-        }
+        set_barrel_pos();
+        set_shield_pos();
+        set_name_pos();
+    }
 
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
@@ -128,8 +115,10 @@ void Player::move(Context& context)
             position_x += context.delta.asSeconds() * speed;
             icon.setPosition (position_x, position_y);
 
-            set_barrel_pos();
-        }
+        set_barrel_pos();
+        set_shield_pos();
+        set_name_pos();
+    }
 
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
@@ -158,12 +147,15 @@ void Player::render(sf::RenderWindow& window, Context& context)
 {
     window.draw(icon);
     window.draw(barrel_sprite);
+    window.draw(shield_sprite);
+    window.draw(name_text);
     hud -> render(window);
 }
 
 void Player::collision(Game_object* object, Context& context)
 {
     Static_object* static_object { dynamic_cast<Static_object*>(object) };
+    Powerup* powerup { dynamic_cast<Powerup*>(object) };
 
     if (static_object != nullptr)
     {
@@ -171,7 +163,41 @@ void Player::collision(Game_object* object, Context& context)
         position_y = old_position.y;
 
         icon.setPosition(position_x, position_y);
-        set_barrel_pos(); 
+        set_barrel_pos();
+        set_name_pos();
+    }
+    
+    
+    //Powerup collision//
+    else if (powerup != nullptr)
+    {
+        
+        if (powerup -> get_poweruptype() == 0)
+        {
+            std::cout << "Collided with shield" << std::endl;
+            ////////////////////// Hard coded: Read texture file
+            
+            if (!shield.loadFromFile("shield.png"))
+            {
+                std::cerr << "Can't open: shield.png" << std::endl;
+            }
+
+            shield_sprite.setTexture(shield);
+            
+            ////////////// HARD CODED //////////////
+            sf::Vector2u texture_size_shield { shield.getSize() };
+            shield_sprite.setOrigin((texture_size_shield.x / 2), 
+            (texture_size_shield.y / 2));
+            shield_sprite.setScale(0.3, 0.3);
+            shield_sprite.setPosition(position_x - 3, position_y - 17);
+            shield_isActive = true;
+
+        }
+        else if(powerup -> get_poweruptype() == 1)
+        {
+            std::cout << "Collided with repair kit" << std::endl;
+            hp += 20;
+        }
     }
 }
 
@@ -179,6 +205,18 @@ void Player::collision(Game_object* object, Context& context)
 void Player::set_barrel_pos()
 {
     barrel_sprite.setPosition(position_x, position_y - 17);
+
+}
+
+void Player::set_name_pos()
+{
+    name_text.setPosition(position_x, position_y - 80);
+    
+}
+
+void Player::set_shield_pos() 
+{
+    shield_sprite.setPosition(position_x, position_y - 17);
 }
 
 double Player::get_bearing() const&
@@ -191,25 +229,6 @@ int Player::get_score() const&
     return score;
 }
 
-/*void Player::activate_powerup()
-{
-    Powerup* powerup { dynamic_cast<Powerup*>(object) };
-    if (powerup != nullptr)
-    {
-        powerup.remove();
-        if (powerup.get_pwrup_type() == 0)
-        {
-
-        }
-        else if(powerup.get_pwrup_type() == 1)
-        {
-
-        }
-        //if collision with shield, load icon shield
-        //if collision with repairkit, add HP
-    }
-    
-}*/
 
 void Player::reset()
 {
