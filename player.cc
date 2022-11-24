@@ -6,6 +6,7 @@
 #include "static_object.h"
 #include "Missile.h"
 #include "PowerUp.h"
+#include "Mine.h"
 #include <string>
 #include <cmath>
 
@@ -75,7 +76,8 @@ void Player::Fire(Context& context)
     
     if (!fired)
     {
-        context.new_objects.push_back(new Missile{calc_x_position(), calc_y_position(), speed, bearing});
+        //context.new_objects.push_back(new Missile{calc_x_position(), calc_y_position(), speed, bearing});
+        context.new_objects.push_back(new Mine{calc_x_position(), calc_y_position(), speed, bearing});
         fired = true;
     }
 }
@@ -158,6 +160,7 @@ void Player::collision(Game_object* object, Context& context)
 {
     Static_object* static_object { dynamic_cast<Static_object*>(object) };
     Powerup* powerup { dynamic_cast<Powerup*>(object) };
+    Mine* mine { dynamic_cast<Mine*>(object) };
 
     if (static_object != nullptr)
     {
@@ -200,6 +203,10 @@ void Player::collision(Game_object* object, Context& context)
             std::cout << "Collided with repair kit" << std::endl;
             hp += 20;
         }
+    }
+    else if (mine != nullptr)
+    {
+        //Damage
     }
 }
 
