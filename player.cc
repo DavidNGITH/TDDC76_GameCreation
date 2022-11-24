@@ -12,13 +12,8 @@
 
 //HARD CODED:
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
-<<<<<<< player.cc
-: hp{100}, bearing{90}, score{0}, shield_isActive{false},
+:hp{100}, bearing{90}, score{0}, shield_isActive{false},
 barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}
-=======
-: hp{100}, bearing{90}, score{0}, shield_isActive{false}, playerstring{player_name},
-barrel_rotation_speed {30}, old_position{}
->>>>>>> player.cc
 {
     ////////////// HARD CODED /////////////
     speed = 100;
@@ -66,15 +61,7 @@ barrel_rotation_speed {30}, old_position{}
     barrel_sprite.setRotation(bearing);
     set_barrel_pos();
 
-
-<<<<<<< player.cc
-    hud = new Hud;
-=======
     hud = new Hud();
-    
-
-
->>>>>>> player.cc
 
 }
 
@@ -243,7 +230,7 @@ void Player::collision(Game_object* object, Context& context)
             double missile_dmg{};
             missile_dmg = check_damage(missile, missile_dmg);
             hp -= missile_dmg;
-            std::cout << "HP för " << std::to_string(player_name_var)
+            std::cout << "HP för " << player_name_var
                       << " kvar: " << hp << std::endl;
         }
     }

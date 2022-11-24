@@ -53,7 +53,6 @@ private:
     sf::Texture shield;
 
     Hud* hud;
-    std::string playerstring;
 
     double calc_y_position();
     double calc_x_position();
