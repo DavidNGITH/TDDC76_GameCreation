@@ -17,7 +17,7 @@ Game_state::Game_state(Context& context)
 
     context.objects.push_back(new Helicopter);
     context.objects.push_back(new Powerup);
-    //context.objects.push_back(new Static_object);
+    context.objects.push_back(new Static_object{context});
     //context.objects.push_back(new Static_object);
     //context.players.push_back(new Player);
 

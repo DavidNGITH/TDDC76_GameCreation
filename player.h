@@ -10,7 +10,7 @@ class Player : public Game_object
 {
 public:
     //HARD CODED:
-    Player(std::string player_texture, std::string barrel_texture, std::string player_name);
+    Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context);
 
     void handle(Context& context, sf::Event event) override;
     void update(Context& context) override;

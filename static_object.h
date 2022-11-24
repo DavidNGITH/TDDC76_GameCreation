@@ -8,7 +8,7 @@ class Static_object : public Game_object
 {
     public:
 
-    Static_object();
+    Static_object(Context& context);
 
     ~Static_object() = default;
 

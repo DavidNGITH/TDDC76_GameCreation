@@ -11,14 +11,15 @@
 
 
 //HARD CODED:
-Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name)
+Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
 : hp{100}, bearing{90}, score{0}, shield_isActive{false},
 barrel_rotation_speed {30}, old_position{}
 {
     ////////////// HARD CODED /////////////
     speed = 100;
-    position_x = rand() % 1900;
-    position_y = 878;
+    position_x = rand() % (context.map -> get_window_size().x);
+    position_y = get_ground_pos(context, position_x);
+    //position_y = 878;
     able_to_move = true;
     fired=false;
     
@@ -71,7 +72,7 @@ void Player::Aim()
 
 void Player::Fire(Context& context)
 {   
-
+    std::cout << get_ground_pos(context, position_x) << std::endl;
     
     if (!fired)
     {
@@ -102,23 +103,25 @@ void Player::move(Context& context)
         {
             old_position = icon.getPosition();
             position_x += context.delta.asSeconds() * -speed;
+            position_y = get_ground_pos(context, position_x);
             icon.setPosition (position_x, position_y);
 
-        set_barrel_pos();
-        set_shield_pos();
-        set_name_pos();
-    }
+            set_barrel_pos();
+            set_shield_pos();
+            set_name_pos();
+        }
 
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
         {
             old_position = icon.getPosition();
             position_x += context.delta.asSeconds() * speed;
+            position_y = get_ground_pos(context, position_x);
             icon.setPosition (position_x, position_y);
 
-        set_barrel_pos();
-        set_shield_pos();
-        set_name_pos();
-    }
+            set_barrel_pos();
+            set_shield_pos();
+            set_name_pos();
+        }
 
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {

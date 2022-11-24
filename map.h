@@ -19,9 +19,9 @@ class Map : public Game_object
     void render(sf::RenderWindow& window, Context& context) override;
     void collision(Game_object* object, Context& context) override; 
     bool check_collision(Game_object* object) override;
+    sf::Vector2u get_window_size();
 
-    //void update(Context& context);
-
+    sf::Image foreground_image;    
 
     private:
 
@@ -31,7 +31,7 @@ class Map : public Game_object
     sf::Texture foreground_texture;
     sf::Sprite foreground_sprite;
 
-    sf::Image foreground_image;
+   
 
     //auto image = foreground.getTexture().copyToImage();
     //auto color = image.getPixel(1,1);
