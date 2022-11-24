@@ -2,8 +2,6 @@
 #define GAME_OBJECT_H
 
 #include "SFML/Graphics.hpp"
-#include "game_state.h"
-#include "menu_state.h"
 
 struct Context; //fwd declartation
 
@@ -17,22 +15,26 @@ public:
     virtual void handle(Context& context, sf::Event event) = 0;
     virtual void update(Context& context) = 0;
     virtual void render(sf::RenderWindow& window, Context& context) = 0;
-    virtual void collision(Game_object* object) = 0; 
+    virtual void collision(Game_object* object, Context& context)  = 0; 
+    virtual bool check_collision(Game_object* object);
+    virtual void move(Context& context);
     
     bool is_removed();
     void remove();
-    virtual bool check_collision(Game_object* object) = 0;
+
+    sf::Sprite icon;
+    bool able_to_move{};
+    bool fired{};
 
 protected:
+    void load_icon(std::string path);
+    double get_ground_pos(Context& context, double x);
+
     bool removed{};
-    sf::Sprite icon;
     sf::Texture texture;
-    int position_x{};
-    int position_y{};
-    float const speed {5.0};
-
-
-private:
+    double position_x{};
+    double position_y{};
+    float speed {};
 
 
 };

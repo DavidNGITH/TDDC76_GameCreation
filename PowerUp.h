@@ -2,29 +2,30 @@
 #define POWERUP_H
 
 #include "SFML/Graphics.hpp"
-#include "Game_object.h"
+#include "game_object.h"
 
-class PowerUp :public Game_object
+class Powerup :public Game_object
 {
     public:
-
-        PowerUp();
-        //~PowerUp();
-
-        void random_powerup() const;
-
+        Powerup(double incoming_x, double incoming_y);
+        ~Powerup() = default;
+        Powerup();
         void update(Context& context) override;
-        void render(Context& context) virtual;
-        void handle(Context& context, sf::Event event) virtual;
-        void Collision() override;
-        bool is_removed() override;
-        void remove() override;
+        void render(sf::RenderWindow& window, Context& context) override;
+        void handle(Context& context, sf::Event event) override;
 
+        void collision(Game_object* object, Context& context) override; 
 
+        int get_poweruptype() const&;
 
     private:
+        int old_position_x{};
+        int old_position_y{};
 
-}
+        float speed{};
+        int randnum{};
+        bool has_stopped{};
+};
 
 
 

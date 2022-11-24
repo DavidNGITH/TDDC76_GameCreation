@@ -24,21 +24,31 @@ int main()
     std::vector<Game_object*>  new_objects{};
     std::vector<Game_object*>  players{};
     Game_object*               current_player{};
+    bool                       new_turn{false};
 
-    Context context{clock.restart(), nullptr, nullptr, objects, new_objects, players, current_player};
+    Context context{clock.restart(), nullptr, nullptr, objects, new_objects, players, current_player, new_turn};
 
 
     while (window.isOpen())
     {
         sf::Event event;
+
+        context.delta = clock.restart();
+
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
             {
                 window.close();
             }
-
             state -> handle(context, event);
+            if (context.next_state != nullptr)
+            {
+                delete state;
+                state = context.next_state;
+                context.next_state = nullptr;
+                break;
+            }
         }
 
         state -> update(context);

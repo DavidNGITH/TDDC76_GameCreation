@@ -8,21 +8,18 @@ class Static_object : public Game_object
 {
     public:
 
-    Static_object();
+    Static_object(Context& context);
 
-    void update() override;
-    void Collision() override; 
-    void render(sf::RenderWindow& window) override;
-    void handle() override;
-    bool is_removed() override;
-    void remove() override;
+    ~Static_object() = default;
+
+    void handle(Context& context, sf::Event event) override;
+    void update(Context& context) override;
+    void render(sf::RenderWindow& window, Context& context) override;
+    void collision(Game_object* object, Context& context) override;
 
     private:
 
     bool removed();
-
-    Sf::Sprite tree_sprite;
-    Sf::Texture tree_texture;
 
 };
 
