@@ -86,7 +86,6 @@ void Player::handle(Context& context, sf::Event event)
     {
         Fire(context);
         able_to_move = false;
-        hp -= 1;
     }
 }
 

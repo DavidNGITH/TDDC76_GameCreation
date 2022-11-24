@@ -2,6 +2,9 @@
 #include "player.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <iomanip>
+#include <sstream>
+#include <cmath>
 
 
 Hud::Hud()
@@ -31,12 +34,30 @@ Hud::Hud()
     player_text.setCharacterSize(40);
     player_text.setColor(sf::Color::Black);
     player_text.setString("");
-    player_text.setOrigin(hp_text.getLocalBounds().width/2,hp_text.getLocalBounds().height/2);
+    player_text.setOrigin(player_text.getLocalBounds().width/2,player_text.getLocalBounds().height/2);
 
+    //BEARING
+    bearing_text.setFont(font);
+    bearing_text.setCharacterSize(35);
+    bearing_text.setColor(sf::Color::Black);
+    bearing_text.setString("");
+    bearing_text.setOrigin(bearing_text.getLocalBounds().width/2,bearing_text.getLocalBounds().height/2);
 
+    //SCORE
+    
+    score_text.setFont(font);
+    score_text.setCharacterSize(35);
+    score_text.setColor(sf::Color::Black);
+    score_text.setString("");
+    score_text.setOrigin(score_text.getLocalBounds().width/2,score_text.getLocalBounds().height/2);
+    
     //hard-coded
-    hp_text.setPosition(570, 78.5);
-    player_text.setPosition(540, 18);
+    hp_text.setPosition(563, 65);
+    player_text.setPosition(526, 8);
+    bearing_text.setPosition(920, 64);
+    
+    
+    score_text.setPosition(1100, 64);
 }
 
 void Hud::render(sf::RenderWindow& window)
@@ -47,12 +68,18 @@ void Hud::render(sf::RenderWindow& window)
     window.draw(hud);
     window.draw(hp_text);
     window.draw(player_text);
+    window.draw(bearing_text);
+    window.draw(score_text);
 }
 
-void Hud::update(int player_hp, double player_bearing, double player_score, std::string playerstring)
+void Hud::update(int player_hp, double player_bearing, double player_score, std::string player_string)
 {
     hp_text.setString(std::to_string(player_hp));
-    player_text.setString(playerstring);
+    player_text.setString(player_string);
+    int bearing = player_bearing;
+    int score = player_score;
+    bearing_text.setString(std::to_string(bearing));
+    score_text.setString(std::to_string(score));
 }
 /*
     sf::Font font{};

@@ -27,8 +27,8 @@ class Hud
     sf::Font font;
     sf::Text hp_text;
     sf::Text player_text;
-    //sf::Text bearing_text;
-    //sf::Text score_text;
+    sf::Text bearing_text;
+    sf::Text score_text;
 };
 
 
