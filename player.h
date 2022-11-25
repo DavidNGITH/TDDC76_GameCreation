@@ -41,6 +41,7 @@ private:
     std::string player_name_var{};
     int score{};
     double bearing{};
+    double power{};
     float const barrel_rotation_speed{};
     sf::Vector2f old_position{};
 
