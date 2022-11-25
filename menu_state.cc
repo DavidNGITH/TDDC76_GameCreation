@@ -13,13 +13,19 @@
 
 Menu_state::Menu_state()
 {
-    load_map("Map/background.png");
+    //load_map("Map/background.png");
     
 
     unsigned int width{};
     unsigned int height{};
 
-    
+    campus_texture = set_texture("Map/campus.png");
+    halloween_texture = set_texture("Map/halloween.png");
+
+    campus_foreground_texture = set_texture("Map/campus_foreground.png");
+    halloween_foreground_texture = set_texture("Map/halloween_foreground.png");
+
+
 
     start_button_texture = set_texture("Textures/start_game.png");
     start_button.setTexture(start_button_texture);
@@ -29,13 +35,13 @@ Menu_state::Menu_state()
     start_button.setPosition(960, 480);
     start_button.setScale(0.5,0.5);
     
-    map_selection_texture = set_texture("Textures/map_selection.png");
-    map_selection.setTexture(map_selection_texture);
-    width = map_selection_texture.getSize().x;
-    height = map_selection_texture.getSize().y;
-    map_selection.setOrigin(width/2, height/2);
-    map_selection.setPosition(380, 850);
-    map_selection.setScale(0.5,0.5);
+    map_texture = set_texture("Textures/map.png");
+    map.setTexture(map_texture);
+    width = map_texture.getSize().x;
+    height = map_texture.getSize().y;
+    map.setOrigin(width/2, height/2);
+    map.setPosition(380, 850);
+    map.setScale(0.5,0.5);
 
     player_texture = set_texture("Textures/player.png");
     player.setTexture(player_texture);
@@ -53,21 +59,42 @@ Menu_state::Menu_state()
     title.setPosition(960, 200);
     title.setScale(2,2);
 
-    map_border_texture = set_texture("Textures/map_border.png");
-    map_border.setTexture(map_border_texture);
-    width = map_border_texture.getSize().x;
-    height = map_border_texture.getSize().y;
-    map_border.setOrigin(width/2, height/2);
-    map_border.setPosition(0, 0);
-    map_border.setScale(0.12,0.12);
+    map_selection_texture = set_texture("Textures/map_selection.png");
+    map_selection.setTexture(map_selection_texture);
+    width = map_selection_texture.getSize().x;
+    height = map_selection_texture.getSize().y;
+    map_selection.setOrigin(width/2, height/2);
+    map_selection.setPosition(0, 0);
+    map_selection.setScale(0.12,0.12);
 
-    map_preview_texture = set_texture("Map/background.png");
-    map_preview.setTexture(map_preview_texture);
-    width = map_preview_texture.getSize().x;
-    height = map_preview_texture.getSize().y;
-    map_preview.setOrigin(width/2, height/2);
-    map_preview.setPosition(650, 850);
-    map_preview.setScale(0.1,0.1);
+    
+    halloween.setTexture(halloween_texture);
+    width = halloween_texture.getSize().x;
+    height = halloween_texture.getSize().y;
+    halloween.setOrigin(width/2, height/2);
+    halloween.setPosition(650, 850);
+    halloween.setScale(0.1,0.1);
+
+    campus.setTexture(campus_texture);
+    width = campus_texture.getSize().x;
+    height = campus_texture.getSize().y;
+    campus.setOrigin(width/2, height/2);
+    campus.setPosition(950, 850);
+    campus.setScale(0.1,0.1);
+
+    halloween_foreground.setTexture(halloween_foreground_texture);
+    width = halloween_foreground_texture.getSize().x;
+    height = halloween_foreground_texture.getSize().y;
+    halloween_foreground.setOrigin(width/2, height/2);
+    halloween_foreground.setPosition(650, 850);
+    halloween_foreground.setScale(0.1,0.1);
+
+    campus_foreground.setTexture(campus_foreground_texture);
+    width = campus_foreground_texture.getSize().x;
+    height = campus_foreground_texture.getSize().y;
+    campus_foreground.setOrigin(width/2, height/2);
+    campus_foreground.setPosition(950, 850);
+    campus_foreground.setScale(0.1,0.1);
 
     add_player_img_texture = set_texture("Textures/add_player_img.png");
     add_player_img.setTexture(add_player_img_texture);
@@ -125,9 +152,9 @@ Menu_state::Menu_state()
     yellow_tank.setPosition(1200, 650);
     yellow_tank.setScale(2,2);
 
-    player_selection.setTexture(map_border_texture);
-    width = map_border_texture.getSize().x;
-    height = map_border_texture.getSize().y;
+    player_selection.setTexture(map_selection_texture);
+    width = map_selection_texture.getSize().x;
+    height = map_selection_texture.getSize().y;
     player_selection.setOrigin(width/2, height/2);
     player_selection.setPosition(0, 0);
     player_selection.setScale(0.04,0.06);
@@ -148,6 +175,7 @@ Menu_state::Menu_state()
     playerText.setFont(font);
     playerText.Bold;
 
+    
 
 }
 
@@ -161,9 +189,21 @@ void Menu_state::handle(Context& context, sf::Event event)
         {
             if(start_button.getGlobalBounds().contains(mouse.x,mouse.y))
             {  //start button
-                if(!(players.size() == 0))
+                if(map_selection.getPosition().x == campus.getPosition().x && map_selection.getPosition().y == campus.getPosition().y)
                 {
-                    context.map = new Map{"Map/background2.png", "Map/ground2.png"};
+                    map_foreground = "Map/campus_foreground.png";
+                    map_background = "Map/campus.png";
+                }
+                else if(map_selection.getPosition().x == halloween.getPosition().x && map_selection.getPosition().y == halloween.getPosition().y)
+                {
+                    map_foreground = "Map/halloween_foreground.png";
+                    map_background = "Map/halloween.png";
+                }
+
+                if(!(players.size() == 0) && (map_selection.getPosition().x != 0))
+                {
+                    context.map = new Map{map_background, map_foreground};
+
                     for(unsigned int i{0} ; i < players.size(); i++)
                     {   
                         context.players.push_back(new Player(players[i], barrels[i], names[i], context));
@@ -183,46 +223,57 @@ void Menu_state::handle(Context& context, sf::Event event)
             }
             else if(blue_tank.getGlobalBounds().contains(mouse.x,mouse.y) && !blue_active)
             {
-                player_selection.setPosition(695,650);
+                player_selection.setPosition(blue_tank.getPosition().x, blue_tank.getPosition().y);
                 player_selected = true;
                 //blue
             }
             else if(cyan_tank.getGlobalBounds().contains(mouse.x,mouse.y) && !cyan_active)
             {
-                player_selection.setPosition(795,650);
+                player_selection.setPosition(cyan_tank.getPosition().x, cyan_tank.getPosition().y);
                 player_selected = true;
                 //cyan
             }
             else if(green_tank.getGlobalBounds().contains(mouse.x,mouse.y) && !green_active)
             {
-                player_selection.setPosition(895,650);
+                player_selection.setPosition(green_tank.getPosition().x, green_tank.getPosition().y);
                 player_selected = true;
                 //green
             }
             else if(pink_tank.getGlobalBounds().contains(mouse.x,mouse.y) && !pink_active)
             {
-                player_selection.setPosition(995,650);
+                player_selection.setPosition(pink_tank.getPosition().x, pink_tank.getPosition().y);
                 player_selected = true;
                 //pink
             }
             else if(red_tank.getGlobalBounds().contains(mouse.x,mouse.y)&& !red_active)
             {
-                player_selection.setPosition(1095,650);
+                player_selection.setPosition(red_tank.getPosition().x, red_tank.getPosition().y);
                 player_selected = true;
                 //red
             }
             else if(yellow_tank.getGlobalBounds().contains(mouse.x,mouse.y) && !yellow_active)
             {
-                player_selection.setPosition(1195,650);
+                player_selection.setPosition(yellow_tank.getPosition().x, yellow_tank.getPosition().y);
                 player_selected = true;
                 //yellow
             }
-            else if(map_preview.getGlobalBounds().contains(mouse.x,mouse.y))
+            else if(campus.getGlobalBounds().contains(mouse.x,mouse.y))
             {
-                map_border.setPosition(650,850);
+                map_selection.setPosition(campus.getPosition().x, campus.getPosition().y);
                 map_selected = true;
+                background.setTexture(campus_texture);
                 //campus
             }
+            else if(halloween.getGlobalBounds().contains(mouse.x,mouse.y))
+            {
+                map_selection.setPosition(halloween.getPosition().x, halloween.getPosition().y);
+                map_selected = true;
+                background.setTexture(halloween_texture);
+                //campus
+            }
+            
+
+
                 
            
         }
@@ -264,15 +315,23 @@ void Menu_state::render(sf::RenderWindow& window, Context& context)
 
     window.draw(player);
 
-    window.draw(map_selection);
+    window.draw(map);
 
-    window.draw(map_preview);
+    window.draw(campus);
+
+    window.draw(halloween);
+
+    window.draw(campus_foreground);
+
+    window.draw(halloween_foreground);
 
     window.draw(add_player_img);
 
     window.draw(input_box);
 
     window.draw(playerText);
+
+
 
 
     if(!blue_active)
@@ -315,13 +374,13 @@ void Menu_state::render(sf::RenderWindow& window, Context& context)
     }
     if(map_selected)
     {
-        window.draw(map_border);
+        window.draw(map_selection);
     }
 }
 
 void Menu_state::add_player()
 {
-    if(player_selection.getPosition().x == 695 && player_selection.getPosition().y == 650)
+    if(player_selection.getPosition().x == blue_tank.getPosition().x && player_selection.getPosition().y == blue_tank.getPosition().y)
     {   
         //blue
         std::cout << "blue_tank_added" << std::endl;
@@ -336,7 +395,7 @@ void Menu_state::add_player()
 
         
     }
-    else if(player_selection.getPosition().x == 795 && player_selection.getPosition().y == 650)
+    else if(player_selection.getPosition().x == cyan_tank.getPosition().x && player_selection.getPosition().y == cyan_tank.getPosition().y)
     {   
         //cyan
         std::cout << "cyan_tank_added" << std::endl;
@@ -349,7 +408,7 @@ void Menu_state::add_player()
         playerInput = "";
         playerText.setString(playerInput);
     }
-    else if(player_selection.getPosition().x == 895 && player_selection.getPosition().y == 650)
+    else if(player_selection.getPosition().x == green_tank.getPosition().x && player_selection.getPosition().y == green_tank.getPosition().y)
     {   
         //green
         std::cout << "green_tank_added" << std::endl;
@@ -362,7 +421,7 @@ void Menu_state::add_player()
         playerInput = "";
         playerText.setString(playerInput);
     }
-    else if(player_selection.getPosition().x == 995 && player_selection.getPosition().y == 650)
+    else if(player_selection.getPosition().x == pink_tank.getPosition().x && player_selection.getPosition().y == pink_tank.getPosition().y)
     {   
         //pink
         std::cout << "pink_tank_added" << std::endl;
@@ -375,7 +434,7 @@ void Menu_state::add_player()
         playerInput = "";
         playerText.setString(playerInput);
     }
-    else if(player_selection.getPosition().x == 1095 && player_selection.getPosition().y == 650)
+    else if(player_selection.getPosition().x == red_tank.getPosition().x && player_selection.getPosition().y == red_tank.getPosition().y)
     {
         //red
         std::cout << "red_tank_added" << std::endl;
@@ -388,7 +447,7 @@ void Menu_state::add_player()
         playerInput = "";
         playerText.setString(playerInput);
     }
-    else if(player_selection.getPosition().x == 1195 && player_selection.getPosition().y == 650)
+    else if(player_selection.getPosition().x == yellow_tank.getPosition().x && player_selection.getPosition().y == yellow_tank.getPosition().y)
     {   
         //yellow
         std::cout << "yellow_tank_added" << std::endl;

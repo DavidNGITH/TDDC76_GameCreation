@@ -24,14 +24,15 @@ protected:
     bool expolde{};
 
 private:
-    sf::CircleShape missile;
+    //sf::CircleShape missile;
 
     //variables
     double speed_x{};
     double speed_y{};
     double acceleration_y{};
     double i{0};
-
+    sf::Sprite boom_sprite;
+    sf::Texture boom;
 
 };
 

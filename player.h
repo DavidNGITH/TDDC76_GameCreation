@@ -21,6 +21,7 @@ public:
 
     double get_bearing() const&;
     int get_score() const&;
+    double check_damage(Game_object* object, double missile_dmg);
 
     void reset();
     
@@ -33,12 +34,12 @@ private:
     void set_barrel_pos();
     void set_shield_pos();
     void set_name_pos();
-    void Aim();
     void Fire(Context& context);
     
-
+    std::string player_name_var{};
     int score{};
     double bearing{};
+    double power{};
     float const barrel_rotation_speed{};
     sf::Vector2f old_position{};
 
@@ -56,7 +57,7 @@ private:
 
     double calc_y_position();
     double calc_x_position();
-    
+    int ammo_array [3]= { 2, 1, 4 };
     
     
 };

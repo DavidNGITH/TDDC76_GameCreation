@@ -73,6 +73,8 @@ void Missile::render(sf::RenderWindow& window, Context& context)
 {
     window.draw(icon);
     std::cout << "render" << std::endl;
+
+    window.draw(boom_sprite);
 }
 
 void Missile::collision(Game_object* object, Context& context)
@@ -98,17 +100,34 @@ void Missile::collision(Game_object* object, Context& context)
 
 void Missile::Explosion(Context& context)
 {
-    
-    load_icon("textures_new/boom.png");
+
+            
+    if (!boom.loadFromFile("textures_new/boom.png"))
+    {
+        std::cerr << "Can't open: boom.png" << std::endl;
+    }
+
+    boom_sprite.setTexture(boom);
+            
+    ////////////// HARD CODED //////////////
+    sf::Vector2u texture_size_boom { boom.getSize() };
+    boom_sprite.setOrigin(texture_size_boom.x/2, texture_size_boom.y/2);
+    boom_sprite.setScale(0.1, 0.1);
+    boom_sprite.setPosition(position_x, position_y);
+
+    i+= context.delta.asSeconds();
+            
+    /*load_icon("textures_new/helicopter.png");
     std::cout<< "boom" << std::endl;
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y/2);
-    icon.setPosition(position_x, position_y);
-    //icon.setPosition(500, 500);
-    icon.setScale(0.1,0.1);
+    //icon.setPosition(position_x, position_y);
+    icon.setPosition(500, 500);
+    icon.setScale(5,5);
     i+= context.delta.asSeconds();
     std::cout<< i << std::endl;
     std::cout<< position_x << position_y << std::endl;
+    */
 
 
 
