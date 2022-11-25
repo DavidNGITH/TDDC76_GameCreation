@@ -88,7 +88,7 @@ void Player::handle(Context& context, sf::Event event)
 
 void Player::update(Context& context)
 {
-    hud -> update(hp, bearing, power, score, player_name_var);
+    hud -> update(hp, bearing, score, power, player_name_var);
 }
 
 void Player::move(Context& context)
@@ -292,4 +292,14 @@ double Player::calc_x_position()
 double Player::calc_y_position()
 {
     return position_y - 30 - sin(bearing * M_PI/180) * barrel.getSize().x;
+}
+
+void Player::update_score(Context & context)
+{
+    if(context.current_player == this)
+    {
+        score += 10;
+    }
+
+    
 }
