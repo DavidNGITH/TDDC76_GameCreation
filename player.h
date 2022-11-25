@@ -19,6 +19,10 @@ public:
     void collision(Game_object* object, Context& context) override;
     void move(Context& context) override;
 
+    void update_score(Context & context) override;
+
+    double get_bearing() const&;
+    int get_score() const&;
     double check_damage(Game_object* object, double missile_dmg);
 
     void reset();
