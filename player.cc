@@ -163,18 +163,8 @@ void Player::collision(Game_object* object, Context& context)
     Powerup* powerup { dynamic_cast<Powerup*>(object) };
     Missile* missile { dynamic_cast<Missile*>(object) };
 
-    if (static_object != nullptr)
-    {
-        position_x = old_position.x;
-        position_y = old_position.y;
-
-        icon.setPosition(position_x, position_y);
-        set_barrel_pos();
-        set_name_pos();
-    }
-
     
-    if (other_player != nullptr)
+    if (other_player != nullptr || static_object != nullptr)
     {
         position_x = old_position.x;
         position_y = old_position.y;
