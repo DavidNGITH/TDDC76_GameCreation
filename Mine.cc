@@ -31,17 +31,6 @@ Mine::Mine(double incoming_position_x, double incoming_position_y, double speed,
 
 void Mine::update(Context& context)
 {
-    /*speed_y += acceleration_y * context.delta.asSeconds();
-    position_x += speed_x*context.delta.asSeconds();
-    position_y += speed_y*context.delta.asSeconds()+ acceleration_y*context.delta.asSeconds()*context.delta.asSeconds()/2;
-    icon.setPosition(position_x, position_y);*/
-    //if (!is_active)
-    //{
-        /*if (is_active)
-        {
-            context.new_turn = true;
-            std::cout << "Vi kom in här i denna kuliga funktionen" << std::endl;
-        }*/
         if (!has_stopped)
         {
             //std::cout<< "Här då?" << std::endl;
@@ -67,6 +56,10 @@ void Mine::update(Context& context)
 void Mine::render(sf::RenderWindow& window, Context& context)
 {
     window.draw(icon);
+    if (explode)
+    {
+        window.draw(expl_sprite);
+    }
 }
 
 void Mine::handle(Context& context, sf::Event event)
@@ -86,7 +79,6 @@ void Mine::collision(Game_object* object, Context& context)
     {
         std::cout<< "Kollision" << std::endl;
         context.new_turn = true;
-        //able_to_move = true;
         
         remove();
 
@@ -96,22 +88,29 @@ void Mine::collision(Game_object* object, Context& context)
         std::cout<< "Kollision" << std::endl;
         static_object -> remove();
         context.new_turn = true;
-
         remove();
+
+        explode = true;
+        explosion(context, position_x, position_y);
         
     }
-    //////////////////////// Ta bort new turn senare
+
     else if (player != nullptr)
     {
-        //Damage
-        //context.new_turn = true;
-        
         remove();
+        explode = true;
+        explosion(context, position_x, position_y);
+
+        if (!is_active)
+        {
+            context.new_turn = true;
+        }
+
+
     }
     
     if (map != nullptr && !is_active)
     {
-        //context.new_turn = true;
         position_x = old_position_x;
         position_y = old_position_y;
         icon.setPosition(position_x, position_y);
@@ -121,6 +120,30 @@ void Mine::collision(Game_object* object, Context& context)
         is_active = true;
         
         context.new_turn = true;
-        //able_to_move = true;
     }
+}
+
+void Mine::explosion(Context& context, int incoming_position_x, int incoming_position_y)
+{
+    int i = 0;
+
+    if (!expl.loadFromFile("explosion.png"))
+    {
+        std::cerr << "Can't open: explosion.png" << std::endl;
+    }
+
+    expl_sprite.setTexture(expl);
+
+    sf::Vector2u texture_size_explosion { expl.getSize() };
+    expl_sprite.setOrigin((texture_size_explosion.x / 2), (texture_size_explosion.y / 2));
+    expl_sprite.setScale(0.1, 0.1);
+    expl_sprite.setPosition(position_x, position_y);
+
+    i += context.delta.asSeconds();
+
+    if (i > 1)
+    {
+        remove();
+    }
+
 }
