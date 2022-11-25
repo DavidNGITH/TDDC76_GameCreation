@@ -293,3 +293,13 @@ double Player::calc_y_position()
 {
     return position_y - 30 - sin(bearing * M_PI/180) * barrel.getSize().x;
 }
+
+void Player::update_score(Context & context)
+{
+    if(context.current_player == this)
+    {
+        score += 10;
+    }
+
+    
+}
