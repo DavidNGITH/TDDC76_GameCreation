@@ -33,6 +33,7 @@ protected:
     int hp{};
 
 private:
+    void set_pos();
     void set_barrel_pos();
     void set_shield_pos();
     void set_name_pos();

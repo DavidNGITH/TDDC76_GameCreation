@@ -17,13 +17,15 @@ barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}
 {
     ////////////// HARD CODED /////////////
     speed = 100;
-    position_x = rand() % (context.map -> get_window_size().x);
+    //position_x = rand() % (context.map -> get_window_size().x);
+    position_x = rand() % (context.map -> get_window_size().x-200 + 1) + 100;
     position_y = get_ground_pos(context, position_x);
     able_to_move = true;
     fired=false;
     std::cout << "Ammo array at 0: " << ammo_array[0] << std::endl;
     std::cout << "Ammo array at 1: " << ammo_array[1] << std::endl;
     std::cout << "Ammo array at 2: " << ammo_array[2] << std::endl;
+    std::cout << position_x << std::endl;
     
 
 
@@ -72,7 +74,7 @@ void Player::Fire(Context& context)
     if (!fired)
     {
         context.new_objects.push_back(new Missile{calc_x_position(),
-         calc_y_position(), speed, bearing});
+        calc_y_position(), speed, bearing});
         fired = true;
     }
 }
@@ -101,11 +103,15 @@ void Player::move(Context& context)
             old_position = icon.getPosition();
             position_x += context.delta.asSeconds() * -speed;
             position_y = get_ground_pos(context, position_x);
-            icon.setPosition (position_x, position_y);
 
-            set_barrel_pos();
-            set_shield_pos();
-            set_name_pos();
+            if (icon.getGlobalBounds().left < 0)
+            {
+                position_x = old_position.x;
+                position_y = old_position.y;
+            }
+            
+            set_pos();
+
         }
 
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
@@ -113,11 +119,15 @@ void Player::move(Context& context)
             old_position = icon.getPosition();
             position_x += context.delta.asSeconds() * speed;
             position_y = get_ground_pos(context, position_x);
-            icon.setPosition (position_x, position_y);
 
-            set_barrel_pos();
-            set_shield_pos();
-            set_name_pos();
+            if (icon.getGlobalBounds().left + icon.getGlobalBounds().width > context.map -> get_window_size().x)
+            {
+                position_x = old_position.x;
+                position_y = old_position.y;
+            }
+            
+            set_pos();
+
         }
 
         else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -169,9 +179,7 @@ void Player::collision(Game_object* object, Context& context)
         position_x = old_position.x;
         position_y = old_position.y;
 
-        icon.setPosition(position_x, position_y);
-        set_barrel_pos();
-        set_name_pos();
+        set_pos();
     }
     
     
@@ -196,7 +204,7 @@ void Player::collision(Game_object* object, Context& context)
             shield_sprite.setOrigin((texture_size_shield.x / 2), 
             (texture_size_shield.y / 2));
             shield_sprite.setScale(0.3, 0.3);
-            shield_sprite.setPosition(position_x - 3, position_y - 17);
+            set_shield_pos();
             shield_isActive = true;
 
         }
@@ -240,6 +248,13 @@ double Player::check_damage(Game_object* object, double missile_dmg)
 
 }
 
+void Player::set_pos()
+{
+    icon.setPosition (position_x, position_y);
+    set_barrel_pos();
+    set_shield_pos();
+    set_name_pos();
+}
 
 void Player::set_barrel_pos()
 {
