@@ -1,5 +1,6 @@
 #include "static_object.h"
 #include "context.h"
+#include "Missile.h"
 #include "SFML/Graphics.hpp"
 
 #include <iostream> //TA BORT SEN
@@ -33,6 +34,13 @@ void Static_object::render(sf::RenderWindow& window, Context& context)
 }
 
 void Static_object::collision(Game_object* object, Context& context)
-{}
+{
+    Missile* missile{dynamic_cast<Missile*>(object)};
+
+    if (missile != nullptr)
+    {
+        remove();
+    }
+}
 
 
