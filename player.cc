@@ -291,12 +291,12 @@ void Player::reset()
 
 double Player::calc_x_position()
 {
-    return position_x - cos(bearing*M_PI/180) * barrel.getSize().x;
+    return position_x - cos(bearing*M_PI/180) * (barrel.getSize().x + 6);
 }
 
 double Player::calc_y_position()
 {
-    return position_y - 30 - sin(bearing * M_PI/180) * barrel.getSize().x;
+    return position_y - 30 - sin(bearing * M_PI/180) * (barrel.getSize().x + 6);
 }
 
 void Player::update_score(Context & context)
