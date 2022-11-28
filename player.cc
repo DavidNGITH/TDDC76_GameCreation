@@ -12,7 +12,7 @@
 
 //HARD CODED:
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
-:hp{100}, bearing{90}, score{0}, power{0}, fuel{0} shield_isActive{false},
+:hp{100}, bearing{90}, score{0}, power{0}, fuel{0}, curr_weapon{3}, shield_isActive{false},
 barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}
 {
     ////////////// HARD CODED /////////////
@@ -90,7 +90,7 @@ void Player::handle(Context& context, sf::Event event)
 
 void Player::update(Context& context)
 {
-    hud -> update(hp, bearing, score, power, player_name_var);
+    hud -> update(hp, bearing, power, fuel, curr_weapon, score, player_name_var);
 }
 
 void Player::move(Context& context)
