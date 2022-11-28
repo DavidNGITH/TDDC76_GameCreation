@@ -40,6 +40,7 @@ private:
     
     std::string player_name_var{};
     int score{};
+    int fuel{};
     double bearing{};
     double power{};
     float const barrel_rotation_speed{};

@@ -12,7 +12,7 @@
 
 //HARD CODED:
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
-:hp{100}, bearing{90}, score{0}, power{0}, shield_isActive{false},
+:hp{100}, bearing{90}, score{0}, power{0}, fuel{0} shield_isActive{false},
 barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}
 {
     ////////////// HARD CODED /////////////
