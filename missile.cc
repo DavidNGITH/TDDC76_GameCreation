@@ -90,6 +90,10 @@ void Missile::collision(Game_object* object, Context& context)
     {
         //Explosion();
         std::cout<< "Kollision" << std::endl;
+        if(player != nullptr && context.current_player != player)
+        {
+            context.current_player -> update_score(context);
+        }
         context.new_turn = true;
         able_to_move = true;
         expolde = true;

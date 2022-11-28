@@ -43,15 +43,6 @@ void Game_state::handle(Context& context, sf::Event event)
         }
     }
 
-    //Check collision with other players
-    for (unsigned int i{0}; i < context.players.size(); i++)
-    {
-        if (context.current_player -> check_collision(context.players.at(i)) && context.current_player != context.players.at(i))
-        {
-            context.current_player -> collision(context.players.at(i));
-        }
-    }
-
     //Check collsion with wall*/
     
 }
@@ -81,6 +72,15 @@ void Game_state::update(Context& context)
                 context.objects.at(i) -> collision(context.objects.at(j), context);
                 context.objects.at(j) -> collision(context.objects.at(i), context);
             }
+        }
+    }
+
+    //Check collision with other players
+    for (unsigned int i{0}; i < context.players.size(); i++)
+    {
+        if (context.current_player -> check_collision(context.players.at(i)) && context.current_player != context.players.at(i))
+        {
+            context.current_player -> collision(context.players.at(i), context);
         }
     }
     
