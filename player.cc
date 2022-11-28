@@ -181,6 +181,17 @@ void Player::collision(Game_object* object, Context& context)
 
         set_pos();
     }
+
+    
+    if (other_player != nullptr)
+    {
+        position_x = old_position.x;
+        position_y = old_position.y;
+
+        icon.setPosition(position_x, position_y);
+        set_barrel_pos();
+        set_name_pos();
+    }
     
     
     //Powerup collision//
