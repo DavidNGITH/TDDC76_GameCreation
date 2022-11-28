@@ -102,7 +102,7 @@ void Missile::Explosion(Context& context)
 {
 
             
-    if (!boom.loadFromFile("textures_new/boom.png"))
+    if (!boom.loadFromFile("textures_new/boom_2.png"))
     {
         std::cerr << "Can't open: boom.png" << std::endl;
     }
@@ -112,7 +112,7 @@ void Missile::Explosion(Context& context)
     ////////////// HARD CODED //////////////
     sf::Vector2u texture_size_boom { boom.getSize() };
     boom_sprite.setOrigin(texture_size_boom.x/2, texture_size_boom.y/2);
-    boom_sprite.setScale(0.1, 0.1);
+    boom_sprite.setScale(0.3, 0.3);
     boom_sprite.setPosition(position_x, position_y);
 
     i+= context.delta.asSeconds();
@@ -131,7 +131,7 @@ void Missile::Explosion(Context& context)
 
 
 
-    if(i > 1)
+    if(i > 0.5)
     {
         remove();
     }
