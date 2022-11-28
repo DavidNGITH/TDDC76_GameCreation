@@ -23,41 +23,25 @@ Hud::Hud()
     font.loadFromFile("Textures/Minecraft.ttf");
 
     //HP
+    /*
     hp_text.setFont(font);
     hp_text.setCharacterSize(35);
     hp_text.setColor(sf::Color::Black);
     hp_text.setString("");
     hp_text.setOrigin(hp_text.getLocalBounds().width/2,hp_text.getLocalBounds().height/2);
+    */
+    text_init(hp_text, 35);
+    text_init(player_text, 40);
+    text_init(score_text, 35);
+    text_init(power_text, 35);
+    text_init(bearing_text, 35);
 
-    //PLAYERNAME
-    player_text.setFont(font);
-    player_text.setCharacterSize(40);
-    player_text.setColor(sf::Color::Black);
-    player_text.setString("");
-    player_text.setOrigin(player_text.getLocalBounds().width/2,player_text.getLocalBounds().height/2);
-
-    //BEARING
-    bearing_text.setFont(font);
-    bearing_text.setCharacterSize(35);
-    bearing_text.setColor(sf::Color::Black);
-    bearing_text.setString("");
-    bearing_text.setOrigin(bearing_text.getLocalBounds().width/2,bearing_text.getLocalBounds().height/2);
-
-    //SCORE
-    
-    score_text.setFont(font);
-    score_text.setCharacterSize(35);
-    score_text.setColor(sf::Color::Black);
-    score_text.setString("");
-    score_text.setOrigin(score_text.getLocalBounds().width/2,score_text.getLocalBounds().height/2);
-    
     //hard-coded
     hp_text.setPosition(563, 65);
-    player_text.setPosition(526, 8);
-    bearing_text.setPosition(920, 64);
-    
-    
-    score_text.setPosition(1100, 64);
+    player_text.setPosition(522, 6.5);
+    bearing_text.setPosition(920, 65);
+    score_text.setPosition(1191, 40);
+    power_text.setPosition(920, 6.5);
 }
 
 void Hud::render(sf::RenderWindow& window)
@@ -70,16 +54,19 @@ void Hud::render(sf::RenderWindow& window)
     window.draw(player_text);
     window.draw(bearing_text);
     window.draw(score_text);
+    window.draw(power_text);
 }
 
-void Hud::update(int player_hp, double player_bearing, double player_score, std::string player_string)
+void Hud::update(int player_hp, double player_bearing, double player_score, double player_power, std::string player_string)
 {
     hp_text.setString(std::to_string(player_hp));
     player_text.setString(player_string);
     int bearing = player_bearing;
     int score = player_score;
+    int power = player_power;
     bearing_text.setString(std::to_string(bearing));
     score_text.setString(std::to_string(score));
+    power_text.setString(std::to_string(power));
 }
 /*
     sf::Font font{};
@@ -95,3 +82,13 @@ void Hud::update(int player_hp, double player_bearing, double player_score, std:
     auto bounds { bearing_text.getGlobalBounds () };
     bearing_text.setPosition ((1920) / 2 - bounds, 200);
     //GLÖM EJ WINDOW.DRAW i render!!*/
+
+void Hud::text_init(sf::Text& text, int char_size)
+{
+    text.setFont(font);
+    text.setCharacterSize(char_size);
+    text.setColor(sf::Color::Black);
+    text.setString("");
+    text.setOrigin(text.getLocalBounds().width/2,text.getLocalBounds().height/2);
+    std::cout << char_size << std::endl;
+}

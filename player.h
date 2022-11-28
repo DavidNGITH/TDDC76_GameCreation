@@ -19,6 +19,8 @@ public:
     void collision(Game_object* object, Context& context) override;
     void move(Context& context) override;
 
+    void update_score(Context & context) override;
+
     double get_bearing() const&;
     int get_score() const&;
     double check_damage(Game_object* object, double missile_dmg);
@@ -31,6 +33,7 @@ protected:
     int hp{};
 
 private:
+    void set_pos();
     void set_barrel_pos();
     void set_shield_pos();
     void set_name_pos();
@@ -39,6 +42,7 @@ private:
     std::string player_name_var{};
     int score{};
     double bearing{};
+    double power{};
     float const barrel_rotation_speed{};
     sf::Vector2f old_position{};
 
