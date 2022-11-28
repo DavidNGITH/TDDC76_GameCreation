@@ -9,8 +9,8 @@
 #include <iostream>
 #include "standard_missile.h"
 
-Missile::Missile(double incoming_position_x, double incoming_position_y,double speed, double bearing)
-:speed_x{cos((180-bearing)*M_PI/180)*800}, speed_y{sin((180-bearing)*M_PI/180)*-800}, acceleration_y{400}, expolde{false}
+Missile::Missile(double incoming_position_x, double incoming_position_y,double power, double bearing)
+:speed_x{cos((180-bearing)*M_PI/180)*15*power}, speed_y{sin((180-bearing)*M_PI/180)*(-15*power)}, acceleration_y{400}, expolde{false}
 {
     position_x = incoming_position_x;
     position_y = incoming_position_y+10;
@@ -89,6 +89,7 @@ void Missile::collision(Game_object* object, Context& context)
     if((player !=nullptr || helicopter!=nullptr || static_object!=nullptr || map !=nullptr) && !expolde)
     {
         //Explosion();
+Missile::Missile(double incoming_position_x, double incoming_position_y,double po
         std::cout<< "Kollision" << std::endl;
         if(player != nullptr && context.current_player != player)
         {

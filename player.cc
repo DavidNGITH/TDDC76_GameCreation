@@ -12,7 +12,7 @@
 
 //HARD CODED:
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
-:hp{100}, bearing{90}, score{0}, power{0}, fuel{0}, curr_weapon{3}, shield_isActive{false},
+:hp{100}, bearing{90}, score{0}, power{50}, shield_isActive{false},
 barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}
 {
     ////////////// HARD CODED /////////////
@@ -74,7 +74,7 @@ void Player::Fire(Context& context)
     if (!fired)
     {
         context.new_objects.push_back(new Missile{calc_x_position(),
-        calc_y_position(), speed, bearing});
+        calc_y_position(), power, bearing});
         fired = true;
     }
 }
@@ -85,6 +85,7 @@ void Player::handle(Context& context, sf::Event event)
     {
         Fire(context);
         able_to_move = false;
+
     }
 }
 
@@ -146,10 +147,30 @@ void Player::move(Context& context)
                 bearing -= context.delta.asSeconds() * barrel_rotation_speed;
                 barrel_sprite.setRotation(bearing);
             }
-
         }
+        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Add))
+        {
+            if (power <100)
+            {
+                power += context.delta.asSeconds() * 10;
+                std::cout << power << std::endl;
+
+            }
+        
+        }
+        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract))
+        {
+            if (power >0)
+            {
+                power -= context.delta.asSeconds() * 10;
+                std::cout << power << std::endl;
+
+            }
+        
+        }       
     }    
 }
+
 
 void Player::render(sf::RenderWindow& window, Context& context)
 {
