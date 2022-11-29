@@ -21,7 +21,7 @@ FILE13=Mine
 
 
 
-OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE5).o $(FILE6).o $(FILE7).o $(FILE9).o $(FILE10).o $(FILE8).o $(FILE11).o $(FILE13).o 
+OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE5).o $(FILE6).o $(FILE7).o $(FILE9).o $(FILE10).o $(FILE8).o $(FILE11).o 
 
 output: $(OBJS)
 	$(CC) $(OBJS) -o a.out $(LIBS)
@@ -65,8 +65,8 @@ $(FILE11).o: $(FILE11).cc
 #$(FILE12).o: $(FILE12).cc
 #	$(CC) $(CCFLAGS) $(FILE12).cc $(LIBS)
 
-$(FILE13).o: $(FILE13).cc
-	$(CC) $(CCFLAGS) $(FILE13).cc $(LIBS)
+#$(FILE13).o: $(FILE13).cc
+#	$(CC) $(CCFLAGS) $(FILE13).cc $(LIBS)
 
 
 clean:
