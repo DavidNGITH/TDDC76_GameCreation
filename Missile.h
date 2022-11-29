@@ -17,19 +17,22 @@ public:
     void update(Context& context) override;
     void render(sf::RenderWindow& window, Context& context) override;
     void collision(Game_object* object, Context& context) override;
+    void Explosion(Context& context);
  
 
 protected:
     bool expolde{};
 
 private:
-    sf::CircleShape missile;
+    //sf::CircleShape missile;
 
     //variables
     double speed_x{};
     double speed_y{};
     double acceleration_y{};
-
+    double i{0};
+    sf::Sprite boom_sprite;
+    sf::Texture boom;
 
 };
 

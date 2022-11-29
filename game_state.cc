@@ -162,7 +162,6 @@ void Game_state::update(Context& context)
             context.current_player = context.players.at(0);
         }
         
-        
         else
         {
             context.current_player = context.players.at(i+1);
