@@ -19,8 +19,7 @@ public:
 
 
     void collision(Game_object* object, Context& context) override; 
-    void explosion(Context& context); //, int position_x, int position_y);
-
+    void explosion(Context& context);
 
 protected:
     bool explode{};
@@ -30,12 +29,13 @@ private:
     double speed_y{};
     double acceleration_y{};
     double bearing{};
+    double power{};
     bool has_stopped{};
     bool is_active{};
 
     int old_position_x{};
     int old_position_y{};
-    double i{0};
+    double time{0};
 
     sf::Sprite expl_sprite;
     sf::Texture expl;
