@@ -7,13 +7,11 @@
 class Shower_Missile : public Missile
 {
 public:
-    void Explosion();
+    using Missile::Missile;
+
+    void update(Context& context) override;
+
     void split_missile();
-
-
-
-
-
 
 private:
     std::string type{"Shower Missile"};
