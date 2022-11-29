@@ -23,6 +23,8 @@ class Helicopter :public Game_object
 
 
     private:
+    void reset();
+
     float stop_coordinate{};
     int is_active{};
     int has_stopped{};
