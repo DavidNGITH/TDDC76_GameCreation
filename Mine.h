@@ -11,7 +11,7 @@ class Mine : public Game_object
 {
 public:
     Mine(double incoming_position_x, double incoming_position_y, double speed, double bearing);
-    ~Mine() = default;
+    virtual ~Mine();
 
     void update(Context& context) override;
     void render(sf::RenderWindow& window, Context& context) override;
@@ -19,9 +19,11 @@ public:
 
 
     void collision(Game_object* object, Context& context) override; 
-    void explosion(Context& context, int position_x, int position_y);
+    void explosion(Context& context); //, int position_x, int position_y);
 
 
+protected:
+    bool explode{};
 
 private:
     double speed_x{};
@@ -30,9 +32,10 @@ private:
     double bearing{};
     bool has_stopped{};
     bool is_active{};
-    bool explode{};
+
     int old_position_x{};
     int old_position_y{};
+    double i{0};
 
     sf::Sprite expl_sprite;
     sf::Texture expl;

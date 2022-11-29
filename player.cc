@@ -78,8 +78,8 @@ void Player::Fire(Context& context)
         context.new_objects.push_back(new Mine{calc_x_position(), calc_y_position(), speed, bearing});
         //context.new_objects.push_back(new Missile{calc_x_position(),
         // calc_y_position(), speed, bearing});
-        context.new_objects.push_back(new Missile{calc_x_position(),
-        calc_y_position(), speed, bearing});
+        //context.new_objects.push_back(new Missile{calc_x_position(),
+        //calc_y_position(), speed, bearing});
         fired = true;
     }
 }
