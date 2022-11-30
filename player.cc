@@ -8,6 +8,11 @@
 #include "PowerUp.h"
 #include <string>
 #include <cmath>
+#include "shower_missile.h"
+#include "standard_missile.h"
+#include "split_missile.h"
+
+
 
 
 //HARD CODED
@@ -85,8 +90,7 @@ void Player::Fire(Context& context)
     
     if (!fired)
     {
-        context.new_objects.push_back(new Missile{calc_x_position(),
-        calc_y_position(), power, bearing});
+        context.new_objects.push_back(new Shower_Missile{calc_x_position(), calc_y_position(), power, bearing});
         fired = true;
     }
 }

@@ -9,7 +9,7 @@ class Missile : public Game_object
 {
 public:
 // Constructors / destructors
-    Missile(double  incoming_position_x, double  incoming_position_y, double  speed, double  bearing);
+Missile() = default;
 
 //Functions
     virtual void handle(Context& context, sf::Event event) override;
