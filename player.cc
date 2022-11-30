@@ -20,7 +20,7 @@
 
 ///////////// Constructor /////////////////////
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
-:hp{100}, bearing{90}, score{0}, power{50}, shield_isActive{false}, curr_weapon{1},
+:hp{100}, fuel{100}, bearing{90}, score{0}, power{50}, shield_isActive{false}, curr_weapon{1},
 barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_missile{nullptr}
 {
     ////////////// HARD CODED /////////////
@@ -145,11 +145,12 @@ void Player::move(Context& context)
 {
     if(able_to_move)
     {    
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && fuel > 0)
         {
             old_position = icon.getPosition();
             position_x += context.delta.asSeconds() * -speed;
             position_y = get_ground_pos(context, position_x);
+            fuel -= (context.delta.asSeconds()*speed)/10;
 
             if (icon.getGlobalBounds().left < 0)
             {
@@ -161,11 +162,12 @@ void Player::move(Context& context)
 
         }
 
-        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && fuel > 0)
         {
             old_position = icon.getPosition();
             position_x += context.delta.asSeconds() * speed;
             position_y = get_ground_pos(context, position_x);
+            fuel -= (context.delta.asSeconds()*speed)/10;
 
             if (icon.getGlobalBounds().left + icon.getGlobalBounds().width > context.map -> get_window_size().x)
             {

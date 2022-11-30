@@ -44,7 +44,7 @@ private:
     
     //Player vars
     int score{};
-    int fuel{};
+    double fuel{};
     double bearing{};
     double power{};
     int curr_weapon{};
