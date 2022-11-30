@@ -9,6 +9,8 @@
 #include "PowerUp.h"
 #include "static_object.h"
 #include <iostream>
+#include "state.h"
+#include "menu_state.h"
 
 
 Game_state::Game_state(Context& context)
@@ -29,8 +31,44 @@ Game_state::Game_state(Context& context)
 }
 
 void Game_state::handle(Context& context, sf::Event event)
-{
+{   
+
     context.current_player -> handle(context, event);
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    {   
+        
+        for(unsigned int i{0} ; i < context.objects.size(); i++)
+        {   
+            delete context.objects[i];
+            //context.objects[i] = nullptr;
+        }
+       
+        std::cout << context.objects.size() << std::endl;
+        for(unsigned int j{0} ; j < context.players.size(); j++)
+        {   
+            delete context.players[j];
+            //context.players[j] = nullptr;
+        }
+        
+        delete context.map;
+
+        context.players.clear();
+        context.objects.clear();
+
+        //std::cout << context.players.size() << std::endl;
+        
+        
+        //std::cout << "Lyckats delete map" << std::endl;
+        //~Game_state();
+        context.next_state = new Menu_state{};
+        std::cout << "Lyckats skapa ny menu_state" << std::endl;
+        
+    }
+
+    
+
+    
 
     /*//Check collsion with other objects
     for (unsigned int i{0}; i < context.objects.size(); i++)
@@ -225,3 +263,8 @@ void Game_state::render(sf::RenderWindow& window, Context& context)
 
 
 }
+
+/*Game_state::~Game_state()
+{
+    
+}*/
