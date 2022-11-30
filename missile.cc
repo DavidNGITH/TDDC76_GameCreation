@@ -107,6 +107,7 @@ void Missile::Explosion(Context& context)
         boom_sprite.setOrigin(texture_size_boom.x/2, texture_size_boom.y/2);
         boom_sprite.setScale(0.3, 0.3);
         boom_sprite.setPosition(position_x, position_y);
+        icon.setPosition(0, 0);
     }
     
     i+= context.delta.asSeconds();

@@ -72,18 +72,15 @@ barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_m
 }
 
 ///////////////////// Destructor ///////////////////
-/*Player::~Player()
+Player::~Player()
 {
     //Spara undan det som ska sparas, score
     //Ta bort hud och sen ta bort player
-    hud -> ~Hud();
     delete hud;
 
-    delete context.currentplayer;
-    
 
 
-}*/
+}
 
 void Player::Fire(Context& context)
 {   
@@ -136,6 +133,12 @@ void Player::handle(Context& context, sf::Event event)
 void Player::update(Context& context)
 {
     hud -> update(hp, bearing, power, fuel, curr_weapon, ammo_array, score, player_name_var);
+
+    if (hp <=0)
+    {
+        std::cout << "Här" << std::endl;
+        remove();
+    }
 }
 
 void Player::move(Context& context)
@@ -315,22 +318,17 @@ void Player::collision(Game_object* object, Context& context)
     /////////////// MISSILE COLLISION /////////////////
     else if (missile != nullptr)
     {
-        if (last_missile != missile)
+        if (shield_isActive && (context.current_player != this))
         {
-            last_missile = missile;
-
-            if (shield_isActive && (context.current_player != this))
-            {
-                shield_isActive = false;
-                std::cout << "Shield hit!" << std::endl;
-                return;
-            }
-            else
-            {
-                hp -= 50;
-                std::cout << "HP för " << player_name_var
-                        << " kvar: " << hp << std::endl;
-            }
+            shield_isActive = false;
+            std::cout << "Shield hit!" << std::endl;
+            return;
+        }
+        else
+        {
+            hp -= 50;
+            std::cout << "HP för " << player_name_var
+                      << " kvar: " << hp << std::endl;
         }
     }
 

@@ -12,7 +12,7 @@ class Player : public Game_object
 public:
     //HARD CODED:
     Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context);
-    ~Player() = default;
+    ~Player() override;
     void handle(Context& context, sf::Event event) override;
     void update(Context& context) override;
     void render(sf::RenderWindow& window, Context& context) override;

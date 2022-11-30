@@ -66,37 +66,13 @@ void Game_state::handle(Context& context, sf::Event event)
  
         
     }
-
-    
-
-    
-
-    /*//Check collsion with other objects
-    for (unsigned int i{0}; i < context.objects.size(); i++)
-    {
-        if (context.objects.at(i) -> check_collision(context.current_player))
-        {
-            context.current_player -> collision(context.objects.at(i));
-            
-            context.objects.at(i) -> collision(context.current_player);
-        }
-    }
-
-    //Check collision with other players
-    for (unsigned int i{0}; i < context.players.size(); i++)
-    {
-        if (context.current_player -> check_collision(context.players.at(i)) && context.current_player != context.players.at(i))
-        {
-            context.current_player -> collision(context.players.at(i));
-        }
-    }
-
-    //Check collsion with wall*/
     
 }
 
 void Game_state::update(Context& context)
 {
+    //std::cout << "Nånting" << std::endl;
+
     context.current_player -> move(context);
     
     for (Game_object* object : context.objects)
@@ -109,6 +85,7 @@ void Game_state::update(Context& context)
         player -> update(context);
     }
 
+    //std::cout << "1" << std::endl;
 
     //Check collsion between objects
     for (unsigned int i{0}; i < context.objects.size(); i++)
@@ -145,6 +122,7 @@ void Game_state::update(Context& context)
     context.hit_pos.y = 0;
 
 
+    //std::cout << "2" << std::endl;
     
 
 
@@ -172,7 +150,7 @@ void Game_state::update(Context& context)
     }
 
 
-    
+    //std::cout << "3" << std::endl;
 
     //Check whether an object should be deleted
     for (unsigned int i{0}; i < context.objects.size();)
@@ -191,13 +169,20 @@ void Game_state::update(Context& context)
 
     
     //Check if player dead
-    for (unsigned int i{0}; i < context.players.size(); i++)
-    {
+    for (unsigned int i{0}; i < context.players.size();)
+    {   
         if (context.players.at(i) -> is_removed())
-        {
+        {   
+            if (context.players.at(i) == context.current_player)
+            {
+                switch_player(context);
+            }
+
+            //std::cout << "5" << std::endl;
             std::swap(context.players.at(i), context.players.back());
-            delete context.players.back();
+            delete context.players.back(); 
             context.players.pop_back();
+            std::swap(context.players.at(0), context.players.back());
         }
         else
         {
@@ -220,66 +205,13 @@ void Game_state::update(Context& context)
 
     
 
-
     //Check if next players turn
     if(context.new_turn)
     {
-        context.new_turn = false;
-
-        int i{0};
-
-        while (context.current_player != context.players.at(i))
-        {
-            i += 1;
-        }
-
-        if (i == context.players.size() - 1)
-        {
-            context.current_player = context.players.at(0);
-        }
-        
-        else
-        {
-            context.current_player = context.players.at(i+1);
-        }
-        context.current_player->able_to_move = true;
-        context.current_player->fired = false;
-    
+        switch_player(context);
     }
 
-
-
-
-        
-        /*if(active_player == context.players.size() -1 )
-        {
-            context.current_player = context.players.at(0);
-        }
-        else
-        {
-            context.current_player = context.players.at(active_player + 1);
-        }
-        update_need = true;
-        context.new_turn = false;
-    }
-    if (update_need)
-    {
-        if(active_player == context.players.size() -1 )
-        {   
-            active_player = 0;
-        }
-        else
-        {
-            active_player += 1;
-        }
-        update_need = false;
-    }
-    std::cout << active_player << std::endl;
     //Check if someones won*/
-
-    
-
-
 }
 
 
@@ -296,12 +228,29 @@ void Game_state::render(sf::RenderWindow& window, Context& context)
     {
         player -> render(window, context);
     }
-
-
-
 }
 
-/*Game_state::~Game_state()
+void Game_state::switch_player(Context& context)
 {
-    
-}*/
+    context.new_turn = false;
+    int i{0};
+
+        while ((context.current_player != context.players.at(i)) == true)
+        {
+            i += 1;
+        }
+
+        std::cout << "i: " << i << std::endl; 
+
+        if (i == context.players.size() - 1)
+        {
+            context.current_player = context.players.at(0);
+        }
+        
+        else
+        {
+            context.current_player = context.players.at(i+1);
+        }
+        context.current_player->able_to_move = true;
+        context.current_player->fired = false;
+}
