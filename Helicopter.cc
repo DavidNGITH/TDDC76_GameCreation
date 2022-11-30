@@ -3,6 +3,7 @@
 #include "context.h"
 #include "PowerUp.h"
 #include "Missile.h"
+#include "Mine.h"
 #include <iostream>
 
 Helicopter::Helicopter()
@@ -89,9 +90,20 @@ void Helicopter::collision(Game_object* object, Context& context)
 {
     //reset all parameters, and reset position.
     Missile* missile { dynamic_cast<Missile*>(object) };
+    Mine* mine { dynamic_cast<Mine*>(object) };
+
     if (missile != nullptr)
     {
         reset();
+    }
+    if (mine != nullptr)
+    {
+        is_active = 0;
+        has_stopped = 0;
+        has_dropped = 0;
+        position_x = 0;
+        position_y = 150;
+        stop_position();
     }
 }
 
