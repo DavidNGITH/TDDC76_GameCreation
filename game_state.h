@@ -27,6 +27,8 @@ class Game_state : public State
     int active_player{0};
 
     bool update_need = false;
+
+    void switch_player(Context& context);
     
 };
 

@@ -72,18 +72,15 @@ barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_m
 }
 
 ///////////////////// Destructor ///////////////////
-/*Player::~Player()
+Player::~Player()
 {
     //Spara undan det som ska sparas, score
     //Ta bort hud och sen ta bort player
-    hud -> ~Hud();
     delete hud;
 
-    delete context.currentplayer;
-    
 
 
-}*/
+}
 
 void Player::Fire(Context& context)
 {   
@@ -139,6 +136,7 @@ void Player::update(Context& context)
 
     if (hp <=0)
     {
+        std::cout << "Här" << std::endl;
         remove();
     }
 }
