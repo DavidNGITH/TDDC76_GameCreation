@@ -91,9 +91,33 @@ void Player::Fire(Context& context)
     
     if (!fired)
     {
-        context.new_objects.push_back(new Mine{calc_x_position(), calc_y_position(), power, bearing});
-        //context.new_objects.push_back(new Shower_Missile{calc_x_position(), calc_y_position(), power, bearing});
-        fired = true;
+        if (curr_weapon == 1)
+        {
+            context.new_objects.push_back(new Standard_Missile{calc_x_position(),
+            calc_y_position(), power, bearing});
+            fired = true;
+        }
+        else if (ammo_array[curr_weapon - 1] > 0)
+        {
+            ammo_array[curr_weapon-1] -= 1;
+
+            if (curr_weapon == 2)
+            {
+                context.new_objects.push_back(new Shower_Missile{calc_x_position(),
+                calc_y_position(), power, bearing});
+            }
+
+            else if (curr_weapon == 3)
+            {
+                context.new_objects.push_back(new Mine{calc_x_position(),
+                calc_y_position(), power, bearing});
+            }
+            fired = true;
+        }
+        else
+        {
+            fired = false;
+        }
     }
 }
 
@@ -102,8 +126,10 @@ void Player::handle(Context& context, sf::Event event)
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
         Fire(context);
-        able_to_move = false;
-
+        if (fired)
+        {
+            able_to_move = false;
+        }
     }
 }
 
@@ -186,24 +212,15 @@ void Player::move(Context& context)
         }    
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) ) 
         {
-            if (curr_weapon != 1)
-            {
-                curr_weapon = 1;
-            }
+            curr_weapon = 1;
         } 
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)  )
         {
-            if (curr_weapon != 2)
-            {
-                curr_weapon = 2;
-            }
+            curr_weapon = 2;
         } 
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))  
         {
-            if (curr_weapon != 3)
-            {
-                curr_weapon = 3;
-            }
+            curr_weapon = 3;
         } 
     }    
 }
