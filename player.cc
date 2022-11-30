@@ -297,8 +297,17 @@ void Player::collision(Game_object* object, Context& context)
         else if(powerup -> get_poweruptype() == 1)
         {
             std::cout << "Collided with repair kit" << std::endl;
-            hp += 20;
+            hp += 40;
         }
+        else if(powerup -> get_poweruptype() == 2)
+        {
+            ammo_array[2] += 1;
+        }
+        else if (powerup -> get_poweruptype() == 3)
+        {
+            ammo_array[1] += 1;
+        }
+
     }
 
     /////////////// MISSILE COLLISION /////////////////
