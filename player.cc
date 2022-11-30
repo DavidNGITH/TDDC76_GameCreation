@@ -10,7 +10,9 @@
 #include <cmath>
 
 
-//HARD CODED:
+//HARD CODED
+
+///////////// Constructor /////////////////////
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
 :hp{100}, bearing{90}, score{0}, power{50}, shield_isActive{false}, curr_weapon{1},
 barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_missile{nullptr}
@@ -28,11 +30,7 @@ barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_m
     std::cout << position_x << std::endl;
     
 
-
-    ////////////////////// Hard coded: Read texture file
-
-    load_icon(player_texture);
-
+    ////////// Player name /////////////////////
     font.loadFromFile("Textures/Minecraft.ttf");
     name_text.setFont(font);
     name_text.setCharacterSize(20);
@@ -41,31 +39,45 @@ barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_m
     name_text.setOrigin(name_text.getLocalBounds().width/2,name_text.getLocalBounds().height/2);
     name_text.setPosition(position_x, position_y - 80);
     
-    ////////////// HARD CODED /////////////
+    /////////// Player sprite /////////////
+    load_icon(player_texture);
+
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y);
     icon.setScale(1.5, 1.5);
     icon.setPosition(position_x, position_y);
 
-
-    ////////////////////// Hard coded: Read texture file
     if (!barrel.loadFromFile(barrel_texture))
-    {
-        std::cerr << "Can't open: " << barrel_texture << std::endl;
-    }
+    {std::cerr << "Can't open: " << barrel_texture << std::endl;}
 
     barrel_sprite.setTexture(barrel);
     
-    ////////////// HARD CODED //////////////
+
     sf::Vector2u texture_size_barrel { barrel.getSize() };
     barrel_sprite.setOrigin(texture_size_barrel.x, texture_size_barrel.y / 2);
     barrel_sprite.setScale(1, 1);
     barrel_sprite.setRotation(bearing);
     set_barrel_pos();
 
+
+    ///////// HUD //////////////
     hud = new Hud();
 
 }
+
+///////////////////// Destructor ///////////////////
+/*Player::~Player()
+{
+    //Spara undan det som ska sparas, score
+    //Ta bort hud och sen ta bort player
+    hud -> ~Hud();
+    delete hud;
+
+    delete context.currentplayer;
+    
+
+
+}*/
 
 void Player::Fire(Context& context)
 {   
@@ -95,7 +107,6 @@ void Player::update(Context& context)
 }
 
 void Player::move(Context& context)
-
 {
     if(able_to_move)
     {    
@@ -154,7 +165,6 @@ void Player::move(Context& context)
             {
                 power += context.delta.asSeconds() * 10;
                 std::cout << power << std::endl;
-
             }
         
         }
@@ -192,7 +202,6 @@ void Player::move(Context& context)
     }    
 }
 
-
 void Player::render(sf::RenderWindow& window, Context& context)
 {
     window.draw(icon);
@@ -216,6 +225,7 @@ void Player::collision(Game_object* object, Context& context)
     Missile* missile { dynamic_cast<Missile*>(object) };
 
     
+    /////////////// Static object (tree) Collision /////////////////
     if (other_player != nullptr || static_object != nullptr)
     {
         position_x = old_position.x;
@@ -223,7 +233,6 @@ void Player::collision(Game_object* object, Context& context)
 
         set_pos();
     }
-
     
     if (other_player != nullptr)
     {
@@ -234,13 +243,13 @@ void Player::collision(Game_object* object, Context& context)
         set_barrel_pos();
         set_name_pos();
     }
-    
-    
-    //Powerup collision//
+
+
+    ////////////// Powerup collision ///////////////////7//
     else if (powerup != nullptr)
     {
         
-        if (powerup -> get_poweruptype() == 0)
+        if ((powerup -> get_poweruptype() == 0) && (shield_isActive == false))
         {
             std::cout << "Collided with shield" << std::endl;
             ////////////////////// Hard coded: Read texture file
@@ -268,6 +277,7 @@ void Player::collision(Game_object* object, Context& context)
         }
     }
 
+    /////////////// MISSILE COLLISION /////////////////
     else if (missile != nullptr)
     {
         if (last_missile != missile)
@@ -282,28 +292,37 @@ void Player::collision(Game_object* object, Context& context)
             }
             else
             {
-                double missile_dmg{};
-                missile_dmg = check_damage(missile, missile_dmg);
-                hp -= missile_dmg;
+                hp -= 50;
                 std::cout << "HP för " << player_name_var
                         << " kvar: " << hp << std::endl;
             }
         }
     }
+
+
+    else if (context.hit_pos.x != 0 && context.hit_pos.y != 0)
+    {
+        check_damage(context, 50.0);
+    }
 }
 
-double Player::check_damage(Game_object* object, double missile_dmg) 
+void Player::check_damage(Context& context, double missile_dmg) 
 {
-    /*double dist_from_player{};
-    dist_from_player = sqrt((pow((missile -> position_x - position_x), 2) 
-    + pow((missile -> position_y - position_y), 2)));
-    std::cout << "Distance from player: " << dist_from_player << std::endl;
+    double dist_from_player{};
+    dist_from_player = sqrt((pow((context.hit_pos.x - position_x), 2) 
+    + pow((context.hit_pos.y - position_y), 2)));
+    std::cout << "Distance from player " << player_name_var 
+              << ": " << dist_from_player << std::endl;
 
-    missile_dmg = dist_from_player/(missile_type -> Damage);
-    std::cout << "Missile damage: " << missile_dmg << std::endl;
+    if(dist_from_player <= 200)
+    {
+        missile_dmg = missile_dmg - (dist_from_player/(200/missile_dmg));
+        std::cout << "Missile damage: " << missile_dmg << std::endl;
+        hp -= missile_dmg;
+    }
 
-    return missile_dmg;*/
-
+    std::cout << "HP för " << player_name_var
+              << " kvar: " << hp << std::endl;
 }
 
 void Player::set_pos()
@@ -317,30 +336,17 @@ void Player::set_pos()
 void Player::set_barrel_pos()
 {
     barrel_sprite.setPosition(position_x, position_y - 17);
-
 }
 
 void Player::set_name_pos()
 {
     name_text.setPosition(position_x, position_y - 80);
-    
 }
 
 void Player::set_shield_pos() 
 {
     shield_sprite.setPosition(position_x, position_y - 17);
 }
-
-double Player::get_bearing() const&
-{
-    return bearing;
-}
-
-int Player::get_score() const&
-{
-    return score;
-}
-
 
 void Player::reset()
 {
@@ -349,12 +355,12 @@ void Player::reset()
 
 double Player::calc_x_position()
 {
-    return position_x - cos(bearing*M_PI/180) * (barrel.getSize().x + 6);
+    return position_x - cos(bearing*M_PI/180) * (barrel.getSize().x + 7);
 }
 
 double Player::calc_y_position()
 {
-    return position_y - 30 - sin(bearing * M_PI/180) * (barrel.getSize().x + 6);
+    return position_y - 30 - sin(bearing * M_PI/180) * (barrel.getSize().x + 7);
 }
 
 void Player::update_score(Context & context)
