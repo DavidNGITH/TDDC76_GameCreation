@@ -12,7 +12,7 @@
 
 //HARD CODED:
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
-:hp{100}, bearing{90}, score{0}, power{50}, shield_isActive{false},
+:hp{100}, bearing{90}, score{0}, power{50}, shield_isActive{false}, curr_weapon{1},
 barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_missile{nullptr}
 {
     ////////////// HARD CODED /////////////
@@ -91,7 +91,7 @@ void Player::handle(Context& context, sf::Event event)
 
 void Player::update(Context& context)
 {
-    hud -> update(hp, bearing, power, fuel, curr_weapon, score, player_name_var);
+    hud -> update(hp, bearing, power, fuel, curr_weapon, ammo_array, score, player_name_var);
 }
 
 void Player::move(Context& context)
@@ -167,7 +167,28 @@ void Player::move(Context& context)
 
             }
         
-        }       
+        }    
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) ) 
+        {
+            if (curr_weapon != 1)
+            {
+                curr_weapon = 1;
+            }
+        } 
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)  )
+        {
+            if (curr_weapon != 2)
+            {
+                curr_weapon = 2;
+            }
+        } 
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))  
+        {
+            if (curr_weapon != 3)
+            {
+                curr_weapon = 3;
+            }
+        } 
     }    
 }
 
