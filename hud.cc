@@ -45,6 +45,7 @@ Hud::Hud()
     text_init(power_text, 35);
     text_init(bearing_text, 35);
     text_init(fuel_text, 35);
+    text_init(ammo_text, 20);
 
     //hard-coded
     hp_text.setPosition(563, 65);
@@ -53,6 +54,7 @@ Hud::Hud()
     score_text.setPosition(1191, 40);
     power_text.setPosition(920, 7);
     fuel_text.setPosition(695, 65);
+    ammo_text.setPosition(1190, 84);
 }
 
 void Hud::render(sf::RenderWindow& window)
@@ -68,9 +70,10 @@ void Hud::render(sf::RenderWindow& window)
     window.draw(power_text);
     window.draw(fuel_text);
     window.draw(sel_weapon);
+    window.draw(ammo_text);
 }
 
-void Hud::update(int player_hp, double player_bearing, double player_power, double player_fuel, int player_weapon, double player_score, std::string player_string)
+void Hud::update(int player_hp, double player_bearing, double player_power, double player_fuel, int player_weapon, int ammo_array[3], double player_score, std::string player_string)
 {
     hp_text.setString(std::to_string(player_hp));
     player_text.setString(player_string);
@@ -78,6 +81,7 @@ void Hud::update(int player_hp, double player_bearing, double player_power, doub
     int score = player_score;
     int power = player_power;
     int fuel = player_fuel;
+    ammo_text.setString("Ammo: " + std::to_string(ammo_array[player_weapon-1]));
     bearing_text.setString(std::to_string(bearing));
     score_text.setString(std::to_string(score));
     power_text.setString(std::to_string(power));
