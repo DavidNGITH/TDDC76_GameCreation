@@ -8,7 +8,7 @@
 
 void Standard_Missile::Explosion(Context& context)
 {
-    if(expolde)
+    if(explode)
     {
     load_icon("textures_new/boom.png");
     sf::Vector2u texture_size { texture.getSize() };
