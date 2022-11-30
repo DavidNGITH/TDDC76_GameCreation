@@ -1,4 +1,4 @@
-CC=g++ -std=c++17
+CC=g++ -std=c++17 -g
 CCFLAGS= -c -Wall -Wextra -Wpedantic -Weffc++ -Wold-style-cast
 LIBS:= -lsfml-graphics -lsfml-window -lsfml-system 
 
