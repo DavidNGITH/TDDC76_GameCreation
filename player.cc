@@ -196,7 +196,7 @@ void Player::move(Context& context)
                 barrel_sprite.setRotation(bearing);
             }
         }
-        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Add))
+        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::X))
         {
             if (power <100)
             {
@@ -205,7 +205,7 @@ void Player::move(Context& context)
             }
         
         }
-        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Subtract))
+        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
         {
             if (power >0)
             {
@@ -326,7 +326,7 @@ void Player::collision(Game_object* object, Context& context)
         }
         else
         {
-            hp -= 50;
+            hp -= 49;
             std::cout << "HP för " << player_name_var
                       << " kvar: " << hp << std::endl;
         }
@@ -347,9 +347,9 @@ void Player::check_damage(Context& context, double missile_dmg)
     std::cout << "Distance from player " << player_name_var 
               << ": " << dist_from_player << std::endl;
 
-    if(dist_from_player <= 200)
+    if(dist_from_player <= 50)
     {
-        missile_dmg = missile_dmg - (dist_from_player/(200/missile_dmg));
+        missile_dmg = missile_dmg - (dist_from_player/(50/missile_dmg));
         std::cout << "Missile damage: " << missile_dmg << std::endl;
         hp -= missile_dmg;
     }
