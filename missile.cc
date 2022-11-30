@@ -73,9 +73,24 @@ void Missile::collision(Game_object* object, Context& context)
     Static_object* static_object { dynamic_cast<Static_object*>(object) };
     Map* map { dynamic_cast<Map*>(object) };
 
-    if((player !=nullptr || helicopter!=nullptr || static_object!=nullptr || map !=nullptr) && !explode)
+    if((player !=nullptr || helicopter!=nullptr || static_object!=nullptr) && !explode)
     {
         //Explosion();
+        std::cout<< "Kollision" << std::endl;
+        if(player != nullptr && context.current_player != player)
+        {
+            context.current_player -> update_score(context);
+        }
+        context.new_turn = true;
+        explode = true;
+        
+    }
+
+    if((map !=nullptr) && !explode)
+    {
+        //Explosion();
+        context.hit_pos.x = position_x;
+        context.hit_pos.y = position_y;
         std::cout<< "Kollision" << std::endl;
         if(player != nullptr && context.current_player != player)
         {

@@ -280,17 +280,22 @@ void Player::collision(Game_object* object, Context& context)
     /////////////// MISSILE COLLISION /////////////////
     else if (missile != nullptr)
     {
-        if (shield_isActive && (context.current_player != this))
+        if (last_missile != missile)
         {
-            shield_isActive = false;
-            std::cout << "Shield hit!" << std::endl;
-            return;
-        }
-        else
-        {
-            hp -= 50;
-            std::cout << "HP för " << player_name_var
-                      << " kvar: " << hp << std::endl;
+            last_missile = missile;
+
+            if (shield_isActive && (context.current_player != this))
+            {
+                shield_isActive = false;
+                std::cout << "Shield hit!" << std::endl;
+                return;
+            }
+            else
+            {
+                hp -= 50;
+                std::cout << "HP för " << player_name_var
+                        << " kvar: " << hp << std::endl;
+            }
         }
     }
 
