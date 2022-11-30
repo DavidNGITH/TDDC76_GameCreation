@@ -17,10 +17,14 @@ FILE10=static_object
 FILE11=standard_missile
 FILE12=shower_missile
 FILE13=Mine
+FILE14=split_missile
+
+
+OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE5).o $(FILE6).o $(FILE7).o $(FILE9).o $(FILE10).o $(FILE8).o $(FILE11).o $(FILE12).o $(FILE13).o $(FILE14).o
 
 
 
-OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE5).o $(FILE6).o $(FILE7).o $(FILE9).o $(FILE10).o $(FILE8).o $(FILE11).o $(FILE12).o $(FILE13).o
+
 
 output: $(OBJS)
 	$(CC) $(OBJS) -o a.out $(LIBS)
@@ -66,6 +70,9 @@ $(FILE12).o: $(FILE12).cc
 
 $(FILE13).o: $(FILE13).cc
 	$(CC) $(CCFLAGS) $(FILE13).cc $(LIBS)
+	
+$(FILE14).o: $(FILE14).cc
+	$(CC) $(CCFLAGS) $(FILE14).cc $(LIBS)
 
 
 clean:

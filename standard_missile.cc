@@ -1,31 +1,30 @@
-#include "standard_missile.h"
+#include "Missile.h"
+#include <cmath>
 #include "SFML/Graphics.hpp"
+#include "player.h"
+#include "Helicopter.h"
+#include "static_object.h"
+#include "map.h"
 #include "context.h"
 #include <iostream>
+#include "standard_missile.h"
 
 
-
-
-void Standard_Missile::Explosion(Context& context)
+Standard_Missile::Standard_Missile(double incoming_position_x, double incoming_position_y,double power, double bearing)
 {
-    if(explode)
-    {
-    load_icon("textures_new/boom.png");
+    speed_x = cos((180-bearing)*M_PI/180)*12*power;
+    speed_y = sin((180-bearing)*M_PI/180)*(-12*power); 
+    acceleration_y= 400;
+    explode=false;
+    i=0;
+    position_x = incoming_position_x;
+    position_y = incoming_position_y+10;
+
+    load_icon("textures_new/ball.png");
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y/2);
-    icon.setPosition(position_x, position_y);
-        i+= context.delta.asSeconds();
-        if(i ==1)
-        {
-            remove();
-        }
-    }
+    icon.setPosition(position_x, position_y-10);
+    
 }
 
-void Standard_Missile::render(sf::RenderWindow& window, Context& context)
-{   
-    std::cout << "Standard_missile" << std::endl;
-
-    window.draw(icon);
-}
 

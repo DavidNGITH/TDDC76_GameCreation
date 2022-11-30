@@ -14,7 +14,7 @@ class Hud
 
     //~Helicopter() = default;
     //void handle(Context& context, sf::Event event);
-    void update(int player_hp, double player_bearing, double player_power, double player_fuel, int player_weapon, double player_score, std::string playerstring);
+    void update(int player_hp, double player_bearing, double player_power, double player_fuel, int player_weapon, int ammo_array[], double player_score, std::string playerstring);
     void render(sf::RenderWindow& window);
     void text_init(sf::Text& text, int char_size);
 
@@ -38,6 +38,7 @@ class Hud
     sf::Text score_text;
     sf::Text power_text;
     sf::Text fuel_text;
+    sf::Text ammo_text;
 };
 
 
