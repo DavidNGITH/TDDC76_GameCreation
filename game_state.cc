@@ -129,13 +129,14 @@ void Game_state::update(Context& context)
 
     
     //Check if player dead
-    for (unsigned int i{0}; i < context.players.size(); i++)
-    {
+    for (unsigned int i{0}; i < context.players.size();)
+    {   
         if (context.players.at(i) -> is_removed())
-        {
+        {   
             std::swap(context.players.at(i), context.players.back());
-            delete context.players.back();
+            delete context.players.back(); 
             context.players.pop_back();
+            //context.new_turn = true;
         }
         else
         {
