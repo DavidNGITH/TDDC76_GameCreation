@@ -47,7 +47,6 @@ void Helicopter::update(Context& context)
             else
             {
                 has_dropped = 1; //lets us know we've dropped the powerup.
-                //check for collision
                 //drop power up and stop.
                 create_powerup(context);
             }
