@@ -6,6 +6,7 @@
 #include "static_object.h"
 #include "Missile.h"
 #include "PowerUp.h"
+#include "Mine.h"
 #include <string>
 #include <cmath>
 #include "shower_missile.h"
@@ -244,6 +245,7 @@ void Player::collision(Game_object* object, Context& context)
     Static_object* static_object { dynamic_cast<Static_object*>(object) };
     Player* other_player { dynamic_cast<Player*>(object) };
     Powerup* powerup { dynamic_cast<Powerup*>(object) };
+    Mine* mine { dynamic_cast<Mine*>(object) };
     Missile* missile { dynamic_cast<Missile*>(object) };
 
     
