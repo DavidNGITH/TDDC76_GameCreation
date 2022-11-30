@@ -15,8 +15,8 @@
 Split_Missile::Split_Missile(double incoming_position_x, double incoming_position_y,double same_speed, double bearing)
 {
     speed_x = same_speed;
-    speed_y = bearing; 
-    acceleration_y= 400;
+    speed_y = 0; 
+    acceleration_y= bearing;
     explode=false;
     i=0;
     position_x = incoming_position_x;
