@@ -14,15 +14,23 @@ Powerup::Powerup(double incoming_x, double incoming_y)
     position_x = incoming_x;
     position_y = incoming_y + 120;
 
-    randnum = rand() % 2;
+    randnum = rand() % 4;
 
     if (randnum == 0)
     {
         load_icon("shield.png");
     }
-    else
+    else if (randnum == 1)
     {
         load_icon("repair_kit.png");
+    }
+    else if (randnum == 2)
+    {
+        load_icon("ammo_c4.png");
+    }
+    else
+    {
+        load_icon("showermissile2.png");
     }
     
     //Creates the Powerup at the same position as the helicopter.   
