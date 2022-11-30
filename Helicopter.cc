@@ -15,7 +15,7 @@ Helicopter::Helicopter()
 
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y / 2);
-    icon.setScale(5,5);
+    icon.setScale(0.4,0.4);
 
 
 }
@@ -129,7 +129,7 @@ void Helicopter::reset()
 {
     //Hårdkodat
     position_x = 0;
-    position_y = 150;
+    position_y = 160;
 
     is_active = 0;
     has_stopped = 0;
