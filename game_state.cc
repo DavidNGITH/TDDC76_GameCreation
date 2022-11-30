@@ -34,7 +34,7 @@ void Game_state::handle(Context& context, sf::Event event)
 {   
 
     context.current_player -> handle(context, event);
-<<<<<<< HEAD
+
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {   
@@ -57,13 +57,13 @@ void Game_state::handle(Context& context, sf::Event event)
         context.players.clear();
         context.objects.clear();
 
-        //std::cout << context.players.size() << std::endl;
+
         
         
-        //std::cout << "Lyckats delete map" << std::endl;
+
         //~Game_state();
         context.next_state = new Menu_state{};
-        std::cout << "Lyckats skapa ny menu_state" << std::endl;
+ 
         
     }
 
@@ -93,8 +93,6 @@ void Game_state::handle(Context& context, sf::Event event)
 
     //Check collsion with wall*/
     
-=======
->>>>>>> main
 }
 
 void Game_state::update(Context& context)
