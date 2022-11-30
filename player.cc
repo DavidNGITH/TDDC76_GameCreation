@@ -243,11 +243,13 @@ void Player::collision(Game_object* object, Context& context)
         set_barrel_pos();
         set_name_pos();
     }
-    //Powerup collision//
+
+
+    ////////////// Powerup collision ///////////////////7//
     else if (powerup != nullptr)
     {
         
-        if (powerup -> get_poweruptype() == 0)
+        if ((powerup -> get_poweruptype() == 0) && (shield_isActive == false))
         {
             std::cout << "Collided with shield" << std::endl;
             ////////////////////// Hard coded: Read texture file
@@ -284,14 +286,12 @@ void Player::collision(Game_object* object, Context& context)
             std::cout << "Shield hit!" << std::endl;
             return;
         }
-        /*else
+        else
         {
-            double missile_dmg{};
-            missile_dmg = check_damage(missile, missile_dmg);
-            hp -= missile_dmg;
+            hp -= 50;
             std::cout << "HP för " << player_name_var
                       << " kvar: " << hp << std::endl;
-        }*/
+        }
     }
 
 
@@ -306,7 +306,8 @@ void Player::check_damage(Context& context, double missile_dmg)
     double dist_from_player{};
     dist_from_player = sqrt((pow((context.hit_pos.x - position_x), 2) 
     + pow((context.hit_pos.y - position_y), 2)));
-    std::cout << "Distance from player " << player_name_var << ": " << dist_from_player << std::endl;
+    std::cout << "Distance from player " << player_name_var 
+              << ": " << dist_from_player << std::endl;
 
     if(dist_from_player <= 200)
     {
