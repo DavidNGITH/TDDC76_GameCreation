@@ -14,7 +14,7 @@
 //HARD CODED:
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
 :hp{100}, bearing{90}, score{0}, power{50}, shield_isActive{false},
-barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}
+barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_missile{nullptr}
 {
     ////////////// HARD CODED /////////////
     speed = 100;
@@ -251,19 +251,24 @@ void Player::collision(Game_object* object, Context& context)
 
     else if (missile != nullptr)
     {
-        if (shield_isActive && (context.current_player != this))
+        if (last_missile != missile)
         {
-            shield_isActive = false;
-            std::cout << "Shield hit!" << std::endl;
-            return;
-        }
-        else
-        {
-            double missile_dmg{};
-            missile_dmg = check_damage(missile, missile_dmg);
-            hp -= missile_dmg;
-            std::cout << "HP för " << player_name_var
-                      << " kvar: " << hp << std::endl;
+            last_missile = missile;
+
+            if (shield_isActive && (context.current_player != this))
+            {
+                shield_isActive = false;
+                std::cout << "Shield hit!" << std::endl;
+                return;
+            }
+            else
+            {
+                double missile_dmg{};
+                missile_dmg = check_damage(missile, missile_dmg);
+                hp -= missile_dmg;
+                std::cout << "HP för " << player_name_var
+                        << " kvar: " << hp << std::endl;
+            }
         }
     }
 }

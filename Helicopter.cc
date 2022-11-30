@@ -9,19 +9,14 @@
 Helicopter::Helicopter()
 :stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{}, spawn_rate{100}, speed{200}, current_player{nullptr}
 {   
-    //Hårdkodat
-    position_x = 0;
-    position_y = 150;
-
     load_icon("textures_new/helicopter.png");
+
+    reset();
 
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y / 2);
-    icon.setPosition(position_x, position_y);
     icon.setScale(5,5);
 
-    //sets first stop position
-    stop_position();
 
 }
 
@@ -99,12 +94,7 @@ void Helicopter::collision(Game_object* object, Context& context)
 
     if (missile != nullptr)
     {
-        is_active = 0;
-        has_stopped = 0;
-        has_dropped = 0;
-        position_x = 0;
-        position_y = 150;
-        stop_position();
+        reset();
     }
     if (mine != nullptr)
     {
@@ -134,5 +124,20 @@ void Helicopter::stop_position()
     //randomizes the stop_position.
     stop_coordinate = ((rand() % 1520) + 200);
 
+}
+
+void Helicopter::reset()
+{
+    //Hårdkodat
+    position_x = 0;
+    position_y = 150;
+
+    is_active = 0;
+    has_stopped = 0;
+    has_dropped = 0;
+        
+    icon.setPosition(position_x, position_y);
+
+    stop_position();
 }
 

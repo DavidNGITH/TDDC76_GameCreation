@@ -4,6 +4,7 @@
 #include "SFML/Graphics.hpp"
 #include "game_object.h"
 #include "hud.h"
+#include "Missile.h"
 #include <string>
 
 class Player : public Game_object
@@ -46,6 +47,7 @@ private:
     double power{};
     double curr_weapon{};
     float const barrel_rotation_speed{};
+    Missile* last_missile{};
     sf::Vector2f old_position{};
 
     sf::Sprite barrel_sprite;

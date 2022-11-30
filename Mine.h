@@ -4,41 +4,41 @@
 #include "Missile.h"
 #include "SFML/Graphics.hpp"
 //#include "Player.h"
-#include "game_object.h"
+//#include "game_object.h"
 #include <vector>
 
-class Mine : public Game_object
+class Mine : public Missile
 {
 public:
     Mine(double incoming_position_x, double incoming_position_y, double speed, double bearing);
-    virtual ~Mine();
+    //~Mine();
 
     void update(Context& context) override;
-    void render(sf::RenderWindow& window, Context& context) override;
-    void handle(Context& context, sf::Event event) override;
+    //void render(sf::RenderWindow& window, Context& context) override;
+    //void handle(Context& context, sf::Event event) override;
 
 
     void collision(Game_object* object, Context& context) override; 
-    void explosion(Context& context);
+    //void explosion(Context& context);
 
-protected:
+/*protected:
     bool explode{};
-
+*/
 private:
-    double speed_x{};
-    double speed_y{};
-    double acceleration_y{};
-    double bearing{};
-    double power{};
+    //double speed_x{};
+    //double speed_y{};
+    //double acceleration_y{};
+    //double bearing{};
+    //double power{};
     bool has_stopped{};
     bool is_active{};
 
     int old_position_x{};
     int old_position_y{};
-    double time{0};
+    //double i{0};
 
-    sf::Sprite expl_sprite;
-    sf::Texture expl;
+    //sf::Sprite expl_sprite;
+    //sf::Texture expl;
 
 
 };
