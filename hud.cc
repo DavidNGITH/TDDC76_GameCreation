@@ -20,6 +20,15 @@ Hud::Hud()
     hud.setPosition(position_x, position_y);
     hud.setScale(0.8, 0.7);
 
+    weapontext.loadFromFile("Textures/weaponborder.png");
+    sel_weapon.setTexture(weapontext);
+    sel_weapon.setScale(0.65,0.5);
+    sf::Vector2u weaptext_size { texture.getSize() };
+    sel_weapon.setOrigin(weaptext_size.x / 2, weaptext_size.y / 2);
+    sel_weapon.setPosition(1428, 85);
+
+
+
     font.loadFromFile("Textures/Minecraft.ttf");
 
     //HP
@@ -35,13 +44,15 @@ Hud::Hud()
     text_init(score_text, 35);
     text_init(power_text, 35);
     text_init(bearing_text, 35);
+    text_init(fuel_text, 35);
 
     //hard-coded
     hp_text.setPosition(563, 65);
     player_text.setPosition(522, 6.5);
     bearing_text.setPosition(920, 65);
     score_text.setPosition(1191, 40);
-    power_text.setPosition(920, 6.5);
+    power_text.setPosition(920, 7);
+    fuel_text.setPosition(695, 65);
 }
 
 void Hud::render(sf::RenderWindow& window)
@@ -55,18 +66,36 @@ void Hud::render(sf::RenderWindow& window)
     window.draw(bearing_text);
     window.draw(score_text);
     window.draw(power_text);
+    window.draw(fuel_text);
+    window.draw(sel_weapon);
 }
 
-void Hud::update(int player_hp, double player_bearing, double player_score, double player_power, std::string player_string)
+void Hud::update(int player_hp, double player_bearing, double player_power, double player_fuel, int player_weapon, double player_score, std::string player_string)
 {
     hp_text.setString(std::to_string(player_hp));
     player_text.setString(player_string);
     int bearing = player_bearing;
     int score = player_score;
     int power = player_power;
+    int fuel = player_fuel;
     bearing_text.setString(std::to_string(bearing));
     score_text.setString(std::to_string(score));
     power_text.setString(std::to_string(power));
+    fuel_text.setString(std::to_string(fuel));
+
+    //set frame for selected weapon
+    if (player_weapon == 1)
+    {
+        sel_weapon.setPosition(1428, 85);
+    }
+    else if(player_weapon == 2)
+    {
+        sel_weapon.setPosition(1470, 85);
+    }
+    else if(player_weapon == 3)
+    {
+        sel_weapon.setPosition(1449, 116);
+    }
 }
 /*
     sf::Font font{};

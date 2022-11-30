@@ -91,7 +91,7 @@ void Player::handle(Context& context, sf::Event event)
 
 void Player::update(Context& context)
 {
-    hud -> update(hp, bearing, score, power, player_name_var);
+    hud -> update(hp, bearing, power, fuel, curr_weapon, score, player_name_var);
 }
 
 void Player::move(Context& context)
