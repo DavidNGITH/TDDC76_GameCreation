@@ -45,7 +45,7 @@ private:
     int fuel{};
     double bearing{};
     double power{};
-    double curr_weapon{};
+    int curr_weapon{};
     float const barrel_rotation_speed{};
     Missile* last_missile{};
     sf::Vector2f old_position{};
