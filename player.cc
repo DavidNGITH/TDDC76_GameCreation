@@ -299,6 +299,7 @@ void Player::collision(Game_object* object, Context& context)
             std::cout << "Collided with repair kit" << std::endl;
             hp += 20;
         }
+        
     }
 
     /////////////// MISSILE COLLISION /////////////////

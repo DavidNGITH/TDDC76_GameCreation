@@ -70,7 +70,7 @@ private:
     Hud* hud;
 
     //Ammo vars
-    int ammo_array [3]= { 2, 1, 4 };
+    int ammo_array [3]= { 2, 10, 4 };
     
     
 };

@@ -12,15 +12,15 @@
 
 
 
-Split_Missile::Split_Missile(double incoming_position_x, double incoming_position_y,double power, double bearing)
+Split_Missile::Split_Missile(double incoming_position_x, double incoming_position_y,double same_speed, double bearing)
 {
-    speed_x = cos((180-bearing)*M_PI/180)*12*power;
-    speed_y = sin((180-bearing)*M_PI/180)*(-12*power); 
+    speed_x = same_speed;
+    speed_y = bearing; 
     acceleration_y= 400;
     explode=false;
     i=0;
     position_x = incoming_position_x;
-    position_y = incoming_position_y+10;
+    position_y = incoming_position_y;
 
     load_icon("textures_new/ball.png");
     sf::Vector2u texture_size { texture.getSize() };
