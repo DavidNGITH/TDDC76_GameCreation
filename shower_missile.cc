@@ -3,6 +3,33 @@
 #include "SFML/Graphics.hpp"
 #include "Missile.h"
 #include "player.h"
+#include <iostream>
+#include "standard_missile.h"
+#include "split_missile.h"
+#include <cmath>
+
+
+
+Shower_Missile::Shower_Missile(double incoming_position_x, double incoming_position_y,double power, double bearing)
+:if_split{false}
+{
+    speed_x = cos((180-bearing)*M_PI/180)*12*power;
+    speed_y = sin((180-bearing)*M_PI/180)*(-12*power); 
+    acceleration_y= 400;
+    explode=false;
+    i=0;
+    position_x = incoming_position_x;
+    position_y = incoming_position_y+10;
+
+    load_icon("textures_new/ball.png");
+    sf::Vector2u texture_size { texture.getSize() };
+    icon.setOrigin(texture_size.x / 2, texture_size.y/2);
+    icon.setPosition(position_x, position_y-10);
+    
+}
+
+
+
 
 void Shower_Missile::update(Context& context)
 {
@@ -22,9 +49,11 @@ void Shower_Missile::update(Context& context)
             remove();
         }
         //Create new missiles
-        if(speed_y > 0)
+        if(speed_y > 0 && !if_split)
         {
-            context.new_objects.push_back(new Missile(position_x-10, position_y, 0 , 0));
+            if_split = true;
+            std::cout<< "shower" << std::endl;
+            context.new_objects.push_back(new Split_Missile(position_x-20, position_y, 0 ,0));
             //context.new_objects.push_back(new Missile{position_x+10, position_y, power, bearing});
         }
     }
