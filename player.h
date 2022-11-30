@@ -4,6 +4,7 @@
 #include "SFML/Graphics.hpp"
 #include "game_object.h"
 #include "hud.h"
+#include "Missile.h"
 #include <string>
 
 class Player : public Game_object
@@ -33,6 +34,7 @@ protected:
     int hp{};
 
 private:
+    void set_pos();
     void set_barrel_pos();
     void set_shield_pos();
     void set_name_pos();
@@ -42,10 +44,12 @@ private:
     
     //Player vars
     int score{};
+    int fuel{};
     double bearing{};
     double power{};
+    double curr_weapon{};
     float const barrel_rotation_speed{};
-
+    Missile* last_missile{};
     sf::Vector2f old_position{};
 
     //Barrel vars

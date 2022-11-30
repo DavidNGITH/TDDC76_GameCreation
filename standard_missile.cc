@@ -1,11 +1,14 @@
 #include "standard_missile.h"
 #include "SFML/Graphics.hpp"
-
 #include "context.h"
+#include <iostream>
+
+
+
 
 void Standard_Missile::Explosion(Context& context)
 {
-    if(expolde)
+    if(explode)
     {
     load_icon("textures_new/boom.png");
     sf::Vector2u texture_size { texture.getSize() };
@@ -19,4 +22,10 @@ void Standard_Missile::Explosion(Context& context)
     }
 }
 
+void Standard_Missile::render(sf::RenderWindow& window, Context& context)
+{   
+    std::cout << "Standard_missile" << std::endl;
+
+    window.draw(icon);
+}
 

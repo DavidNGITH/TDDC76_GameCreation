@@ -9,7 +9,9 @@
 class Standard_Missile : public Missile
 {
 public:
+
     void Explosion(Context& context);
+    void render(sf::RenderWindow& window, Context& context) override;
 
 private:
     sf::CircleShape explosion_2;
