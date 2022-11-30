@@ -12,19 +12,17 @@
 
 //Konstruktor för minan
 Mine::Mine(double incoming_position_x, double incoming_position_y, double power, double bearing)
-:Missile(incoming_position_x, incoming_position_y, power, bearing)
 {
-    /*speed_x = cos((180-bearing)*M_PI/180)*12*power;
+    speed_x = cos((180-bearing)*M_PI/180)*12*power;
     speed_y = sin((180-bearing)*M_PI/180)*(-12*power);
     acceleration_y = 500;
-    explode = false;*/
+    explode = false;
+
     has_stopped = false;
     is_active = false;
 
-    //position_x = incoming_position_x;
-    //position_y = incoming_position_y+10;
-
-    std::cout << "Snus" << std::endl;
+    position_x = incoming_position_x;
+    position_y = incoming_position_y+10;
 
     load_icon("bomb.png");
     sf::Vector2u texture_size { texture.getSize() };
@@ -33,14 +31,9 @@ Mine::Mine(double incoming_position_x, double incoming_position_y, double power,
     icon.setPosition(position_x, position_y);
 }
 
-/*Mine::~Mine()
-{
-
-}*/
 
 void Mine::update(Context& context)
 {
-    // std::cout << "smakskaaaa" << std::endl;
     //Kallar på explosionsfunktionen ifall minan kolliderat med något objekt förutom marken
     if(explode)
     {
@@ -51,7 +44,6 @@ void Mine::update(Context& context)
     //Annars åker missilen i en parabel
     else if (!has_stopped)
     {
-         std::cout << "Här kom vi in" << std::endl;
         speed_y += acceleration_y * context.delta.asSeconds();
         position_x += speed_x*context.delta.asSeconds();
         position_y += speed_y*context.delta.asSeconds()+ acceleration_y*context.delta.asSeconds()*context.delta.asSeconds()/2;
@@ -66,22 +58,9 @@ void Mine::update(Context& context)
             remove();
         }
     }
-    
-
-    
+        
 }
 
-//Renderar bomben och explosionen
-/*void Mine::render(sf::RenderWindow& window, Context& context)
-{
-    window.draw(icon);
-    window.draw(boom_sprite);
-}*/
-
-/*void Mine::handle(Context& context, sf::Event event)
-{
-    
-}*/
 
 //Hanterar kollision med olika objekt
 void Mine::collision(Game_object* object, Context& context)
@@ -123,28 +102,3 @@ void Mine::collision(Game_object* object, Context& context)
         context.new_turn = true;
     }
 }
-
-//Explosion skapar en explosionssprite som varar några tiondelssekunder innan den försvinner
-/*void Mine::explosion(Context& context)
-{   
-    if (!expl.loadFromFile("explosion.png"))
-    {
-        std::cerr << "Can't open: explosion.png" << std::endl;
-    }
-
-    expl_sprite.setTexture(expl);
-
-    sf::Vector2u texture_size_expl { expl.getSize() };
-    expl_sprite.setOrigin((texture_size_expl.x / 2), (texture_size_expl.y / 2));
-    expl_sprite.setScale(0.1, 0.1);
-
-    expl_sprite.setPosition(position_x, position_y);
-
-    time += context.delta.asSeconds();
-
-    if (time > 0.3)
-    {
-
-        remove();
-    }
-}*/
