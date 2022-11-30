@@ -53,7 +53,11 @@ void Shower_Missile::update(Context& context)
         {
             if_split = true;
             std::cout<< "shower" << std::endl;
-            context.new_objects.push_back(new Split_Missile(position_x-20, position_y, 0 ,0));
+            std::cout<< speed_x << std::endl;
+            
+            context.new_objects.push_back(new Split_Missile(position_x-20, position_y, speed_x, 0));
+            context.new_objects.push_back(new Split_Missile(position_x+20, position_y, speed_x, 0));
+            std::cout<< speed_x << std::endl;
             //context.new_objects.push_back(new Missile{position_x+10, position_y, power, bearing});
         }
     }
