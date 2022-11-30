@@ -31,20 +31,6 @@ Game_state::Game_state(Context& context)
 void Game_state::handle(Context& context, sf::Event event)
 {
     context.current_player -> handle(context, event);
-
-    /*//Check collsion with other objects
-    for (unsigned int i{0}; i < context.objects.size(); i++)
-    {
-        if (context.objects.at(i) -> check_collision(context.current_player))
-        {
-            context.current_player -> collision(context.objects.at(i));
-            
-            context.objects.at(i) -> collision(context.current_player);
-        }
-    }
-
-    //Check collsion with wall*/
-    
 }
 
 void Game_state::update(Context& context)
@@ -75,6 +61,45 @@ void Game_state::update(Context& context)
         }
     }
 
+    //Check collision with ground
+    for (unsigned int i{0}; i < context.objects.size(); i++)
+    {
+        if(context.map -> check_collision(context.objects.at(i)))
+        {
+            context.objects.at(i) -> collision(context.map, context); //Update hit_pos
+        }
+    }
+
+    //Check collision with other players
+    if (context.hit_pos.x != 0 && context.hit_pos.y != 0)
+    {
+        for (unsigned int i{0}; i < context.players.size(); i++)
+        {
+            context.players.at(i) -> collision(nullptr, context);
+        }
+    }
+
+    context.hit_pos.x = 0;
+    context.hit_pos.y = 0;
+
+
+    
+
+
+
+    //Check collision between players and objects
+    for (unsigned int i{0}; i < context.players.size(); i++)
+    {   
+        for (unsigned int j{0}; j < context.objects.size(); j++)
+        {
+            if (context.objects.at(j) -> check_collision(context.players.at(i)))
+            {
+                context.players.at(i) -> collision(context.objects.at(j), context);
+                context.objects.at(j) -> collision(context.players.at(i), context);
+            }
+        }
+    } 
+
     //Check collision with other players
     for (unsigned int i{0}; i < context.players.size(); i++)
     {
@@ -83,15 +108,9 @@ void Game_state::update(Context& context)
             context.current_player -> collision(context.players.at(i), context);
         }
     }
+
+
     
-    //Check collision with ground
-    for (unsigned int i{0}; i < context.objects.size(); i++)
-    {
-        if(context.map -> check_collision(context.objects.at(i)))
-        {
-            context.objects.at(i) -> collision(context.map, context);
-        }
-    }
 
     //Check whether an object should be deleted
     for (unsigned int i{0}; i < context.objects.size();)
@@ -114,8 +133,15 @@ void Game_state::update(Context& context)
     {
         if (context.players.at(i) -> is_removed())
         {
-            //Add implementation for deletion of player
+            std::swap(context.players.at(i), context.players.back());
+            delete context.players.back();
+            context.players.pop_back();
         }
+        else
+        {
+            ++i;
+        }        
+        
     }
 
     //Adding new objects to objects
@@ -130,19 +156,7 @@ void Game_state::update(Context& context)
         context.new_objects.pop_back();
     }
 
-    //Check collision between players and objects
     
-    for (unsigned int i{0}; i < context.players.size(); i++)
-    {   
-        for (unsigned int j{0}; j < context.objects.size(); j++)
-        {
-            if (context.objects.at(j) -> check_collision(context.players.at(i)))
-            {
-                context.players.at(i) -> collision(context.objects.at(j), context);
-                context.objects.at(j) -> collision(context.players.at(i), context);
-            }
-        }
-    } 
 
 
     //Check if next players turn

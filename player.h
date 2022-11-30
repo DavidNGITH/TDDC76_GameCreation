@@ -12,7 +12,7 @@ class Player : public Game_object
 public:
     //HARD CODED:
     Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context);
-
+    ~Player() = default;
     void handle(Context& context, sf::Event event) override;
     void update(Context& context) override;
     void render(sf::RenderWindow& window, Context& context) override;
@@ -24,7 +24,7 @@ public:
 
     double get_bearing() const&;
     int get_score() const&;
-    double check_damage(Game_object* object, double missile_dmg);
+    void check_damage(Context& context, double missile_dmg);
 
     void reset();
     
@@ -39,8 +39,10 @@ private:
     void set_shield_pos();
     void set_name_pos();
     void Fire(Context& context);
+    double calc_y_position();
+    double calc_x_position();
     
-    std::string player_name_var{};
+    //Player vars
     int score{};
     int fuel{};
     double bearing{};
@@ -50,20 +52,24 @@ private:
     Missile* last_missile{};
     sf::Vector2f old_position{};
 
+    //Barrel vars
     sf::Sprite barrel_sprite;
     sf::Texture barrel;
 
+    //Name vars
+    std::string player_name_var{};
     sf::Text name_text;
     sf::Font font;
 
+    //Shield vars
     bool shield_isActive{};
     sf::Sprite shield_sprite;
     sf::Texture shield;
 
+    //Hud vars
     Hud* hud;
 
-    double calc_y_position();
-    double calc_x_position();
+    //Ammo vars
     int ammo_array [3]= { 2, 1, 4 };
     
     
