@@ -9,27 +9,24 @@ class Missile : public Game_object
 {
 public:
 // Constructors / destructors
-    Missile(double  incoming_position_x, double  incoming_position_y, double  speed, double  bearing);
-    virtual ~Missile();
+Missile() = default;
 
 //Functions
-    void handle(Context& context, sf::Event event) override;
-    void update(Context& context) override;
-    void render(sf::RenderWindow& window, Context& context) override;
-    void collision(Game_object* object, Context& context) override;
+    virtual void handle(Context& context, sf::Event event) override;
+    virtual void update(Context& context) override;
+    virtual void render(sf::RenderWindow& window, Context& context) override;
+    virtual void collision(Game_object* object, Context& context) override;
+    virtual void Explosion(Context& context);
  
 
 protected:
-    bool expolde{};
-
-private:
-    sf::CircleShape missile;
-
-    //variables
+    bool explode{};
     double speed_x{};
     double speed_y{};
     double acceleration_y{};
-
+    double i{};
+    sf::Sprite boom_sprite;
+    sf::Texture boom;
 
 };
 
