@@ -41,13 +41,13 @@ void Missile::update(Context& context)
         position_y += speed_y*context.delta.asSeconds()+ acceleration_y*context.delta.asSeconds()*context.delta.asSeconds()/2;
         icon.setPosition(position_x, position_y);
 
-        if(icon.getPosition().x < 0 || icon.getPosition().x > 1920)
-        {
-            std::cout<< "tog bort" << std::endl;
-            context.new_turn = true;
-            remove();
-        }
+    if(icon.getPosition().x < 0 || icon.getPosition().x > 1920)
+    {
+        std::cout<< "tog bort" << std::endl;
+        context.new_turn = true;
+        remove();
     }
+
 
 
 }
@@ -87,6 +87,31 @@ void Missile::collision(Game_object* object, Context& context)
     }
 
 }
+
+void Missile::Explosion(Context& context)
+{   
+    if(!i)
+    {
+        if (!boom.loadFromFile("textures_new/boom_2.png"))
+        {
+            std::cerr << "Can't open: boom.png" << std::endl;
+        }
+
+        boom_sprite.setTexture(boom);
+            
+        ////////////// HARD CODED //////////////
+        sf::Vector2u texture_size_boom { boom.getSize() };
+        boom_sprite.setOrigin(texture_size_boom.x/2, texture_size_boom.y/2);
+        boom_sprite.setScale(0.3, 0.3);
+        boom_sprite.setPosition(position_x, position_y);
+    }
+    
+    i+= context.delta.asSeconds();
+            
+    if(i > 0.5)
+    {
+        remove();
+    }
 
 void Missile::Explosion(Context& context)
 {   

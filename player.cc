@@ -104,6 +104,10 @@ void Player::handle(Context& context, sf::Event event)
 void Player::update(Context& context)
 {
     hud -> update(hp, bearing, power, fuel, curr_weapon, score, player_name_var);
+    if (hp <= 0)
+    {
+        remove();
+    }
 }
 
 void Player::move(Context& context)
@@ -181,8 +185,6 @@ void Player::move(Context& context)
     }    
 }
 
-
-
 void Player::render(sf::RenderWindow& window, Context& context)
 {
     window.draw(icon);
@@ -214,7 +216,6 @@ void Player::collision(Game_object* object, Context& context)
 
         set_pos();
     }
-
     
     if (other_player != nullptr)
     {
@@ -225,9 +226,7 @@ void Player::collision(Game_object* object, Context& context)
         set_barrel_pos();
         set_name_pos();
     }
-    
-    
-    ////////////////// Powerup collision /////////////////7//
+    //Powerup collision//
     else if (powerup != nullptr)
     {
         
@@ -262,40 +261,45 @@ void Player::collision(Game_object* object, Context& context)
     /////////////// MISSILE COLLISION /////////////////
     else if (missile != nullptr)
     {
-        if (last_missile != missile)
+        if (shield_isActive && (context.current_player != this))
         {
-            last_missile = missile;
-
-            if (shield_isActive && (context.current_player != this))
-            {
-                shield_isActive = false;
-                std::cout << "Shield hit!" << std::endl;
-                return;
-            }
-            else
-            {
-                double missile_dmg{};
-                missile_dmg = check_damage(missile, missile_dmg);
-                hp -= missile_dmg;
-                std::cout << "HP för " << player_name_var
-                        << " kvar: " << hp << std::endl;
-            }
+            shield_isActive = false;
+            std::cout << "Shield hit!" << std::endl;
+            return;
         }
+        else
+        {
+            double missile_dmg{};
+            missile_dmg = check_damage(missile, missile_dmg);
+            hp -= missile_dmg;
+            std::cout << "HP för " << player_name_var
+                      << " kvar: " << hp << std::endl;
+        }
+    }
+
+
+    else if (context.hit_pos.x != 0 && context.hit_pos.y != 0)
+    {
+        check_damage(context, 50.0);
     }
 }
 
-double Player::check_damage(Game_object* object, double missile_dmg) 
+void Player::check_damage(Context& context, double missile_dmg) 
 {
-    /*double dist_from_player{};
-    dist_from_player = sqrt((pow((missile -> position_x - position_x), 2) 
-    + pow((missile -> position_y - position_y), 2)));
-    std::cout << "Distance from player: " << dist_from_player << std::endl;
+    double dist_from_player{};
+    dist_from_player = sqrt((pow((context.hit_pos.x - position_x), 2) 
+    + pow((context.hit_pos.y - position_y), 2)));
+    std::cout << "Distance from player " << player_name_var << ": " << dist_from_player << std::endl;
 
-    missile_dmg = dist_from_player/(missile_type -> Damage);
-    std::cout << "Missile damage: " << missile_dmg << std::endl;
+    if(dist_from_player <= 200)
+    {
+        missile_dmg = missile_dmg - (dist_from_player/(200/missile_dmg));
+        std::cout << "Missile damage: " << missile_dmg << std::endl;
+        hp -= missile_dmg;
+    }
 
-    return missile_dmg;*/
-
+    std::cout << "HP för " << player_name_var
+              << " kvar: " << hp << std::endl;
 }
 
 void Player::set_pos()
@@ -328,12 +332,12 @@ void Player::reset()
 
 double Player::calc_x_position()
 {
-    return position_x - cos(bearing*M_PI/180) * (barrel.getSize().x + 6);
+    return position_x - cos(bearing*M_PI/180) * (barrel.getSize().x + 7);
 }
 
 double Player::calc_y_position()
 {
-    return position_y - 30 - sin(bearing * M_PI/180) * (barrel.getSize().x + 6);
+    return position_y - 30 - sin(bearing * M_PI/180) * (barrel.getSize().x + 7);
 }
 
 void Player::update_score(Context & context)
