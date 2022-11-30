@@ -9,6 +9,8 @@
 #include "PowerUp.h"
 #include "static_object.h"
 #include <iostream>
+#include "state.h"
+#include "menu_state.h"
 
 
 Game_state::Game_state(Context& context)
@@ -29,8 +31,68 @@ Game_state::Game_state(Context& context)
 }
 
 void Game_state::handle(Context& context, sf::Event event)
-{
+{   
+
     context.current_player -> handle(context, event);
+
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    {   
+        
+        for(unsigned int i{0} ; i < context.objects.size(); i++)
+        {   
+            delete context.objects[i];
+            //context.objects[i] = nullptr;
+        }
+       
+        std::cout << context.objects.size() << std::endl;
+        for(unsigned int j{0} ; j < context.players.size(); j++)
+        {   
+            delete context.players[j];
+            //context.players[j] = nullptr;
+        }
+        
+        delete context.map;
+
+        context.players.clear();
+        context.objects.clear();
+
+
+        
+        
+
+        //~Game_state();
+        context.next_state = new Menu_state{};
+ 
+        
+    }
+
+    
+
+    
+
+    /*//Check collsion with other objects
+    for (unsigned int i{0}; i < context.objects.size(); i++)
+    {
+        if (context.objects.at(i) -> check_collision(context.current_player))
+        {
+            context.current_player -> collision(context.objects.at(i));
+            
+            context.objects.at(i) -> collision(context.current_player);
+        }
+    }
+
+    //Check collision with other players
+    for (unsigned int i{0}; i < context.players.size(); i++)
+    {
+        if (context.current_player -> check_collision(context.players.at(i)) && context.current_player != context.players.at(i))
+        {
+            context.current_player -> collision(context.players.at(i));
+        }
+    }
+
+    //Check collsion with wall*/
+    
 }
 
 void Game_state::update(Context& context)
@@ -239,3 +301,8 @@ void Game_state::render(sf::RenderWindow& window, Context& context)
 
 
 }
+
+/*Game_state::~Game_state()
+{
+    
+}*/

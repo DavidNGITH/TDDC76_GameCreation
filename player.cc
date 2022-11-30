@@ -6,8 +6,14 @@
 #include "static_object.h"
 #include "Missile.h"
 #include "PowerUp.h"
+#include "Mine.h"
 #include <string>
 #include <cmath>
+#include "shower_missile.h"
+#include "standard_missile.h"
+#include "split_missile.h"
+
+
 
 
 //HARD CODED
@@ -85,9 +91,33 @@ void Player::Fire(Context& context)
     
     if (!fired)
     {
-        context.new_objects.push_back(new Missile{calc_x_position(),
-        calc_y_position(), power, bearing});
-        fired = true;
+        if (curr_weapon == 1)
+        {
+            context.new_objects.push_back(new Standard_Missile{calc_x_position(),
+            calc_y_position(), power, bearing});
+            fired = true;
+        }
+        else if (ammo_array[curr_weapon - 1] > 0)
+        {
+            ammo_array[curr_weapon-1] -= 1;
+
+            if (curr_weapon == 2)
+            {
+                context.new_objects.push_back(new Shower_Missile{calc_x_position(),
+                calc_y_position(), power, bearing});
+            }
+
+            else if (curr_weapon == 3)
+            {
+                context.new_objects.push_back(new Mine{calc_x_position(),
+                calc_y_position(), power, bearing});
+            }
+            fired = true;
+        }
+        else
+        {
+            fired = false;
+        }
     }
 }
 
@@ -96,8 +126,10 @@ void Player::handle(Context& context, sf::Event event)
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
         Fire(context);
-        able_to_move = false;
-
+        if (fired)
+        {
+            able_to_move = false;
+        }
     }
 }
 
@@ -185,24 +217,15 @@ void Player::move(Context& context)
         }    
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) ) 
         {
-            if (curr_weapon != 1)
-            {
-                curr_weapon = 1;
-            }
+            curr_weapon = 1;
         } 
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)  )
         {
-            if (curr_weapon != 2)
-            {
-                curr_weapon = 2;
-            }
+            curr_weapon = 2;
         } 
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))  
         {
-            if (curr_weapon != 3)
-            {
-                curr_weapon = 3;
-            }
+            curr_weapon = 3;
         } 
     }    
 }
@@ -227,6 +250,7 @@ void Player::collision(Game_object* object, Context& context)
     Static_object* static_object { dynamic_cast<Static_object*>(object) };
     Player* other_player { dynamic_cast<Player*>(object) };
     Powerup* powerup { dynamic_cast<Powerup*>(object) };
+    Mine* mine { dynamic_cast<Mine*>(object) };
     Missile* missile { dynamic_cast<Missile*>(object) };
 
     
@@ -278,8 +302,17 @@ void Player::collision(Game_object* object, Context& context)
         else if(powerup -> get_poweruptype() == 1)
         {
             std::cout << "Collided with repair kit" << std::endl;
-            hp += 20;
+            hp += 40;
         }
+        else if(powerup -> get_poweruptype() == 2)
+        {
+            ammo_array[2] += 1;
+        }
+        else if (powerup -> get_poweruptype() == 3)
+        {
+            ammo_array[1] += 1;
+        }
+
     }
 
     /////////////// MISSILE COLLISION /////////////////

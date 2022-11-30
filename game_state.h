@@ -4,6 +4,7 @@
 #include "SFML/Graphics.hpp"
 #include "state.h"
 #include "map.h"
+#include "context.h"
 
 
 class Game_state : public State
@@ -11,6 +12,7 @@ class Game_state : public State
     public:
     //Game_state(Map & map, list<Game_object*> & players);
     Game_state(Context& context);
+
     //~Game_state() = default;
 
     void handle(Context& context, sf::Event event) override;
