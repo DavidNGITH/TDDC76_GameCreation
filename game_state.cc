@@ -15,7 +15,7 @@
 
 Game_state::Game_state(Context& context)
 {
-    std::cout << context.players.size() << std::endl;
+    //std::cout << context.players.size() << std::endl;
 
     context.objects.push_back(new Helicopter);
     context.objects.push_back(new Powerup);
@@ -33,34 +33,13 @@ Game_state::Game_state(Context& context)
 void Game_state::handle(Context& context, sf::Event event)
 {   
 
+
     context.current_player -> handle(context, event);
 
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {   
-        
-        for(unsigned int i{0} ; i < context.objects.size(); i++)
-        {   
-            delete context.objects[i];
-            //context.objects[i] = nullptr;
-        }
-       
-        std::cout << context.objects.size() << std::endl;
-        for(unsigned int j{0} ; j < context.players.size(); j++)
-        {   
-            delete context.players[j];
-            //context.players[j] = nullptr;
-        }
-        
-        delete context.map;
-
-        context.players.clear();
-        context.objects.clear();
-
-
-        
-        
-
+        delete_all(context);
         //~Game_state();
         context.next_state = new Menu_state{};
  
@@ -211,8 +190,18 @@ void Game_state::update(Context& context)
         switch_player(context);
     }
 
+    //std::cout << context.players.size() << std::endl;
+
     //Check if someones won*/
+    if(context.players.size() == 1)
+    {
+        //std::cout << "Avslutar spel" << std::endl;
+        delete_all(context);
+        context.next_state = new Menu_state{};
+
+    }
 }
+
 
 
 void Game_state::render(sf::RenderWindow& window, Context& context)
@@ -240,7 +229,7 @@ void Game_state::switch_player(Context& context)
             i += 1;
         }
 
-        std::cout << "i: " << i << std::endl; 
+        //std::cout << "i: " << i << std::endl; 
 
         if (i == context.players.size() - 1)
         {
@@ -253,4 +242,26 @@ void Game_state::switch_player(Context& context)
         }
         context.current_player->able_to_move = true;
         context.current_player->fired = false;
+}
+
+void Game_state::delete_all(Context& context)
+{
+    for(unsigned int i{0} ; i < context.objects.size(); i++)
+    {   
+        delete context.objects[i];
+        //context.objects[i] = nullptr;
+    }
+       
+    //std::cout << context.objects.size() << std::endl;
+    for(unsigned int j{0} ; j < context.players.size(); j++)
+    {   
+        delete context.players[j];
+        //context.players[j] = nullptr;
+    }
+    
+    delete context.map;
+
+    context.players.clear();
+    context.objects.clear();
+
 }

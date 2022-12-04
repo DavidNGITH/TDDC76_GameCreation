@@ -31,7 +31,7 @@ void Missile::update(Context& context)
     }
     if(icon.getPosition().x < 0 || icon.getPosition().x > 1920)
     {
-        std::cout<< "tog bort" << std::endl;
+        //std::cout<< "tog bort" << std::endl;
         context.new_turn = true;
         remove();
     }
@@ -64,7 +64,7 @@ void Missile::collision(Game_object* object, Context& context)
     if((player !=nullptr || helicopter!=nullptr || static_object!=nullptr) && !explode)
     {
         //Explosion();
-        std::cout<< "Kollision" << std::endl;
+        //std::cout<< "Kollision" << std::endl;
         /*if(player != nullptr && context.current_player != player)
         {
             context.current_player -> update_score(context);
@@ -79,7 +79,7 @@ void Missile::collision(Game_object* object, Context& context)
         //Explosion();
         context.hit_pos.x = position_x;
         context.hit_pos.y = position_y;
-        std::cout<< "Kollision" << std::endl;
+        //std::cout<< "Kollision" << std::endl;
         /*if(player != nullptr && context.current_player != player)
         {
             context.current_player -> update_score(context);

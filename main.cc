@@ -54,10 +54,6 @@ int main()
 
         state -> update(context);
 
-        window.clear();
-        state -> render(window, context);
-        window.display();
-
         if (context.next_state != nullptr)
         {
             delete state;
@@ -65,6 +61,12 @@ int main()
             context.next_state = nullptr;
 
         }
+
+        window.clear();
+        state -> render(window, context);
+        window.display();
+
+        
         
     }
 }

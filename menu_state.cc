@@ -200,7 +200,7 @@ void Menu_state::handle(Context& context, sf::Event event)
                     map_background = "Map/halloween.png";
                 }
 
-                if(!(players.size() == 0) && (map_selection.getPosition().x != 0))
+                if((players.size() > 1) && (map_selection.getPosition().x != 0))
                 {
                     context.map = new Map{map_background, map_foreground};
 
@@ -215,7 +215,7 @@ void Menu_state::handle(Context& context, sf::Event event)
                 //std::cout<< players.size() << std::endl;
 
                 
-                std::cout << context.players.size() << std::endl;
+                //std::cout << context.players.size() << std::endl;
             }
             else if(add_player_img.getGlobalBounds().contains(mouse.x,mouse.y))
             {
@@ -383,7 +383,7 @@ void Menu_state::add_player()
     if(player_selection.getPosition().x == blue_tank.getPosition().x && player_selection.getPosition().y == blue_tank.getPosition().y)
     {   
         //blue
-        std::cout << "blue_tank_added" << std::endl;
+        //std::cout << "blue_tank_added" << std::endl;
         blue_active = true;
         player_selected = false;
         players.push_back("textures_new/blue_tank.png");
@@ -398,7 +398,7 @@ void Menu_state::add_player()
     else if(player_selection.getPosition().x == cyan_tank.getPosition().x && player_selection.getPosition().y == cyan_tank.getPosition().y)
     {   
         //cyan
-        std::cout << "cyan_tank_added" << std::endl;
+        //std::cout << "cyan_tank_added" << std::endl;
         cyan_active = true;
         player_selected = false;
         players.push_back("textures_new/cyan_tank.png");
@@ -411,7 +411,7 @@ void Menu_state::add_player()
     else if(player_selection.getPosition().x == green_tank.getPosition().x && player_selection.getPosition().y == green_tank.getPosition().y)
     {   
         //green
-        std::cout << "green_tank_added" << std::endl;
+        //std::cout << "green_tank_added" << std::endl;
         green_active = true;
         player_selected = false;
         players.push_back("textures_new/green_tank.png");
@@ -424,7 +424,7 @@ void Menu_state::add_player()
     else if(player_selection.getPosition().x == pink_tank.getPosition().x && player_selection.getPosition().y == pink_tank.getPosition().y)
     {   
         //pink
-        std::cout << "pink_tank_added" << std::endl;
+        //std::cout << "pink_tank_added" << std::endl;
         pink_active = true;
         player_selected = false;
         players.push_back("textures_new/pink_tank.png");
@@ -437,7 +437,7 @@ void Menu_state::add_player()
     else if(player_selection.getPosition().x == red_tank.getPosition().x && player_selection.getPosition().y == red_tank.getPosition().y)
     {
         //red
-        std::cout << "red_tank_added" << std::endl;
+        //std::cout << "red_tank_added" << std::endl;
         red_active = true;
         player_selected = false;
         players.push_back("textures_new/red_tank.png");
@@ -450,7 +450,7 @@ void Menu_state::add_player()
     else if(player_selection.getPosition().x == yellow_tank.getPosition().x && player_selection.getPosition().y == yellow_tank.getPosition().y)
     {   
         //yellow
-        std::cout << "yellow_tank_added" << std::endl;
+        //std::cout << "yellow_tank_added" << std::endl;
         yellow_active = true;
         player_selected = false;
         players.push_back("textures_new/yellow_tank.png");
