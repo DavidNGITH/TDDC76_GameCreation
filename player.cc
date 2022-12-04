@@ -20,7 +20,7 @@
 
 ///////////// Constructor /////////////////////
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
-:hp{100}, fuel{100}, bearing{90}, score{0}, power{50}, shield_isActive{false}, curr_weapon{1},
+:hp{100}, fuel{100}, bearing{90}, power{50}, score{0}, shield_isActive{false}, curr_weapon{1},
 barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_missile{nullptr}
 {
     ////////////// HARD CODED /////////////
@@ -201,7 +201,7 @@ void Player::move(Context& context)
             if (power <100)
             {
                 power += context.delta.asSeconds() * 10;
-                std::cout << power << std::endl;
+                //std::cout << power << std::endl;
             }
         
         }
@@ -210,7 +210,7 @@ void Player::move(Context& context)
             if (power >0)
             {
                 power -= context.delta.asSeconds() * 10;
-                std::cout << power << std::endl;
+                //std::cout << power << std::endl;
 
             }
         
@@ -329,6 +329,7 @@ void Player::collision(Game_object* object, Context& context)
             hp -= 49;
             std::cout << "HP för " << player_name_var
                       << " kvar: " << hp << std::endl;
+            update_score(context, 49);
         }
     }
 
@@ -347,15 +348,17 @@ void Player::check_damage(Context& context, double missile_dmg)
     std::cout << "Distance from player " << player_name_var 
               << ": " << dist_from_player << std::endl;
 
-    if(dist_from_player <= 50)
+    if(dist_from_player <= 100)
     {
-        missile_dmg = missile_dmg - (dist_from_player/(50/missile_dmg));
+        missile_dmg = missile_dmg - (dist_from_player/(100/missile_dmg));
         std::cout << "Missile damage: " << missile_dmg << std::endl;
         hp -= missile_dmg;
+        update_score(context, missile_dmg);
     }
 
     std::cout << "HP för " << player_name_var
               << " kvar: " << hp << std::endl;
+    
 }
 
 void Player::set_pos()
@@ -396,12 +399,16 @@ double Player::calc_y_position()
     return position_y - 30 - sin(bearing * M_PI/180) * (barrel.getSize().x + 7);
 }
 
-void Player::update_score(Context & context)
+void Player::update_score(Context & context, double damage)
 {
-    if(context.current_player == this)
+    std::cout << "är i update_score" << std::endl;
+    if(context.current_player != this)
     {
-        score += 10;
+        Player* player { dynamic_cast<Player*>(context.current_player) };
+        std::cout << "kom in i if-satsen" << std::endl;
+        player -> score += damage;
     }
+
 
     
 }

@@ -20,13 +20,14 @@ public:
     void collision(Game_object* object, Context& context) override;
     void move(Context& context) override;
 
-    void update_score(Context & context) override;
+
 
     double get_bearing() const&;
     int get_score() const&;
     void check_damage(Context& context, double missile_dmg);
 
     void reset();
+
     
     
 
@@ -38,12 +39,14 @@ private:
     void set_barrel_pos();
     void set_shield_pos();
     void set_name_pos();
+    void update_score(Context & context, double damage);
     void Fire(Context& context);
     double calc_y_position();
     double calc_x_position();
+    double score{};
     
     //Player vars
-    int score{};
+    
     double fuel{};
     double bearing{};
     double power{};

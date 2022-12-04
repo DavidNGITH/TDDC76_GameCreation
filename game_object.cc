@@ -53,5 +53,5 @@ double Game_object::get_ground_pos(Context& context, double x)
     (foreground_image.getPixel(object -> icon.getPosition().x, object -> icon.getPosition().y).a) != 0);*/
 }
 
-void Game_object::update_score(Context & context)
-{}
+//void Game_object::update_score(Context & context, double damage)
+//{}
