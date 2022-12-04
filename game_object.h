@@ -27,7 +27,7 @@ public:
     bool able_to_move{};
     bool fired{};
 
-    double score;
+
 
 protected:
     void load_icon(std::string path);
