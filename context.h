@@ -20,6 +20,7 @@ struct Context
     Game_object*                current_player;
     bool                        new_turn;
     sf::Vector2f                hit_pos;
+    int                         round{1};
     
 };
 

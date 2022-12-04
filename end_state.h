@@ -4,12 +4,14 @@
 #include <SFML/Graphics.hpp>
 #include "state.h"
 #include "context.h"
-
+#include <list>
+#include <string>
+#include <vector>
 
 class End_state: public State
 {
     public:
-    End_state();
+    End_state(Context& context);
 
     void handle(Context& context, sf::Event event) override;
     void update(Context& context) override;

@@ -11,6 +11,7 @@
 #include <iostream>
 #include "state.h"
 #include "menu_state.h"
+#include "end_state.h"
 
 
 Game_state::Game_state(Context& context)
@@ -197,7 +198,7 @@ void Game_state::update(Context& context)
     {
         //std::cout << "Avslutar spel" << std::endl;
         delete_all(context);
-        context.next_state = new Menu_state{};
+        context.next_state = new End_state{context};
 
     }
 }

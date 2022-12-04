@@ -19,6 +19,7 @@ Menu_state::Menu_state()
     unsigned int width{};
     unsigned int height{};
 
+    menu_texture = set_texture("Textures/menu_background.jpg");
     campus_texture = set_texture("Map/campus.png");
     halloween_texture = set_texture("Map/halloween.png");
 
@@ -66,6 +67,7 @@ Menu_state::Menu_state()
     map_selection.setOrigin(width/2, height/2);
     map_selection.setPosition(0, 0);
     map_selection.setScale(0.12,0.12);
+    map_selection.setColor(sf::Color::Black);
 
     
     halloween.setTexture(halloween_texture);
@@ -158,6 +160,7 @@ Menu_state::Menu_state()
     player_selection.setOrigin(width/2, height/2);
     player_selection.setPosition(0, 0);
     player_selection.setScale(0.04,0.06);
+    player_selection.setColor(sf::Color::Black);
 
     input_box_texture = set_texture("textures_new/input_box.png");
     input_box.setTexture(input_box_texture);
@@ -174,6 +177,12 @@ Menu_state::Menu_state()
     playerText.setCharacterSize(38);
     playerText.setFont(font);
     playerText.Bold;
+
+    background.setTexture(menu_texture);
+    width = menu_texture.getSize().x;
+    height = menu_texture.getSize().y;
+    background.setOrigin(width/2, height/2);
+    background.setPosition(960,540);
 
     
 
@@ -261,14 +270,14 @@ void Menu_state::handle(Context& context, sf::Event event)
             {
                 map_selection.setPosition(campus.getPosition().x, campus.getPosition().y);
                 map_selected = true;
-                background.setTexture(campus_texture);
+                //background.setTexture(campus_texture);
                 //campus
             }
             else if(halloween.getGlobalBounds().contains(mouse.x,mouse.y))
             {
                 map_selection.setPosition(halloween.getPosition().x, halloween.getPosition().y);
                 map_selected = true;
-                background.setTexture(halloween_texture);
+                //background.setTexture(halloween_texture);
                 //campus
             }
             
