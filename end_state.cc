@@ -20,9 +20,7 @@ End_state::End_state(Context& context)
     unsigned int width{};
     unsigned int height{};
 
-    round1_texture = set_texture("Textures/round1.png");
-    round2_texture = set_texture("Textures/round2.png");
-    round3_texture = set_texture("Textures/round3.png");
+    gameover_texture = set_texture("Textures/gameover.png");
     background_texture = set_texture("Textures/menu_background.jpg");
 
     background.setTexture(background_texture);
@@ -30,30 +28,16 @@ End_state::End_state(Context& context)
     height = background_texture.getSize().y;
     background.setOrigin(width/2, height/2);
     background.setPosition(960, 540);
-    background.scale(0.6,0.6);
+    background.scale(1,1);
 
 
-    if(context.round == 1)
-    {
-        round.setTexture(round1_texture);
-        width = round1_texture.getSize().x;
-        height = round1_texture.getSize().y;
-    }
-    else if(context.round == 2)
-    {
-        round.setTexture(round2_texture);
-        width = round2_texture.getSize().x;
-        height = round2_texture.getSize().y;
-    }
-    else
-    {
-        round.setTexture(round3_texture);
-        width = round3_texture.getSize().x;
-        height = round3_texture.getSize().y;
-    }
 
-    round.setOrigin(width/2, height/2);
-    round.setPosition(960,300);
+    gameover.setTexture(gameover_texture);
+    width = gameover_texture.getSize().x;
+    height = gameover_texture.getSize().y;
+
+    gameover.setOrigin(width/2, height/2);
+    gameover.setPosition(960,300);
 
 }
 
@@ -71,14 +55,9 @@ sf::Texture End_state::set_texture(std::string path)
 
 void End_state::handle(Context& context, sf::Event event)
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-    {
-        context.next_state = new Menu_state{};
-    }
-
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
     {
-        context.next_state = new Game_state{context};
+        context.next_state = new Menu_state{};
     }
 }
 
@@ -88,5 +67,5 @@ void End_state::update(Context& context)
 void End_state::render(sf::RenderWindow& window, Context& context)
 {
     window.draw(background);
-    window.draw(round);
+    window.draw(gameover);
 }

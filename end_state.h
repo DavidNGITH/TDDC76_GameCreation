@@ -23,12 +23,10 @@ class End_state: public State
     
     sf::Texture set_texture(std::string path);
 
-    sf::Texture round1_texture{};
-    sf::Texture round2_texture{};
-    sf::Texture round3_texture{};
+    sf::Texture gameover_texture{};
     sf::Texture background_texture{};
 
-    sf::Sprite round{};
+    sf::Sprite gameover{};
     sf::Sprite background{};
     
 };
