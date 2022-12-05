@@ -23,7 +23,7 @@ Game_state::Game_state(Context& context)
     context.objects.push_back(new Static_object{context});
     //context.objects.push_back(new Static_object);
     //context.players.push_back(new Player);
-
+    context.players = context.start_players;
     context.current_player = context.players.at(active_player);
     /*for(unsigned int i{1}; i < context.players.size(); i++)
     {

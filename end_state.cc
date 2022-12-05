@@ -78,7 +78,7 @@ void End_state::handle(Context& context, sf::Event event)
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
     {
-        //context.next_state = new Game_state{context};
+        context.next_state = new Game_state{context};
     }
 }
 

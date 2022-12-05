@@ -21,6 +21,7 @@ struct Context
     bool                        new_turn;
     sf::Vector2f                hit_pos;
     int                         round{1};
+    std::vector<Game_object*>&  start_players;
     
 };
 
