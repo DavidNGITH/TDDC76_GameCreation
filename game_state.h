@@ -33,6 +33,8 @@ class Game_state : public State
     bool update_need = false;
 
     void switch_player(Context& context);
+
+    std::vector<std::vector<std::string>> score_list;
     
 };
 

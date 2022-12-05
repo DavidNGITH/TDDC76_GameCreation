@@ -11,10 +11,12 @@
 #include <iostream>
 #include "state.h"
 #include "menu_state.h"
+#include <vector>
 #include "end_state.h"
 
 
 Game_state::Game_state(Context& context)
+:score_list{}
 {
     //std::cout << context.players.size() << std::endl;
 
@@ -23,7 +25,6 @@ Game_state::Game_state(Context& context)
     context.objects.push_back(new Static_object{context});
     //context.objects.push_back(new Static_object);
     //context.players.push_back(new Player);
-    context.players = context.start_players;
     context.current_player = context.players.at(active_player);
     /*for(unsigned int i{1}; i < context.players.size(); i++)
     {
@@ -157,6 +158,10 @@ void Game_state::update(Context& context)
             {
                 switch_player(context);
             }
+            Player* player { dynamic_cast<Player*>(context.players.at(i)) };
+            score_list.push_back(player->get_info());
+
+        
 
             //std::cout << "5" << std::endl;
             std::swap(context.players.at(i), context.players.back());
@@ -195,10 +200,12 @@ void Game_state::update(Context& context)
 
     //Check if someones won*/
     if(context.players.size() == 1)
-    {
+    {   
+        Player* player { dynamic_cast<Player*>(context.players.at(0)) };
+        score_list.push_back(player->get_info());
         //std::cout << "Avslutar spel" << std::endl;
         delete_all(context);
-        context.next_state = new End_state{context};
+        context.next_state = new End_state{context, score_list};
 
     }
 }

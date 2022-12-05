@@ -19,10 +19,7 @@ struct Context
     std::vector<Game_object*>&  players;
     Game_object*                current_player;
     bool                        new_turn;
-    sf::Vector2f                hit_pos;
-    int                         round{1};
-    std::vector<Game_object*>&  start_players;
-    
+    sf::Vector2f                hit_pos; 
 };
 
 #endif

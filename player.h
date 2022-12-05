@@ -28,6 +28,8 @@ public:
 
     void reset();
 
+    std::vector<std::string> get_info();
+
     
     
 

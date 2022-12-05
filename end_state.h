@@ -11,7 +11,7 @@
 class End_state: public State
 {
     public:
-    End_state(Context& context);
+    End_state(Context& context, std::vector<std::vector<std::string>> score_list);
 
     void handle(Context& context, sf::Event event) override;
     void update(Context& context) override;
@@ -25,9 +25,15 @@ class End_state: public State
 
     sf::Texture gameover_texture{};
     sf::Texture background_texture{};
+    sf::Font font{};
 
     sf::Sprite gameover{};
     sf::Sprite background{};
+    sf::Text list_score{};
+
+    std::vector<std::vector<std::string>> sort_list(std::vector<std::vector<std::string>> unsorted_list);
+
+    std::vector<std::vector<std::string>> score_lists;
     
 };
 

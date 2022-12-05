@@ -409,3 +409,12 @@ void Player::update_score(Context & context, double damage)
 
     
 }
+std::vector<std::string> Player::get_info()
+{
+    std::vector<std::string> info;
+
+    info.push_back(player_name_var);
+    info.push_back(std::to_string(int(score)));
+
+    return info;
+}

@@ -215,7 +215,7 @@ void Menu_state::handle(Context& context, sf::Event event)
 
                     for(unsigned int i{0} ; i < players.size(); i++)
                     {   
-                        context.start_players.push_back(new Player(players[i], barrels[i], names[i], context));
+                        context.players.push_back(new Player(players[i], barrels[i], names[i], context));
                     }
                     context.next_state = new Game_state{context};
 

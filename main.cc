@@ -26,10 +26,8 @@ int main()
     Game_object*               current_player{};
     bool                       new_turn{false};
     sf::Vector2f               hit_pos{0,0};
-    int                        round{1};
-    std::vector<Game_object*>  start_players;
 
-    Context context{clock.restart(), nullptr, nullptr, objects, new_objects, players, current_player, new_turn, hit_pos, round, start_players};
+    Context context{clock.restart(), nullptr, nullptr, objects, new_objects, players, current_player, new_turn, hit_pos};
 
 
     while (window.isOpen())

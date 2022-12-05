@@ -10,11 +10,14 @@
 #include "map.h"
 #include "player.h"
 #include "hud.h"
+#include <sstream>
+#include <iomanip>
+#include <algorithm>
 
 
 
 
-End_state::End_state(Context& context)
+End_state::End_state(Context& context, std::vector<std::vector<std::string>> score_list)
 {
 
     unsigned int width{};
@@ -38,6 +41,35 @@ End_state::End_state(Context& context)
 
     gameover.setOrigin(width/2, height/2);
     gameover.setPosition(960,300);
+
+    font.loadFromFile("Textures/Minecraft.ttf");
+
+    list_score.setPosition(700,450);
+    list_score.setColor(sf::Color::White);
+    list_score.setCharacterSize(70);
+    list_score.setFont(font);
+    list_score.Bold;
+
+    std::stringstream ss;
+    std::string output;
+
+    score_lists = sort_list(score_list);
+
+    for(int i = 0; i < score_lists.size(); i++)
+    {
+
+        ss << score_lists[i][0] << std::setfill(' ') << std::setw(10) 
+        << score_lists[i][1] << std::flush << std::endl;
+    
+
+        
+    }
+    output = ss.str();
+    std::cout << output << std::endl;
+    list_score.setString(output);
+
+
+
 
 }
 
@@ -68,4 +100,36 @@ void End_state::render(sf::RenderWindow& window, Context& context)
 {
     window.draw(background);
     window.draw(gameover);
+    window.draw(list_score);
+}
+
+std::vector<std::vector<std::string>> End_state::sort_list(std::vector<std::vector<std::string>> unsorted_list)
+{
+
+    int m;
+    int n;
+    std::vector<std::string> temp;
+    
+    for(m = 0; m < unsorted_list.size(); m++) 
+    {
+        for(n = m+1; n < unsorted_list.size(); n++)
+        { 
+            if(stoi(unsorted_list[n][1]) > stoi(unsorted_list[m][1])) 
+            {
+
+                temp = unsorted_list[m];
+                unsorted_list[m] = unsorted_list[n];
+                unsorted_list[n] = temp;
+            }
+        }
+    }
+    
+    /*for(int j; j < unsorted_list.size(); j++)
+    {
+        unsorted_list[j][1] = std::to_string(unsorted_list[j][1]);
+    }*/
+    
+
+    
+    return unsorted_list;
 }

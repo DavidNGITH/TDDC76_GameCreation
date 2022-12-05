@@ -105,12 +105,17 @@ void Missile::Explosion(Context& context)
         ////////////// HARD CODED //////////////
         sf::Vector2u texture_size_boom { boom.getSize() };
         boom_sprite.setOrigin(texture_size_boom.x/2, texture_size_boom.y/2);
-        boom_sprite.setScale(0.3, 0.3);
+        //boom_sprite.setScale(0.3, 0.3);
         boom_sprite.setPosition(position_x, position_y);
         icon.setPosition(0, 0);
     }
     
     i+= context.delta.asSeconds();
+    if(i< 0.2)
+    {
+        boom_sprite.setScale(1.5*i,1.5*i);
+    }
+    
             
     if(i > 0.5)
     {
