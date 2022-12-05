@@ -20,7 +20,7 @@
 
 ///////////// Constructor /////////////////////
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
-:hp{100}, fuel{100}, bearing{90}, score{0}, power{50}, shield_isActive{false}, curr_weapon{1},
+:hp{100}, fuel{100}, bearing{90}, power{50}, score{0}, shield_isActive{false}, curr_weapon{1},
 barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_missile{nullptr}
 {
     ////////////// HARD CODED /////////////
@@ -30,10 +30,10 @@ barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_m
     position_y = get_ground_pos(context, position_x);
     able_to_move = true;
     fired=false;
-    std::cout << "Ammo array at 0: " << ammo_array[0] << std::endl;
-    std::cout << "Ammo array at 1: " << ammo_array[1] << std::endl;
-    std::cout << "Ammo array at 2: " << ammo_array[2] << std::endl;
-    std::cout << position_x << std::endl;
+    //std::cout << "Ammo array at 0: " << ammo_array[0] << std::endl;
+    //std::cout << "Ammo array at 1: " << ammo_array[1] << std::endl;
+    //std::cout << "Ammo array at 2: " << ammo_array[2] << std::endl;
+    //std::cout << position_x << std::endl;
     
 
     ////////// Player name /////////////////////
@@ -84,7 +84,7 @@ Player::~Player()
 
 void Player::Fire(Context& context)
 {   
-    std::cout << get_ground_pos(context, position_x) << std::endl;
+    //std::cout << get_ground_pos(context, position_x) << std::endl;
     
     if (!fired)
     {
@@ -136,7 +136,7 @@ void Player::update(Context& context)
 
     if (hp <=0)
     {
-        std::cout << "Här" << std::endl;
+        //std::cout << "Här" << std::endl;
         remove();
     }
 }
@@ -201,7 +201,7 @@ void Player::move(Context& context)
             if (power <100)
             {
                 power += context.delta.asSeconds() * 10;
-                std::cout << power << std::endl;
+                //std::cout << power << std::endl;
             }
         
         }
@@ -210,7 +210,7 @@ void Player::move(Context& context)
             if (power >0)
             {
                 power -= context.delta.asSeconds() * 10;
-                std::cout << power << std::endl;
+                //std::cout << power << std::endl;
 
             }
         
@@ -280,7 +280,7 @@ void Player::collision(Game_object* object, Context& context)
         
         if ((powerup -> get_poweruptype() == 0) && (shield_isActive == false))
         {
-            std::cout << "Collided with shield" << std::endl;
+            //std::cout << "Collided with shield" << std::endl;
             ////////////////////// Hard coded: Read texture file
             
             if (!shield.loadFromFile("shield.png"))
@@ -301,7 +301,7 @@ void Player::collision(Game_object* object, Context& context)
         }
         else if(powerup -> get_poweruptype() == 1)
         {
-            std::cout << "Collided with repair kit" << std::endl;
+            //std::cout << "Collided with repair kit" << std::endl;
             hp += 40;
         }
         else if(powerup -> get_poweruptype() == 2)
@@ -321,14 +321,14 @@ void Player::collision(Game_object* object, Context& context)
         if (shield_isActive && (context.current_player != this))
         {
             shield_isActive = false;
-            std::cout << "Shield hit!" << std::endl;
+            //std::cout << "Shield hit!" << std::endl;
             return;
         }
         else
         {
             hp -= 49;
-            std::cout << "HP för " << player_name_var
-                      << " kvar: " << hp << std::endl;
+            //std::cout << "HP för " << player_name_var << " kvar: " << hp << std::endl;
+            update_score(context, 49);
         }
     }
 
@@ -344,18 +344,18 @@ void Player::check_damage(Context& context, double missile_dmg)
     double dist_from_player{};
     dist_from_player = sqrt((pow((context.hit_pos.x - position_x), 2) 
     + pow((context.hit_pos.y - position_y), 2)));
-    std::cout << "Distance from player " << player_name_var 
-              << ": " << dist_from_player << std::endl;
+    //std::cout << "Distance from player " << player_name_var << ": " << dist_from_player << std::endl;
 
-    if(dist_from_player <= 50)
+    if(dist_from_player <= 100)
     {
-        missile_dmg = missile_dmg - (dist_from_player/(50/missile_dmg));
-        std::cout << "Missile damage: " << missile_dmg << std::endl;
+        missile_dmg = missile_dmg - (dist_from_player/(100/missile_dmg));
+        //std::cout << "Missile damage: " << missile_dmg << std::endl;
         hp -= missile_dmg;
+        update_score(context, missile_dmg);
     }
 
-    std::cout << "HP för " << player_name_var
-              << " kvar: " << hp << std::endl;
+    //std::cout << "HP för " << player_name_var << " kvar: " << hp << std::endl;
+    
 }
 
 void Player::set_pos()
@@ -396,12 +396,25 @@ double Player::calc_y_position()
     return position_y - 30 - sin(bearing * M_PI/180) * (barrel.getSize().x + 7);
 }
 
-void Player::update_score(Context & context)
+void Player::update_score(Context & context, double damage)
 {
-    if(context.current_player == this)
+    //std::cout << "är i update_score" << std::endl;
+    if(context.current_player != this)
     {
-        score += 10;
+        Player* player { dynamic_cast<Player*>(context.current_player) };
+        //std::cout << "kom in i if-satsen" << std::endl;
+        player -> score += damage;
     }
 
+
     
+}
+std::vector<std::string> Player::get_info()
+{
+    std::vector<std::string> info;
+
+    info.push_back(player_name_var);
+    info.push_back(std::to_string(int(score)));
+
+    return info;
 }

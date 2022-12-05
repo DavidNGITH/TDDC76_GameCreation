@@ -21,14 +21,20 @@ class Game_state : public State
 
     void render(sf::RenderWindow& window, Context& context) override;
 
+    
+
     private:
     //Game_object* current_player;
+
+    void delete_all(Context& context);
 
     int active_player{0};
 
     bool update_need = false;
 
     void switch_player(Context& context);
+
+    std::vector<std::vector<std::string>> score_list;
     
 };
 

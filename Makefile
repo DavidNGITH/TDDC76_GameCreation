@@ -18,9 +18,10 @@ FILE11=standard_missile
 FILE12=shower_missile
 FILE13=Mine
 FILE14=split_missile
+FILE15=end_state
 
 
-OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE5).o $(FILE6).o $(FILE7).o $(FILE9).o $(FILE10).o $(FILE8).o $(FILE11).o $(FILE12).o $(FILE13).o $(FILE14).o
+OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE5).o $(FILE6).o $(FILE7).o $(FILE9).o $(FILE10).o $(FILE8).o $(FILE11).o $(FILE12).o $(FILE13).o $(FILE14).o $(FILE15).o
 
 
 
@@ -73,6 +74,9 @@ $(FILE13).o: $(FILE13).cc
 	
 $(FILE14).o: $(FILE14).cc
 	$(CC) $(CCFLAGS) $(FILE14).cc $(LIBS)
+
+$(FILE15).o: $(FILE15).cc
+	$(CC) $(CCFLAGS) $(FILE15).cc $(LIBS)
 
 
 clean:

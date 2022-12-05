@@ -50,6 +50,7 @@ class Menu_state : public State
     sf::Texture input_box_texture{};
     sf::Texture halloween_texture{};
     sf::Texture campus_texture{};
+    sf::Texture menu_texture{};
 
     sf::Texture campus_foreground_texture{};
     sf::Texture halloween_foreground_texture{};

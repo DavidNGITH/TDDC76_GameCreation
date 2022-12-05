@@ -53,7 +53,7 @@ void Mine::update(Context& context)
 
         if(icon.getPosition().x < 0 || icon.getPosition().x > 1920)
         {
-            std::cout<< "tog bort" << std::endl;
+            //std::cout<< "tog bort" << std::endl;
             context.new_turn = true;
             remove();
         }

@@ -59,7 +59,7 @@ void Shower_Missile::update(Context& context)
             context.new_objects.push_back(new Split_Missile(position_x, position_y, speed_x*1.1, 400));
             //context.new_objects.push_back(new Split_Missile(position_x, position_y, speed_x, 450));
             //context.new_objects.push_back(new Split_Missile(position_x, position_y, speed_x, 350));
-            std::cout<< speed_x << std::endl;
+            //std::cout<< speed_x << std::endl;
             //context.new_objects.push_back(new Missile{position_x+10, position_y, power, bearing});
         }
     }
