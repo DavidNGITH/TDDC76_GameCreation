@@ -113,7 +113,7 @@ void Missile::Explosion(Context& context)
     i+= context.delta.asSeconds();
     if(i< 0.2)
     {
-        boom_sprite.setScale(1.5*i,1.5*i);
+        boom_sprite.setScale(2*i,2*i);
     }
     
             

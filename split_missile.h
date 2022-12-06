@@ -15,8 +15,9 @@ public:
 
     Split_Missile(double  incoming_position_x, double  incoming_position_y, double  speed, double  bearing);
 
-
     void collision(Game_object* object, Context& context) override;
+
+    void update(Context& context) override;
 
 
 

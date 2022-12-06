@@ -18,13 +18,14 @@ Missile() = default;
     virtual void collision(Game_object* object, Context& context) override;
     virtual void Explosion(Context& context);
  
-
+    double dmg{};
 protected:
     bool explode{};
     double speed_x{};
     double speed_y{};
     double acceleration_y{};
     double i{};
+    
     sf::Sprite boom_sprite;
     sf::Texture boom;
 

@@ -21,7 +21,7 @@
 ///////////// Constructor /////////////////////
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
 :hp{100}, fuel{100}, bearing{90}, power{50}, score{0}, shield_isActive{false}, curr_weapon{1},
-barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_missile{nullptr}
+barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_missile{nullptr}, dmg_calc{0}
 {
     ////////////// HARD CODED /////////////
     speed = 100;
@@ -326,7 +326,7 @@ void Player::collision(Game_object* object, Context& context)
         }
         else
         {
-            hp -= 49;
+            hp -= missile->dmg;
             //std::cout << "HP för " << player_name_var << " kvar: " << hp << std::endl;
             update_score(context, 49);
         }
@@ -335,11 +335,12 @@ void Player::collision(Game_object* object, Context& context)
 
     else if (context.hit_pos.x != 0 && context.hit_pos.y != 0)
     {
-        check_damage(context, 50.0);
+        //dmg_calc = missile->dmg;
+        check_damage(context, 50);
     }
 }
 
-void Player::check_damage(Context& context, double missile_dmg) 
+void Player::check_damage(Context& context, int missile_dmg) 
 {
     double dist_from_player{};
     dist_from_player = sqrt((pow((context.hit_pos.x - position_x), 2) 
