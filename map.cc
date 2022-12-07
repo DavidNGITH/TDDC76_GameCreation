@@ -5,7 +5,7 @@
 
 
 Map::Map(std::string background, std::string foreground)
-:background_texture{}, background_sprite{}, foreground_texture{}, foreground_sprite{}
+: foreground_image{}, background_texture{}, background_sprite{}, foreground_texture{}, foreground_sprite{}
 {
 
     if(!background_texture.loadFromFile(background))
@@ -58,8 +58,8 @@ sf::Vector2u Map::get_window_size()
     return background_texture.getSize();
 }
 
-void Map::handle(Context& context, sf::Event event){};
-void Map::update(Context& context){};
-void Map::collision(Game_object* object, Context& context){}; 
+void Map::handle(Context& context, sf::Event event){}
+void Map::update(Context& context){}
+void Map::collision(Game_object* object, Context& context){}
 
 

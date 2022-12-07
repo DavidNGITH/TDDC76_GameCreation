@@ -213,7 +213,7 @@ void Game_state::render(sf::RenderWindow& window, Context& context)
 void Game_state::switch_player(Context& context)
 {
     context.new_turn = false;
-    int i{0};
+    long unsigned int i{0};
 
         while ((context.current_player != context.players.at(i)) == true)
         {

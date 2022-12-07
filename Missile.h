@@ -7,11 +7,8 @@
 #include <vector>
 class Missile : public Game_object
 {
-public:
-// Constructors / destructors
-Missile() = default;
-
 //Functions
+    public:
     virtual void handle(Context& context, sf::Event event) override;
     virtual void update(Context& context) override;
     virtual void render(sf::RenderWindow& window, Context& context) override;

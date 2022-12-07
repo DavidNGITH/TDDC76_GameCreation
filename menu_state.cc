@@ -12,6 +12,7 @@
 //test
 
 Menu_state::Menu_state()
+: playerText{}, font{}, players{}, barrels{}, names{}
 {
     
 
@@ -172,10 +173,9 @@ Menu_state::Menu_state()
     font.loadFromFile("Textures/Minecraft.ttf");
 
     playerText.setPosition(1295,630);
-    playerText.setColor(sf::Color::Cyan);
+    playerText.setFillColor(sf::Color::Cyan);
     playerText.setCharacterSize(38);
     playerText.setFont(font);
-    playerText.Bold;
 
     background.setTexture(menu_texture);
     width = menu_texture.getSize().x;
