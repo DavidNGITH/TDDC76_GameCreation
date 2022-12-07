@@ -10,6 +10,10 @@ class Helicopter :public Game_object
 
     Helicopter(Context& context);
     ~Helicopter() = default;
+
+    Helicopter (const Helicopter&) = delete;
+    Helicopter& operator= (const Helicopter&) = delete;
+
     void update(Context& context) override;
     void render(sf::RenderWindow& window, Context& context) override;
     void handle(Context& context, sf::Event event) override;

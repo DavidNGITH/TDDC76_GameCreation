@@ -13,6 +13,10 @@ public:
     //HARD CODED:
     Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context);
     ~Player() override;
+    
+    Player (const Player&) = delete;
+    Player& operator= (const Player&) = delete;
+
     void handle(Context& context, sf::Event event) override;
     void update(Context& context) override;
     void render(sf::RenderWindow& window, Context& context) override;
@@ -75,7 +79,7 @@ private:
     Hud* hud;
 
     //Ammo vars
-    int ammo_array [3]= { 2, 10, 4 };
+    int ammo_array [3]; 
     
     
 };

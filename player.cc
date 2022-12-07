@@ -20,8 +20,9 @@
 
 ///////////// Constructor /////////////////////
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
-:hp{100}, fuel{100}, bearing{90}, power{50}, score{0}, shield_isActive{false}, curr_weapon{1},
-barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_missile{nullptr}
+: hp{100}, score{0}, fuel{100}, bearing{90}, power{50}, curr_weapon{1}, barrel_rotation_speed {30},
+  last_missile{nullptr}, old_position{}, barrel_sprite{}, barrel{}, player_name_var{player_name}, name_text{}, font{}, 
+  shield_isActive{false}, shield_sprite{}, shield{}, hud{new Hud()}, ammo_array{ 2, 10, 4 }
 {
     ////////////// HARD CODED /////////////
     speed = 100;
@@ -35,9 +36,7 @@ barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_m
     //std::cout << position_x << std::endl;
     
 
-
     /////////// Player sprite /////////////
-    
     load_icon(player_texture);
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y);
@@ -82,10 +81,6 @@ barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_m
     barrel_sprite.setScale(1, 1);
     barrel_sprite.setRotation(bearing);
     set_barrel_pos();
-
-
-    ///////// HUD //////////////
-    hud = new Hud();
 
 }
 
