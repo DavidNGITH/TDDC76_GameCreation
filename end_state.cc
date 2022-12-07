@@ -24,7 +24,7 @@ End_state::End_state(Context& context, std::vector<std::vector<std::string>> sco
     unsigned int height{};
 
     gameover_texture = set_texture("Textures/gameover.png");
-    background_texture = set_texture("Textures/menu_background.jpg");
+    background_texture = set_texture("Textures/endstate_background.jpg");
 
     background.setTexture(background_texture);
     width = background_texture.getSize().x;
@@ -44,29 +44,36 @@ End_state::End_state(Context& context, std::vector<std::vector<std::string>> sco
 
     font.loadFromFile("Textures/Minecraft.ttf");
 
-    list_score.setPosition(700,450);
+    list_name.setPosition(600,550);
+    list_name.setColor(sf::Color::White);
+    list_name.setCharacterSize(70);
+    list_name.setFont(font);
+    list_name.Bold;
+
+    list_score.setPosition(1200,550);
     list_score.setColor(sf::Color::White);
     list_score.setCharacterSize(70);
     list_score.setFont(font);
     list_score.Bold;
 
-    std::stringstream ss;
-    std::string output;
+    std::stringstream ss_name;
+    std::stringstream ss_score;
+    std::string output_name;
+    std::string output_score;
 
     score_lists = sort_list(score_list);
 
     for(int i = 0; i < score_lists.size(); i++)
     {
 
-        ss << score_lists[i][0] << std::setfill(' ') << std::setw(10) 
-        << score_lists[i][1] << std::flush << std::endl;
-    
-
-        
+        ss_name << score_lists[i][0] << std::endl;
+        ss_score << score_lists[i][1] << std::endl;
     }
-    output = ss.str();
-    std::cout << output << std::endl;
-    list_score.setString(output);
+    output_name = ss_name.str();
+    list_name.setString(output_name);
+    output_score = ss_score.str();
+    list_score.setString(output_score);
+
 
 
 
@@ -87,7 +94,7 @@ sf::Texture End_state::set_texture(std::string path)
 
 void End_state::handle(Context& context, sf::Event event)
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
         context.next_state = new Menu_state{};
     }
@@ -100,6 +107,7 @@ void End_state::render(sf::RenderWindow& window, Context& context)
 {
     window.draw(background);
     window.draw(gameover);
+    window.draw(list_name);
     window.draw(list_score);
 }
 
