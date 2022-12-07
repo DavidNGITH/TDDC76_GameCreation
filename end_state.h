@@ -40,6 +40,7 @@ class End_state: public State
     sf::Text list_score{};
     sf::Text list_highScore_name{};
     sf::Text list_highScore_score{};
+    sf::Text return_to_menu{};
 
     std::vector<std::vector<std::string>> high_score_list;
 
