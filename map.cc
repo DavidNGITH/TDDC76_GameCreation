@@ -1,8 +1,7 @@
 #include "map.h"
 #include "SFML/Graphics.hpp"
 #include <iostream>
-#include <cmath>
-#include <iostream>
+//#include <cmath>
 
 
 Map::Map(std::string background, std::string foreground)
@@ -36,8 +35,6 @@ Map::Map(std::string background, std::string foreground)
 
 }
 
-//Map::update(Context& context)
-//{}
 
 void Map::render(sf::RenderWindow& window, Context& context)
 {
