@@ -326,9 +326,10 @@ void Player::collision(Game_object* object, Context& context)
         }
         else
         {
-            hp -= 49;
+            //////////////////// OBS /////////////////////
+            hp -= 50;
             //std::cout << "HP för " << player_name_var << " kvar: " << hp << std::endl;
-            update_score(context, 49);
+            update_score(context, 50); //////////////////// OBS /////////////////////
         }
     }
 

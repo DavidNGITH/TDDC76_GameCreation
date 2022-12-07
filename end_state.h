@@ -16,6 +16,7 @@ class End_state: public State
     void handle(Context& context, sf::Event event) override;
     void update(Context& context) override;
     void render(sf::RenderWindow& window, Context& context) override;
+    void writeTo_File(std::vector<std::vector<std::string>> sorted_score_list);
 
     ~End_state() = default;
 
@@ -34,7 +35,7 @@ class End_state: public State
 
     std::vector<std::vector<std::string>> sort_list(std::vector<std::vector<std::string>> unsorted_list);
 
-    std::vector<std::vector<std::string>> score_lists;
+    std::vector<std::vector<std::string>> sorted_score_list;
     
 };
 
