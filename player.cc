@@ -122,7 +122,7 @@ void Player::Fire(Context& context)
 
             else if (curr_weapon == 3)
             {
-                context.new_objects.push_back(new Mine{calc_x_position(),
+                context.new_objects.push_back(new Mine{context, calc_x_position(),
                 calc_y_position(), round(power), round(bearing)});
             }
             fired = true;

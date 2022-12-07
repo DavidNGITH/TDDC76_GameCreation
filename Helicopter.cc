@@ -5,12 +5,12 @@
 #include "Missile.h"
 #include "Mine.h"
 
-Helicopter::Helicopter()
-:stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{0}, spawn_rate{33}, speed{200}, current_player{nullptr}
+Helicopter::Helicopter(Context& context)
+:stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{}, spawn_rate{context.settings["helicopter"]["spawn_rate"].asInt()}, speed{context.settings["helicopter"]["speed"].asFloat()}, current_player{nullptr}
 {   
     load_icon("textures_new/helicopter.png");
 
-    reset();
+    reset(context);
 
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y / 2);
@@ -101,11 +101,11 @@ void Helicopter::collision(Game_object* object, Context& context)
 
     if (missile != nullptr)
     {
-        reset();
+        reset(context);
     }
     if (mine != nullptr)
     {
-        reset();
+        reset(context);
     }
 }
 
@@ -118,21 +118,20 @@ void Helicopter::handle(Context& context, sf::Event event)
 void Helicopter::create_powerup(Context& context) const
 {
     //New Power_Up
-    context.new_objects.push_back(new Powerup(position_x, position_y));
+    context.new_objects.push_back(new Powerup(context, position_x, position_y));
 }
 
-void Helicopter::stop_position()
+void Helicopter::stop_position(Context& context)
 {
     //randomizes the stop_position.
-    stop_coordinate = ((rand() % 1520) + 200);
+    stop_coordinate = (rand() % (context.settings["setup"]["width"].asInt() - 2*context.settings["helicopter"]["align_pos"].asInt()) + context.settings["helicopter"]["align_pos"].asInt());
 
 }
 
-void Helicopter::reset()
+void Helicopter::reset(Context& context)
 {
-    //Hårdkodat
-    position_x = -100;
-    position_y = 160;
+    position_x = context.settings["helicopter"]["position_x"].asInt();
+    position_y = context.settings["helicopter"]["position_y"].asInt();
 
     is_active = 0;
     has_stopped = 0;
@@ -140,6 +139,6 @@ void Helicopter::reset()
         
     icon.setPosition(position_x, position_y);
 
-    stop_position();
+    stop_position(context);
 }
 

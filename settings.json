@@ -1,0 +1,93 @@
+{
+    "setup":
+    {
+        "width": 1920,
+        "height": 1080,
+        "name": "DANK TANKZ"
+    },
+
+    "end_state":
+    {
+
+    },
+
+    "game_object": 
+    {
+        
+    },
+
+    "game_state":
+    {
+        "num_of_trees": 1
+    },
+
+    "helicopter":
+    {
+        "spawn_rate": 33, //in percent
+        "speed": 200,
+        "position_x": -100,
+        "position_y": 160,
+        "align_pos": 200
+    },
+
+    "hud":
+    {
+        
+    },
+
+    "map":
+    {
+
+    },
+
+    "menu_state":
+    {
+
+    },
+
+    "missile":
+    {
+        "acceleration": 400,
+        "power_scale": 12,
+        "explosion_duration": 0.5,
+        "align_pos": 10
+    },
+
+    "mine":
+    {
+        "acceleration": 400,
+        "damage": 0
+    },
+
+    "standard_missile":
+    {
+        "damage": 0
+    },
+
+    "shower_missile":
+    {
+        "damage": 0
+    },
+
+    "player":
+    {
+        "start_hp": 100,
+        "start_fuel": 100,
+        "start_bearing": 90,
+        "start_power": 50,
+        "speed": 100,
+        "player_text_pos": 80,
+        "health_boost": 40
+    },
+
+    "powerup":
+    {
+        "speed": 200,
+        "align_pos_y": 100
+    },
+
+    "static_object":
+    {
+
+    }
+}

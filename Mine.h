@@ -8,7 +8,7 @@
 class Mine : public Missile
 {
 public:
-    Mine(double incoming_position_x, double incoming_position_y, double speed, double bearing);
+    Mine(Context& context, double incoming_position_x, double incoming_position_y, double speed, double bearing);
 
     void update(Context& context) override;
 
