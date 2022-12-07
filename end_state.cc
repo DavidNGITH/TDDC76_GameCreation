@@ -45,22 +45,39 @@ End_state::End_state(Context& context, std::vector<std::vector<std::string>> sco
 
     font.loadFromFile("Textures/Minecraft.ttf");
 
-    list_name.setPosition(600,550);
+    list_name.setPosition(100,550);
     list_name.setColor(sf::Color::White);
     list_name.setCharacterSize(70);
     list_name.setFont(font);
     list_name.Bold;
 
-    list_score.setPosition(1200,550);
+    list_score.setPosition(700,550);
     list_score.setColor(sf::Color::White);
     list_score.setCharacterSize(70);
     list_score.setFont(font);
     list_score.Bold;
 
+    list_highScore_name.setPosition(1100,550);
+    list_highScore_name.setColor(sf::Color::White);
+    list_highScore_name.setCharacterSize(70);
+    list_highScore_name.setFont(font);
+    list_highScore_name.Bold;
+
+    list_highScore_score.setPosition(1700,550);
+    list_highScore_score.setColor(sf::Color::White);
+    list_highScore_score.setCharacterSize(70);
+    list_highScore_score.setFont(font);
+    list_highScore_score.Bold;
+
     std::stringstream ss_name;
     std::stringstream ss_score;
     std::string output_name;
     std::string output_score;
+
+    std::stringstream ss_highScore_name;
+    std::stringstream ss_highScore_score;
+    std::string output_highScore_name;
+    std::string output_highScore_score;
 
     sorted_score_list = sort_list(score_list);
 
@@ -75,7 +92,18 @@ End_state::End_state(Context& context, std::vector<std::vector<std::string>> sco
     output_score = ss_score.str();
     list_score.setString(output_score);
 
-    writeTo_File(sorted_score_list);
+    high_score_list = writeTo_File(sorted_score_list);
+
+    for(int j = 0; j < 6; j++)
+    {
+
+        ss_highScore_name << high_score_list[j][0] << std::endl;
+        ss_highScore_score << high_score_list[j][1] << std::endl;
+    }
+    output_highScore_name = ss_highScore_name.str();
+    output_highScore_score = ss_highScore_score.str();
+    list_highScore_name.setString(output_highScore_name);
+    list_highScore_score.setString(output_highScore_score);
 
 
 
@@ -111,6 +139,8 @@ void End_state::render(sf::RenderWindow& window, Context& context)
     window.draw(gameover);
     window.draw(list_name);
     window.draw(list_score);
+    window.draw(list_highScore_name);
+    window.draw(list_highScore_score);
 }
 
 std::vector<std::vector<std::string>> End_state::sort_list(std::vector<std::vector<std::string>> unsorted_list)
@@ -138,7 +168,7 @@ std::vector<std::vector<std::string>> End_state::sort_list(std::vector<std::vect
     return unsorted_list;
 }
 
-void End_state::writeTo_File(std::vector<std::vector<std::string>> sorted_score_list)
+std::vector<std::vector<std::string>> End_state::writeTo_File(std::vector<std::vector<std::string>> sorted_score_list)
 {
     std::fstream data_csv;
     data_csv.open("Data_file_1.csv"); //std::ofstream::out | std::ofstream::trunc
@@ -199,5 +229,7 @@ void End_state::writeTo_File(std::vector<std::vector<std::string>> sorted_score_
     }
 
     data_csv.close();
+
+    return data_to_csv;
 
 }
