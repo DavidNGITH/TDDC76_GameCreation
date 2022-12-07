@@ -19,7 +19,7 @@
 
 
 End_state::End_state(Context& context, std::vector<std::vector<std::string>> score_list)
-: high_score_list{}, sorted_score_list{}
+//: //high_score_list{}, sorted_score_list{}
 {
 
     unsigned int width{};
@@ -112,16 +112,21 @@ End_state::End_state(Context& context, std::vector<std::vector<std::string>> sco
 
     high_score_list = writeTo_File(sorted_score_list);
 
-    for(int j = 0; j < 6; j++)
+    for(int j = 0; j < high_score_list.size() && j < 6; j++)
     {
-
+        std::cout << "hej" << std::endl;
         ss_highScore_name << high_score_list[j][0] << std::endl;
         ss_highScore_score << high_score_list[j][1] << std::endl;
     }
+    std::cout << ss_highScore_name.str() << std::endl;
     output_highScore_name = ss_highScore_name.str();
+    std::cout <<"1" << std::endl;
     output_highScore_score = ss_highScore_score.str();
+    std::cout <<"2" << std::endl;
     list_highScore_name.setString(output_highScore_name);
+    std::cout <<"3" << std::endl;
     list_highScore_score.setString(output_highScore_score);
+    std::cout <<"4" << std::endl;
 
 
 
@@ -190,7 +195,7 @@ std::vector<std::vector<std::string>> End_state::sort_list(std::vector<std::vect
 std::vector<std::vector<std::string>> End_state::writeTo_File(std::vector<std::vector<std::string>> sorted_score_list)
 {
     std::fstream data_csv;
-    data_csv.open("Data_file_1.csv"); //std::ofstream::out | std::ofstream::trunc
+    data_csv.open("Highscore.csv"); //std::ofstream::out | std::ofstream::trunc
 
     std::string line{""};
     std::vector<std::string> combined_info;

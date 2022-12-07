@@ -36,17 +36,7 @@ Player::Player(std::string player_texture, std::string barrel_texture, std::stri
     //std::cout << position_x << std::endl;
     
 
-    ////////// Player name /////////////////////
-    font.loadFromFile("Textures/Minecraft.ttf");
-    name_text.setFont(font);
-    name_text.setCharacterSize(20);
-    name_text.setFillColor(sf::Color::Black);
-    name_text.setString(player_name_var);
-    name_text.setOrigin(name_text.getLocalBounds().width/2,name_text.getLocalBounds().height/2);
-    name_text.setPosition(position_x, position_y - 80);
-    
     /////////// Player sprite /////////////
-    
     load_icon(player_texture);
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y);
@@ -69,6 +59,16 @@ Player::Player(std::string player_texture, std::string barrel_texture, std::stri
             }
         }
     }
+
+    ////////// Player name /////////////////////
+    font.loadFromFile("Textures/Minecraft.ttf");
+    name_text.setFont(font);
+    name_text.setCharacterSize(20);
+    name_text.setColor(sf::Color::Black);
+    name_text.setString(player_name_var);
+    name_text.setOrigin(name_text.getLocalBounds().width/2,name_text.getLocalBounds().height/2);
+    name_text.setPosition(position_x, position_y - 80);
+    
 
     if (!barrel.loadFromFile(barrel_texture))
     {std::cerr << "Can't open: " << barrel_texture << std::endl;}
@@ -119,7 +119,7 @@ void Player::Fire(Context& context)
 
             else if (curr_weapon == 3)
             {
-                context.new_objects.push_back(new Mine{calc_x_position(),
+                context.new_objects.push_back(new Mine{context, calc_x_position(),
                 calc_y_position(), round(power), round(bearing)});
             }
             fired = true;

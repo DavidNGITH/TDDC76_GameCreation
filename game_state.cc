@@ -1,4 +1,5 @@
 #include "SFML/Graphics.hpp"
+#include <jsoncpp/json/json.h>
 
 #include "game_state.h"
 #include "context.h"
@@ -18,9 +19,15 @@ Game_state::Game_state(Context& context)
 :score_list{}
 {
 
-    context.objects.push_back(new Helicopter);
+    context.objects.push_back(new Helicopter(context));
     context.objects.push_back(new Powerup);
-    context.objects.push_back(new Static_object{context});
+    
+    for (unsigned int i{0}; i < context.settings["game_state"]["num_of_trees"].asInt(); i++)
+    {
+        context.objects.push_back(new Static_object{context});
+    }
+
+    //context.players.push_back(new Player);
     context.current_player = context.players.at(active_player);
 
 }
