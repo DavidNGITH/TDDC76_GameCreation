@@ -31,9 +31,5 @@ class Map : public Game_object
     sf::Texture foreground_texture;
     sf::Sprite foreground_sprite;
 
-   
-
-    //auto image = foreground.getTexture().copyToImage();
-    //auto color = image.getPixel(1,1);
 };
 #endif

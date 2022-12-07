@@ -63,12 +63,7 @@ void Missile::collision(Game_object* object, Context& context)
 
     if((player !=nullptr || helicopter!=nullptr || static_object!=nullptr) && !explode)
     {
-        //Explosion();
-        //std::cout<< "Kollision" << std::endl;
-        /*if(player != nullptr && context.current_player != player)
-        {
-            context.current_player -> update_score(context);
-        }*/
+
         context.new_turn = true;
         explode = true;
         
@@ -76,14 +71,8 @@ void Missile::collision(Game_object* object, Context& context)
 
     if((map !=nullptr) && !explode)
     {
-        //Explosion();
         context.hit_pos.x = position_x;
         context.hit_pos.y = position_y;
-        //std::cout<< "Kollision" << std::endl;
-        /*if(player != nullptr && context.current_player != player)
-        {
-            context.current_player -> update_score(context);
-        }*/
         context.new_turn = true;
         explode = true;
         
@@ -105,7 +94,6 @@ void Missile::Explosion(Context& context)
         ////////////// HARD CODED //////////////
         sf::Vector2u texture_size_boom { boom.getSize() };
         boom_sprite.setOrigin(texture_size_boom.x/2, texture_size_boom.y/2);
-        //boom_sprite.setScale(0.3, 0.3);
         boom_sprite.setPosition(position_x, position_y);
         icon.setPosition(0, 0);
     }
