@@ -7,7 +7,7 @@
 class Powerup :public Game_object
 {
     public:
-        Powerup(double incoming_x, double incoming_y);
+        Powerup(Context& context, double incoming_x, double incoming_y);
         ~Powerup() = default;
         Powerup();
         void update(Context& context) override;
