@@ -69,4 +69,29 @@ int main()
         
         
     }
+
+    delete context.next_state;
+
+    delete state;
+
+    if(context.map != nullptr)
+    {
+        delete context.map;
+    }
+
+    for (long unsigned int i{0}; i < context.objects.size(); i++)
+    {
+        delete context.objects.at(i);
+    }
+
+    for (long unsigned int i{0}; i < context.new_objects.size(); i++)
+    {
+        delete context.new_objects.at(i);
+    }
+
+    for (long unsigned int i{0}; i < context.players.size(); i++)
+    {
+        delete context.players.at(i);
+    }
+
 }
