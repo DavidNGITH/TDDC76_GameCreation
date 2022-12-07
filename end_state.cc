@@ -25,7 +25,7 @@ End_state::End_state(Context& context, std::vector<std::vector<std::string>> sco
     unsigned int height{};
 
     gameover_texture = set_texture("Textures/gameover.png");
-    background_texture = set_texture("Textures/menu_background.jpg");
+    background_texture = set_texture("Textures/endstate_background.jpg");
 
     background.setTexture(background_texture);
     width = background_texture.getSize().x;
@@ -45,29 +45,37 @@ End_state::End_state(Context& context, std::vector<std::vector<std::string>> sco
 
     font.loadFromFile("Textures/Minecraft.ttf");
 
-    list_score.setPosition(700,450);
+    list_name.setPosition(600,550);
+    list_name.setColor(sf::Color::White);
+    list_name.setCharacterSize(70);
+    list_name.setFont(font);
+    list_name.Bold;
+
+    list_score.setPosition(1200,550);
     list_score.setColor(sf::Color::White);
     list_score.setCharacterSize(70);
     list_score.setFont(font);
     list_score.Bold;
 
-    std::stringstream ss;
-    std::string output;
+    std::stringstream ss_name;
+    std::stringstream ss_score;
+    std::string output_name;
+    std::string output_score;
 
     sorted_score_list = sort_list(score_list);
 
     for(int i = 0; i < sorted_score_list.size(); i++)
     {
 
-        ss << sorted_score_list[i][0] << std::setfill(' ') << std::setw(10) 
-        << sorted_score_list[i][1] << std::flush << std::endl;
-    
-
-        
+        ss_name << sorted_score_list[i][0] << std::endl;
+        ss_score << sorted_score_list[i][1] << std::endl;
     }
-    output = ss.str();
-    std::cout << output << std::endl;
-    list_score.setString(output);
+    output_name = ss_name.str();
+    list_name.setString(output_name);
+    output_score = ss_score.str();
+    list_score.setString(output_score);
+
+    writeTo_File(sorted_score_list);
 
 
 
@@ -88,7 +96,7 @@ sf::Texture End_state::set_texture(std::string path)
 
 void End_state::handle(Context& context, sf::Event event)
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
         context.next_state = new Menu_state{};
     }
@@ -101,6 +109,7 @@ void End_state::render(sf::RenderWindow& window, Context& context)
 {
     window.draw(background);
     window.draw(gameover);
+    window.draw(list_name);
     window.draw(list_score);
 }
 
@@ -124,17 +133,85 @@ std::vector<std::vector<std::string>> End_state::sort_list(std::vector<std::vect
             }
         }
     }
-    
-    /*for(int j; j < unsorted_list.size(); j++)
-    {
-        unsorted_list[j][1] = std::to_string(unsorted_list[j][1]);
-    }*/
-    
 
     
     return unsorted_list;
 }
 
+void End_state::writeTo_File(std::vector<std::vector<std::string>> sorted_score_list)
+{
+    std::fstream data_csv;
+    data_csv.open("Data_file_1.csv");
+
+    std::string line{""};
+    std::vector<std::string> combined_info;
+    std::vector<std::vector<std::string>> data_from_csv;
+    std::vector<std::vector<std::string>> data_to_csv;
+
+    while (getline(data_csv, line)) {
+
+        std::string name{""};
+        std::string high_score{""};
+        //int score{0};
+        std::cout << "line: " << line << std::endl;
+        
+
+        std::stringstream inputString(line);
+
+        getline(inputString, name, ',');
+        getline(inputString, high_score, ',');
+        //score = atoi(high_score.c_str());
+
+        std::cout << "name: " << name << std::endl;
+        std::cout << "hicchscore: " << high_score << std::endl;
+
+        combined_info.push_back(name);
+        combined_info.push_back(high_score);
+        data_from_csv.push_back(combined_info);
+        combined_info.clear();
+        line = "";
+
+    }
+
+    bool found_name{false};
+    for (int i = 0; i < sorted_score_list.size(); i++)
+    {
+        std::cout << "hicchscore: " << high_score << std::endl;
+        found_name = false;
+        for (int j = 0; j < data_from_csv.size(); j++)
+        {
+            
+            if (data_from_csv[j][0] == sorted_score_list[i][0])
+            {
+                found_name = true;
+                if (stoi(data_from_csv[j][1]) < stoi(sorted_score_list[i][1]))
+                {
+                    data_from_csv[j][1] = sorted_score_list[i][1];
+                }
+            }
+            
+        }
+        if (!found_name)
+        {
+            data_from_csv.push_back(sorted_score_list[i]);
+        }
+    }
+
+    data_to_csv = sort_list(data_from_csv);
+
+    for (int k = 0; k < data_to_csv.size(); k++ )
+    {
+        data_csv << data_to_csv[k][0] << ','
+                 << data_to_csv[k][1] << '\n';
+    }
+
+    data_csv.close();
+
+
+
+}
+
+/*
 void End_state::writeTo_File(std::vector<std::vector<std::string>> sorted_score_list)
 {
     std::fstream data_csv;
@@ -197,7 +274,5 @@ void End_state::writeTo_File(std::vector<std::vector<std::string>> sorted_score_
     }
 
     data_csv.close();
-
-
-
 }
+*/

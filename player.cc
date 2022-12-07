@@ -283,7 +283,7 @@ void Player::collision(Game_object* object, Context& context)
             //std::cout << "Collided with shield" << std::endl;
             ////////////////////// Hard coded: Read texture file
             
-            if (!shield.loadFromFile("shield.png"))
+            if (!shield.loadFromFile("textures_new/shield.png"))
             {
                 std::cerr << "Can't open: shield.png" << std::endl;
             }

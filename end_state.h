@@ -30,6 +30,7 @@ class End_state: public State
 
     sf::Sprite gameover{};
     sf::Sprite background{};
+    sf::Text list_name{};
     sf::Text list_score{};
 
     std::vector<std::vector<std::string>> sort_list(std::vector<std::vector<std::string>> unsorted_list);

@@ -3,7 +3,6 @@
 #include "SFML/Graphics.hpp"
 
 #include "Mine.h"
-//#include "Missile.h"
 #include "player.h"
 #include "Helicopter.h"
 #include "static_object.h"
@@ -24,7 +23,7 @@ Mine::Mine(double incoming_position_x, double incoming_position_y, double power,
     position_x = incoming_position_x;
     position_y = incoming_position_y+10;
 
-    load_icon("bomb.png");
+    load_icon("textures_new/bomb.png");
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y);
     icon.setScale(0.02, 0.02);
