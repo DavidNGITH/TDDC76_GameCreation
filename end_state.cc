@@ -13,6 +13,7 @@
 #include <sstream>
 #include <iomanip>
 #include <algorithm>
+#include <fstream>
 
 
 
@@ -53,13 +54,13 @@ End_state::End_state(Context& context, std::vector<std::vector<std::string>> sco
     std::stringstream ss;
     std::string output;
 
-    score_lists = sort_list(score_list);
+    sorted_score_list = sort_list(score_list);
 
-    for(int i = 0; i < score_lists.size(); i++)
+    for(int i = 0; i < sorted_score_list.size(); i++)
     {
 
-        ss << score_lists[i][0] << std::setfill(' ') << std::setw(10) 
-        << score_lists[i][1] << std::flush << std::endl;
+        ss << sorted_score_list[i][0] << std::setfill(' ') << std::setw(10) 
+        << sorted_score_list[i][1] << std::flush << std::endl;
     
 
         
@@ -132,4 +133,71 @@ std::vector<std::vector<std::string>> End_state::sort_list(std::vector<std::vect
 
     
     return unsorted_list;
+}
+
+void End_state::writeTo_File(std::vector<std::vector<std::string>> sorted_score_list)
+{
+    std::fstream data_csv;
+    data_csv.open("Data_file_1.csv");
+
+    std::string line{""};
+    std::vector<std::string> combined_info;
+    std::vector<std::vector<std::string>> data_from_csv;
+    std::vector<std::vector<std::string>> data_to_csv;
+
+    while (getline(data_csv, line)) {
+
+        std::string name{""};
+        std::string high_score{""};
+        //int score{0};
+
+        std::stringstream inputString(line);
+
+        getline(inputString, name, ',');
+        getline(inputString, high_score, ',');
+        //score = atoi(high_score.c_str());
+
+        combined_info.push_back(name);
+        combined_info.push_back(high_score);
+        data_from_csv.push_back(combined_info);
+        combined_info.clear();
+        line = "";
+
+    }
+
+    bool found_name{false};
+    for (int i = 0; i < sorted_score_list.size(); i++)
+    {
+        found_name = false;
+        for (int j = 0; j < data_from_csv.size(); j++)
+        {
+            
+            if (data_from_csv[j][0] == sorted_score_list[i][0])
+            {
+                found_name = true;
+                if (stoi(data_from_csv[j][1]) < stoi(sorted_score_list[i][1]))
+                {
+                    data_from_csv[j][1] = sorted_score_list[i][1];
+                }
+            }
+            
+        }
+        if (!found_name)
+        {
+            data_from_csv.push_back(sorted_score_list[i]);
+        }
+    }
+
+    data_to_csv = sort_list(data_from_csv);
+
+    for (int i = 0; i < data_to_csv.size(); i++ )
+    {
+        data_csv << data_to_csv[i][0] << ','
+                 << data_to_csv[i][1] << '\n';
+    }
+
+    data_csv.close();
+
+
+
 }
