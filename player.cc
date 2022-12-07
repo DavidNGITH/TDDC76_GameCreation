@@ -35,15 +35,7 @@ barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_m
     //std::cout << position_x << std::endl;
     
 
-    ////////// Player name /////////////////////
-    font.loadFromFile("Textures/Minecraft.ttf");
-    name_text.setFont(font);
-    name_text.setCharacterSize(20);
-    name_text.setColor(sf::Color::Black);
-    name_text.setString(player_name_var);
-    name_text.setOrigin(name_text.getLocalBounds().width/2,name_text.getLocalBounds().height/2);
-    name_text.setPosition(position_x, position_y - 80);
-    
+
     /////////// Player sprite /////////////
     
     load_icon(player_texture);
@@ -68,6 +60,16 @@ barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_m
             }
         }
     }
+
+    ////////// Player name /////////////////////
+    font.loadFromFile("Textures/Minecraft.ttf");
+    name_text.setFont(font);
+    name_text.setCharacterSize(20);
+    name_text.setColor(sf::Color::Black);
+    name_text.setString(player_name_var);
+    name_text.setOrigin(name_text.getLocalBounds().width/2,name_text.getLocalBounds().height/2);
+    name_text.setPosition(position_x, position_y - 80);
+    
 
     if (!barrel.loadFromFile(barrel_texture))
     {std::cerr << "Can't open: " << barrel_texture << std::endl;}
