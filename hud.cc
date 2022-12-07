@@ -1,10 +1,6 @@
 #include "hud.h"
 #include "player.h"
 #include <SFML/Graphics.hpp>
-#include <iostream>
-#include <iomanip>
-#include <sstream>
-#include <cmath>
 
 
 Hud::Hud()

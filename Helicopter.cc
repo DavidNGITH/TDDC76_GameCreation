@@ -4,8 +4,6 @@
 #include "PowerUp.h"
 #include "Missile.h"
 #include "Mine.h"
-#include <iomanip>
-#include <iostream>
 
 Helicopter::Helicopter()
 :stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{0}, spawn_rate{33}, speed{200}, current_player{nullptr}
@@ -25,7 +23,6 @@ bool Helicopter::should_spawn()
 {
     //check if helicopter should spawn, given it's not already in flight
     int v1 = rand() % 100; //rand int between 0-100
-    //std::cout << v1 << std::endl;
     if (v1 <= spawn_rate)
     {
         return 1;
