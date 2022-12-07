@@ -10,10 +10,7 @@
 class Game_state : public State
 {
     public:
-    //Game_state(Map & map, list<Game_object*> & players);
     Game_state(Context& context);
-
-    //~Game_state() = default;
 
     void handle(Context& context, sf::Event event) override;
 
@@ -24,7 +21,6 @@ class Game_state : public State
     
 
     private:
-    //Game_object* current_player;
 
     void delete_all(Context& context);
 

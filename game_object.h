@@ -18,7 +18,6 @@ public:
     virtual void collision(Game_object* object, Context& context)  = 0; 
     virtual bool check_collision(Game_object* object);
     virtual void move(Context& context);
-    //virtual void update_score(Context & context, double damage);
     
     bool is_removed();
     void remove();
