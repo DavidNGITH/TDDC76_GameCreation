@@ -10,18 +10,18 @@
 #include "context.h"
 
 //Konstruktor för minan
-Mine::Mine(double incoming_position_x, double incoming_position_y, double power, double bearing)
+Mine::Mine(Context& context, double incoming_position_x, double incoming_position_y, double power, double bearing)
 {
-    speed_x = cos((180-bearing)*M_PI/180)*12*power;
-    speed_y = sin((180-bearing)*M_PI/180)*(-12*power);
-    acceleration_y = 500;
+    speed_x = cos((180-bearing)*M_PI/180)*context.settings["missile"]["power_scale"].asInt()*power;
+    speed_y = sin((180-bearing)*M_PI/180)*(-context.settings["missile"]["power_scale"].asInt()*power);
+    acceleration_y = context.settings["mine"]["acceleration"].asInt();
+    
     explode = false;
-
     has_stopped = false;
     is_active = false;
 
     position_x = incoming_position_x;
-    position_y = incoming_position_y+10;
+    position_y = incoming_position_y + context.settings["missile"]["align_pos"].asInt();
 
     load_icon("textures_new/bomb.png");
     sf::Vector2u texture_size { texture.getSize() };
@@ -50,7 +50,7 @@ void Mine::update(Context& context)
         old_position_x = icon.getPosition().x;
         old_position_y = icon.getPosition().y;
 
-        if(icon.getPosition().x < 0 || icon.getPosition().x > 1920)
+        if(icon.getPosition().x < 0 || icon.getPosition().x > context.settings["setup"]["width"].asInt())
         {
             //std::cout<< "tog bort" << std::endl;
             context.new_turn = true;

@@ -8,7 +8,7 @@ class Helicopter :public Game_object
 {
     public:
 
-    Helicopter();
+    Helicopter(Context& context);
     ~Helicopter() = default;
     void update(Context& context) override;
     void render(sf::RenderWindow& window, Context& context) override;
@@ -16,14 +16,14 @@ class Helicopter :public Game_object
     void collision(Game_object* object, Context& context) override;
     bool should_spawn();
     void create_powerup(Context& context) const;
-    void stop_position();
+    void stop_position(Context& context);
 
 
 
 
 
     private:
-    void reset();
+    void reset(Context& context);
 
     float stop_coordinate{};
     int is_active{};

@@ -1,6 +1,6 @@
 CC=g++ -std=c++17 -g
 CCFLAGS= -c -Wall -Wextra -Wpedantic -Weffc++ -Wold-style-cast
-LIBS:= -lsfml-graphics -lsfml-window -lsfml-system 
+LIBS:= -lsfml-graphics -lsfml-window -lsfml-system -ljsoncpp
 
 
 MAIN=main
