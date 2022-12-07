@@ -131,12 +131,6 @@ std::vector<std::vector<std::string>> End_state::sort_list(std::vector<std::vect
             }
         }
     }
-    
-    /*for(int j; j < unsorted_list.size(); j++)
-    {
-        unsorted_list[j][1] = std::to_string(unsorted_list[j][1]);
-    }*/
-    
 
     
     return unsorted_list;

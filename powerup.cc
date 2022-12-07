@@ -18,19 +18,19 @@ Powerup::Powerup(double incoming_x, double incoming_y)
 
     if (randnum == 0)
     {
-        load_icon("shield.png");
+        load_icon("textures_new/shield.png");
     }
     else if (randnum == 1)
     {
-        load_icon("repair_kit.png");
+        load_icon("textures_new/repair_kit.png");
     }
     else if (randnum == 2)
     {
-        load_icon("ammo_c4.png");
+        load_icon("textures_new/ammo_c4.png");
     }
     else
     {
-        load_icon("showermissile2.png");
+        load_icon("textures_new/showermissile2.png");
     }
     
     //Creates the Powerup at the same position as the helicopter.   
