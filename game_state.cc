@@ -247,6 +247,7 @@ void Game_state::delete_all(Context& context)
     }
     
     delete context.map;
+    context.map = nullptr;
 
     context.players.clear();
     context.objects.clear();
