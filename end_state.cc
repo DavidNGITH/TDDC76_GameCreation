@@ -24,7 +24,7 @@ End_state::End_state(Context& context, std::vector<std::vector<std::string>> sco
     unsigned int height{};
 
     gameover_texture = set_texture("Textures/gameover.png");
-    background_texture = set_texture("Textures/menu_background.jpg");
+    background_texture = set_texture("Textures/endstate_background.jpg");
 
     background.setTexture(background_texture);
     width = background_texture.getSize().x;
@@ -44,7 +44,7 @@ End_state::End_state(Context& context, std::vector<std::vector<std::string>> sco
 
     font.loadFromFile("Textures/Minecraft.ttf");
 
-    list_score.setPosition(700,450);
+    list_score.setPosition(700,550);
     list_score.setColor(sf::Color::White);
     list_score.setCharacterSize(70);
     list_score.setFont(font);
