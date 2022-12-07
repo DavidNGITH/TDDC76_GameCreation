@@ -26,8 +26,7 @@ barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_m
     ////////////// HARD CODED /////////////
     speed = 100;
     //position_x = rand() % (context.map -> get_window_size().x);
-    position_x = rand() % (context.map -> get_window_size().x-200 + 1) + 100;
-    position_y = get_ground_pos(context, position_x);
+    
     able_to_move = true;
     fired=false;
     //std::cout << "Ammo array at 0: " << ammo_array[0] << std::endl;
@@ -46,12 +45,29 @@ barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_m
     name_text.setPosition(position_x, position_y - 80);
     
     /////////// Player sprite /////////////
+    
     load_icon(player_texture);
-
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y);
     icon.setScale(1.5, 1.5);
-    icon.setPosition(position_x, position_y);
+
+    bool bad_pos{true};
+
+    while(bad_pos)
+    {
+        position_x = rand() % (context.map -> get_window_size().x-200) + 100;
+        position_y = get_ground_pos(context, position_x);
+        icon.setPosition(position_x, position_y);
+        bad_pos = false;
+
+        for(unsigned long int i{0}; i < context.players.size(); i++)
+        {
+            if (check_collision(context.players.at(i)))
+            {
+                bad_pos = true;
+            }
+        }
+    }
 
     if (!barrel.loadFromFile(barrel_texture))
     {std::cerr << "Can't open: " << barrel_texture << std::endl;}
@@ -91,7 +107,7 @@ void Player::Fire(Context& context)
         if (curr_weapon == 1)
         {
             context.new_objects.push_back(new Standard_Missile{calc_x_position(),
-            calc_y_position(), power, bearing});
+            calc_y_position(), round(power), round(bearing)});
             fired = true;
         }
         else if (ammo_array[curr_weapon - 1] > 0)
@@ -101,13 +117,13 @@ void Player::Fire(Context& context)
             if (curr_weapon == 2)
             {
                 context.new_objects.push_back(new Shower_Missile{calc_x_position(),
-                calc_y_position(), power, bearing});
+                calc_y_position(), round(power), round(bearing)});
             }
 
             else if (curr_weapon == 3)
             {
                 context.new_objects.push_back(new Mine{context, calc_x_position(),
-                calc_y_position(), power, bearing});
+                calc_y_position(), round(power), round(bearing)});
             }
             fired = true;
         }
@@ -132,7 +148,7 @@ void Player::handle(Context& context, sf::Event event)
 
 void Player::update(Context& context)
 {
-    hud -> update(hp, bearing, power, fuel, curr_weapon, ammo_array, score, player_name_var);
+    hud -> update(hp, 180 - round(bearing), round(power), fuel, curr_weapon, ammo_array, score, player_name_var);
 
     if (hp <=0)
     {
