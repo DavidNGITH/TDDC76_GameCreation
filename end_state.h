@@ -26,10 +26,16 @@ class End_state: public State
 
     sf::Texture gameover_texture{};
     sf::Texture background_texture{};
+    sf::Texture highscore_texture{};
+    sf::Texture score_texture{};
+
     sf::Font font{};
 
     sf::Sprite gameover{};
     sf::Sprite background{};
+    sf::Sprite highscore{};
+    sf::Sprite score{};
+
     sf::Text list_name{};
     sf::Text list_score{};
     sf::Text list_highScore_name{};

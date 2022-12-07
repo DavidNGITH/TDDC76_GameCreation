@@ -26,6 +26,8 @@ End_state::End_state(Context& context, std::vector<std::vector<std::string>> sco
 
     gameover_texture = set_texture("Textures/gameover.png");
     background_texture = set_texture("Textures/endstate_background.jpg");
+    highscore_texture = set_texture("Textures/highscore.png");
+    score_texture = set_texture("Textures/score.png");
 
     background.setTexture(background_texture);
     width = background_texture.getSize().x;
@@ -39,9 +41,22 @@ End_state::End_state(Context& context, std::vector<std::vector<std::string>> sco
     gameover.setTexture(gameover_texture);
     width = gameover_texture.getSize().x;
     height = gameover_texture.getSize().y;
-
     gameover.setOrigin(width/2, height/2);
     gameover.setPosition(960,300);
+
+    highscore.setTexture(highscore_texture);
+    width = highscore_texture.getSize().x;
+    height = highscore_texture.getSize().y;
+    highscore.setOrigin(width/2, height/2);
+    highscore.setPosition(1450,500);
+    highscore.setScale(0.5,0.5);
+
+    score.setTexture(score_texture);
+    width = score_texture.getSize().x;
+    height = score_texture.getSize().y;
+    score.setOrigin(width/2, height/2);
+    score.setPosition(450,500);
+    score.setScale(0.5,0.5);
 
     font.loadFromFile("Textures/Minecraft.ttf");
 
@@ -141,6 +156,8 @@ void End_state::render(sf::RenderWindow& window, Context& context)
     window.draw(list_score);
     window.draw(list_highScore_name);
     window.draw(list_highScore_score);
+    window.draw(highscore);
+    window.draw(score);
 }
 
 std::vector<std::vector<std::string>> End_state::sort_list(std::vector<std::vector<std::string>> unsorted_list)
