@@ -141,7 +141,7 @@ std::vector<std::vector<std::string>> End_state::sort_list(std::vector<std::vect
 void End_state::writeTo_File(std::vector<std::vector<std::string>> sorted_score_list)
 {
     std::fstream data_csv;
-    data_csv.open("Data_file_1.csv");
+    data_csv.open("Data_file_1.csv"); //std::ofstream::out | std::ofstream::trunc
 
     std::string line{""};
     std::vector<std::string> combined_info;
@@ -152,18 +152,10 @@ void End_state::writeTo_File(std::vector<std::vector<std::string>> sorted_score_
 
         std::string name{""};
         std::string high_score{""};
-        //int score{0};
-        std::cout << "line: " << line << std::endl;
-        
-
         std::stringstream inputString(line);
 
         getline(inputString, name, ',');
         getline(inputString, high_score, ',');
-        //score = atoi(high_score.c_str());
-
-        std::cout << "name: " << name << std::endl;
-        std::cout << "hicchscore: " << high_score << std::endl;
 
         combined_info.push_back(name);
         combined_info.push_back(high_score);
@@ -173,14 +165,14 @@ void End_state::writeTo_File(std::vector<std::vector<std::string>> sorted_score_
 
     }
 
+    data_csv.clear();
+
     bool found_name{false};
     for (int i = 0; i < sorted_score_list.size(); i++)
     {
-        std::cout << "hicchscore: " << high_score << std::endl;
         found_name = false;
         for (int j = 0; j < data_from_csv.size(); j++)
         {
-            
             if (data_from_csv[j][0] == sorted_score_list[i][0])
             {
                 found_name = true;
@@ -198,6 +190,7 @@ void End_state::writeTo_File(std::vector<std::vector<std::string>> sorted_score_
     }
 
     data_to_csv = sort_list(data_from_csv);
+    data_csv.seekp(0);
 
     for (int k = 0; k < data_to_csv.size(); k++ )
     {
@@ -207,72 +200,4 @@ void End_state::writeTo_File(std::vector<std::vector<std::string>> sorted_score_
 
     data_csv.close();
 
-
-
 }
-
-/*
-void End_state::writeTo_File(std::vector<std::vector<std::string>> sorted_score_list)
-{
-    std::fstream data_csv;
-    data_csv.open("Data_file_1.csv");
-
-    std::string line{""};
-    std::vector<std::string> combined_info;
-    std::vector<std::vector<std::string>> data_from_csv;
-    std::vector<std::vector<std::string>> data_to_csv;
-
-    while (getline(data_csv, line)) {
-
-        std::string name{""};
-        std::string high_score{""};
-        //int score{0};
-
-        std::stringstream inputString(line);
-
-        getline(inputString, name, ',');
-        getline(inputString, high_score, ',');
-        //score = atoi(high_score.c_str());
-
-        combined_info.push_back(name);
-        combined_info.push_back(high_score);
-        data_from_csv.push_back(combined_info);
-        combined_info.clear();
-        line = "";
-
-    }
-
-    bool found_name{false};
-    for (int i = 0; i < sorted_score_list.size(); i++)
-    {
-        found_name = false;
-        for (int j = 0; j < data_from_csv.size(); j++)
-        {
-            
-            if (data_from_csv[j][0] == sorted_score_list[i][0])
-            {
-                found_name = true;
-                if (stoi(data_from_csv[j][1]) < stoi(sorted_score_list[i][1]))
-                {
-                    data_from_csv[j][1] = sorted_score_list[i][1];
-                }
-            }
-            
-        }
-        if (!found_name)
-        {
-            data_from_csv.push_back(sorted_score_list[i]);
-        }
-    }
-
-    data_to_csv = sort_list(data_from_csv);
-
-    for (int i = 0; i < data_to_csv.size(); i++ )
-    {
-        data_csv << data_to_csv[i][0] << ','
-                 << data_to_csv[i][1] << '\n';
-    }
-
-    data_csv.close();
-}
-*/
