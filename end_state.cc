@@ -196,7 +196,7 @@ std::vector<std::vector<std::string>> End_state::sort_list(std::vector<std::vect
 std::vector<std::vector<std::string>> End_state::writeTo_File(std::vector<std::vector<std::string>> sorted_score_list)
 {
     std::fstream data_csv;
-    data_csv.open("Data_file_1.csv"); //std::ofstream::out | std::ofstream::trunc
+    data_csv.open("Highscore.csv"); //std::ofstream::out | std::ofstream::trunc
 
     std::string line{""};
     std::vector<std::string> combined_info;
