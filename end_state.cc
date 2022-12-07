@@ -94,7 +94,7 @@ sf::Texture End_state::set_texture(std::string path)
 
 void End_state::handle(Context& context, sf::Event event)
 {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {
         context.next_state = new Menu_state{};
     }
