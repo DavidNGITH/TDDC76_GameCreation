@@ -84,6 +84,13 @@ End_state::End_state(Context& context, std::vector<std::vector<std::string>> sco
     list_highScore_score.setFont(font);
     list_highScore_score.Bold;
 
+    return_to_menu.setPosition(10,10);
+    return_to_menu.setColor(sf::Color::White);
+    return_to_menu.setCharacterSize(50);
+    return_to_menu.setFont(font);
+    return_to_menu.Bold;
+    return_to_menu.setString("Press ESC to return to menu");
+
     std::stringstream ss_name;
     std::stringstream ss_score;
     std::string output_name;
@@ -158,6 +165,7 @@ void End_state::render(sf::RenderWindow& window, Context& context)
     window.draw(list_highScore_score);
     window.draw(highscore);
     window.draw(score);
+    window.draw(return_to_menu);
 }
 
 std::vector<std::vector<std::string>> End_state::sort_list(std::vector<std::vector<std::string>> unsorted_list)
