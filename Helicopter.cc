@@ -4,10 +4,11 @@
 #include "PowerUp.h"
 #include "Missile.h"
 #include "Mine.h"
+#include <iomanip>
 #include <iostream>
 
 Helicopter::Helicopter()
-:stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{}, spawn_rate{100}, speed{200}, current_player{nullptr}
+:stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{0}, spawn_rate{33}, speed{200}, current_player{nullptr}
 {   
     load_icon("textures_new/helicopter.png");
 
@@ -24,6 +25,7 @@ bool Helicopter::should_spawn()
 {
     //check if helicopter should spawn, given it's not already in flight
     int v1 = rand() % 100; //rand int between 0-100
+    //std::cout << v1 << std::endl;
     if (v1 <= spawn_rate)
     {
         return 1;
@@ -68,12 +70,21 @@ void Helicopter::update(Context& context)
     }
 
     //Checks whether the helicopter should spawn after it has had an collision
+    
     else
-    {
-        if (should_spawn())
+    {   
+        
+        if (current_player != context.current_player)
         {
-            current_player = context.current_player;
-            is_active = 1;
+            if (should_spawn())
+            {
+                current_player = context.current_player;
+                is_active = 1;
+            }      
+            else
+            {
+                current_player = context.current_player;
+            } 
         }
     }
 }
@@ -97,12 +108,7 @@ void Helicopter::collision(Game_object* object, Context& context)
     }
     if (mine != nullptr)
     {
-        is_active = 0;
-        has_stopped = 0;
-        has_dropped = 0;
-        position_x = 0;
-        position_y = 150;
-        stop_position();
+        reset();
     }
 }
 
@@ -128,7 +134,7 @@ void Helicopter::stop_position()
 void Helicopter::reset()
 {
     //Hårdkodat
-    position_x = 0;
+    position_x = -100;
     position_y = 160;
 
     is_active = 0;

@@ -8,7 +8,6 @@
 #include "player.h"
 #include "PowerUp.h"
 #include "static_object.h"
-#include <iostream>
 #include "state.h"
 #include "menu_state.h"
 #include <vector>
@@ -18,18 +17,12 @@
 Game_state::Game_state(Context& context)
 :score_list{}
 {
-    //std::cout << context.players.size() << std::endl;
 
     context.objects.push_back(new Helicopter);
     context.objects.push_back(new Powerup);
     context.objects.push_back(new Static_object{context});
-    //context.objects.push_back(new Static_object);
-    //context.players.push_back(new Player);
     context.current_player = context.players.at(active_player);
-    /*for(unsigned int i{1}; i < context.players.size(); i++)
-    {
-        context.objects.push_back(context.players[i]);
-    }*/
+
 }
 
 void Game_state::handle(Context& context, sf::Event event)
@@ -42,7 +35,6 @@ void Game_state::handle(Context& context, sf::Event event)
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     {   
         delete_all(context);
-        //~Game_state();
         context.next_state = new Menu_state{};
  
         
@@ -52,7 +44,6 @@ void Game_state::handle(Context& context, sf::Event event)
 
 void Game_state::update(Context& context)
 {
-    //std::cout << "Nånting" << std::endl;
 
     context.current_player -> move(context);
     
@@ -65,8 +56,6 @@ void Game_state::update(Context& context)
     {
         player -> update(context);
     }
-
-    //std::cout << "1" << std::endl;
 
     //Check collsion between objects
     for (unsigned int i{0}; i < context.objects.size(); i++)
@@ -101,9 +90,6 @@ void Game_state::update(Context& context)
 
     context.hit_pos.x = 0;
     context.hit_pos.y = 0;
-
-
-    //std::cout << "2" << std::endl;
     
 
 
@@ -163,7 +149,6 @@ void Game_state::update(Context& context)
 
         
 
-            //std::cout << "5" << std::endl;
             std::swap(context.players.at(i), context.players.back());
             delete context.players.back(); 
             context.players.pop_back();
@@ -196,14 +181,12 @@ void Game_state::update(Context& context)
         switch_player(context);
     }
 
-    //std::cout << context.players.size() << std::endl;
 
     //Check if someones won*/
     if(context.players.size() == 1)
     {   
         Player* player { dynamic_cast<Player*>(context.players.at(0)) };
         score_list.push_back(player->get_info());
-        //std::cout << "Avslutar spel" << std::endl;
         delete_all(context);
         context.next_state = new End_state{context, score_list};
 
@@ -235,9 +218,7 @@ void Game_state::switch_player(Context& context)
         while ((context.current_player != context.players.at(i)) == true)
         {
             i += 1;
-        }
-
-        //std::cout << "i: " << i << std::endl; 
+        } 
 
         if (i == context.players.size() - 1)
         {
@@ -257,14 +238,12 @@ void Game_state::delete_all(Context& context)
     for(unsigned int i{0} ; i < context.objects.size(); i++)
     {   
         delete context.objects[i];
-        //context.objects[i] = nullptr;
     }
        
     //std::cout << context.objects.size() << std::endl;
     for(unsigned int j{0} ; j < context.players.size(); j++)
     {   
         delete context.players[j];
-        //context.players[j] = nullptr;
     }
     
     delete context.map;
