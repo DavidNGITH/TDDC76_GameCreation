@@ -92,11 +92,7 @@ void Helicopter::collision(Game_object* object, Context& context)
     Missile* missile { dynamic_cast<Missile*>(object) };
     Mine* mine { dynamic_cast<Mine*>(object) };
 
-    if (missile != nullptr)
-    {
-        reset(context);
-    }
-    if (mine != nullptr)
+    if ((missile != nullptr) || (mine != nullptr))
     {
         reset(context);
     }
