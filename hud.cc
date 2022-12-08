@@ -109,5 +109,4 @@ void Hud::text_init(sf::Text& text, int char_size)
     text.setFillColor(sf::Color::Black);
     text.setString("");
     text.setOrigin(text.getLocalBounds().width/2,text.getLocalBounds().height/2);
-    //std::cout << char_size << std::endl;
 }

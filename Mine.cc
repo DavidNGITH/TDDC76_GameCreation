@@ -52,7 +52,6 @@ void Mine::update(Context& context)
 
         if(icon.getPosition().x < 0 || icon.getPosition().x > context.settings["setup"]["width"].asInt())
         {
-            //std::cout<< "tog bort" << std::endl;
             context.new_turn = true;
             remove();
         }
