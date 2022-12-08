@@ -11,7 +11,9 @@
 
 
 Standard_Missile::Standard_Missile(double incoming_position_x, double incoming_position_y,double power, double bearing)
+
 {
+    dmg = 50; //dmg för standard missilen
     speed_x = cos((180-bearing)*M_PI/180)*12*power;
     speed_y = sin((180-bearing)*M_PI/180)*(-12*power); 
     acceleration_y= 400;

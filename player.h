@@ -28,7 +28,7 @@ public:
 
     double get_bearing() const&;
     int get_score() const&;
-    void check_damage(Context& context, double missile_dmg);
+    void check_damage(Context& context, int missile_dmg);
 
     void reset();
 
@@ -39,6 +39,7 @@ public:
 
 protected:
     int hp{};
+    int dmg_calc{};
 
 private:
     void set_pos();
