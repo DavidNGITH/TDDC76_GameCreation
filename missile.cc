@@ -31,7 +31,6 @@ void Missile::update(Context& context)
     }
     if(icon.getPosition().x < 0 || icon.getPosition().x > 1920)
     {
-        //std::cout<< "tog bort" << std::endl;
         context.new_turn = true;
         remove();
     }
@@ -71,8 +70,9 @@ void Missile::collision(Game_object* object, Context& context)
 
     if((map !=nullptr) && !explode)
     {
-        context.hit_pos.x = position_x;
-        context.hit_pos.y = position_y;
+        //context.hit_pos.x = position_x;
+        //context.hit_pos.y = position_y;
+        context.missile = this;
         context.new_turn = true;
         explode = true;
         
@@ -101,7 +101,7 @@ void Missile::Explosion(Context& context)
     i+= context.delta.asSeconds();
     if(i< 0.2)
     {
-        boom_sprite.setScale(1.5*i,1.5*i);
+        boom_sprite.setScale(2*i,2*i);
     }
     
             

@@ -12,16 +12,17 @@
 //Konstruktor för minan
 Mine::Mine(Context& context, double incoming_position_x, double incoming_position_y, double power, double bearing)
 {
+    dmg = context.settings["mine"]["damage"].asDouble();
     speed_x = cos((180-bearing)*M_PI/180)*context.settings["missile"]["power_scale"].asInt()*power;
     speed_y = sin((180-bearing)*M_PI/180)*(-context.settings["missile"]["power_scale"].asInt()*power);
-    acceleration_y = context.settings["mine"]["acceleration"].asInt();
+    acceleration_y = context.settings["mine"]["acceleration"].asDouble();
     
     explode = false;
     has_stopped = false;
     is_active = false;
 
     position_x = incoming_position_x;
-    position_y = incoming_position_y + context.settings["missile"]["align_pos"].asInt();
+    position_y = incoming_position_y;
 
     load_icon("textures_new/bomb.png");
     sf::Vector2u texture_size { texture.getSize() };
@@ -52,7 +53,6 @@ void Mine::update(Context& context)
 
         if(icon.getPosition().x < 0 || icon.getPosition().x > context.settings["setup"]["width"].asInt())
         {
-            //std::cout<< "tog bort" << std::endl;
             context.new_turn = true;
             remove();
         }

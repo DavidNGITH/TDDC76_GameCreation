@@ -28,7 +28,7 @@ public:
 
     double get_bearing() const&;
     int get_score() const&;
-    void check_damage(Context& context, double missile_dmg);
+    void check_damage(Context& context, int missile_dmg);
 
     void reset();
 
@@ -39,6 +39,7 @@ public:
 
 protected:
     int hp{};
+    int dmg_calc{};
 
 private:
     void set_pos(Context& context);
@@ -58,6 +59,7 @@ private:
     double power{};
     int curr_weapon{};
     float const barrel_rotation_speed{};
+    int dmg_radius{};
     Missile* last_missile{};
     sf::Vector2f old_position{};
 

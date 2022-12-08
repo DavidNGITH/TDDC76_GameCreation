@@ -12,8 +12,9 @@
 
 
 
-Split_Missile::Split_Missile(double incoming_position_x, double incoming_position_y,double same_speed, double bearing)
+Split_Missile::Split_Missile(Context& context, double incoming_position_x, double incoming_position_y,double same_speed, double bearing)
 {
+    dmg = context.settings["shower_missile"]["damage"].asDouble(); //dmg för splitmissilerna
     speed_x = same_speed;
     speed_y = 0; 
     acceleration_y= bearing;
@@ -40,14 +41,28 @@ void Split_Missile::collision(Game_object* object, Context& context)
 
     if((player !=nullptr || helicopter!=nullptr || static_object!=nullptr || map !=nullptr) && !explode)
     {
-        //Explosion();
-        //std::cout<< "Kollision" << std::endl;
-        /*if(player != nullptr && context.current_player != player)
-        {
-            context.current_player -> update_score(context);
-        }*/
+        context.missile = this;
         explode = true;
         
     }
 
+}
+
+void Split_Missile::update(Context& context)
+{
+    if(explode)
+    {
+        Explosion(context);
+    }
+    else
+    {
+        speed_y += acceleration_y * context.delta.asSeconds();
+        position_x += speed_x*context.delta.asSeconds();
+        position_y += speed_y*context.delta.asSeconds()+ acceleration_y*context.delta.asSeconds()*context.delta.asSeconds()/2;
+        icon.setPosition(position_x, position_y);
+    }
+    if(icon.getPosition().x < 0 || icon.getPosition().x > 1920)
+    {
+        remove();
+    }
 }
