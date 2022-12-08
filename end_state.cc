@@ -188,12 +188,17 @@ std::vector<std::vector<std::string>> End_state::sort_list(std::vector<std::vect
 
 std::vector<std::vector<std::string>> End_state::writeTo_File(std::vector<std::vector<std::string>> sorted_score_list)
 {
-    std::ofstream check_data_csv;
-    check_data_csv.open("Highscore.csv"); //std::ofstream::out | std::ofstream::trunc
-    check_data_csv.close();
 
     std::fstream data_csv;
     data_csv.open("Highscore.csv");
+    if(!data_csv.is_open())
+    {
+        std::cout << "Skapar highscore.csv" << std::endl;
+        std::ofstream check_data_csv;
+        check_data_csv.open("Highscore.csv"); //std::ofstream::out | std::ofstream::trunc
+        check_data_csv.close();
+        data_csv.open("Highscore.csv");
+    }
 
     std::string line{""};
     std::vector<std::string> combined_info;
