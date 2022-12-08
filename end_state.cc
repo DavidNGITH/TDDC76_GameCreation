@@ -118,13 +118,9 @@ End_state::End_state(Context& context, std::vector<std::vector<std::string>> sco
         ss_highScore_score << high_score_list[j][1] << std::endl;
     }
     output_highScore_name = ss_highScore_name.str();
-
     output_highScore_score = ss_highScore_score.str();
-
     list_highScore_name.setString(output_highScore_name);
-
     list_highScore_score.setString(output_highScore_score);
-
 
 
 
@@ -192,8 +188,12 @@ std::vector<std::vector<std::string>> End_state::sort_list(std::vector<std::vect
 
 std::vector<std::vector<std::string>> End_state::writeTo_File(std::vector<std::vector<std::string>> sorted_score_list)
 {
+    std::ofstream check_data_csv;
+    check_data_csv.open("Highscore.csv"); //std::ofstream::out | std::ofstream::trunc
+    check_data_csv.close();
+
     std::fstream data_csv;
-    data_csv.open("Highscore.csv"); //std::ofstream::out | std::ofstream::trunc
+    data_csv.open("Highscore.csv");
 
     std::string line{""};
     std::vector<std::string> combined_info;
