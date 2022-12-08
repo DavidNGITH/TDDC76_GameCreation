@@ -158,7 +158,12 @@ void Game_state::update(Context& context)
             std::swap(context.players.at(i), context.players.back());
             delete context.players.back(); 
             context.players.pop_back();
-            std::swap(context.players.at(0), context.players.back());
+
+            if(i != context.players.size())
+            {
+                std::swap(context.players.at(i), context.players.back());
+            }
+            break;
         }
         else
         {
