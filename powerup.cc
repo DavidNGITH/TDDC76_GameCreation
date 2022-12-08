@@ -9,10 +9,10 @@
 #include "player.h"
 
 Powerup::Powerup(Context& context, double incoming_x, double incoming_y)
-: speed{context.settings["powerup"]["speed"].asInt()}, has_stopped{false}
+: speed{context.settings["powerup"]["speed"].asFloat()}, has_stopped{false}
 {
     position_x = incoming_x;
-    position_y = incoming_y + context.settings["powerup"]["align_pos_y"].asInt();
+    position_y = incoming_y + context.settings["powerup"]["align_pos_y"].asDouble();
 
     randnum = rand() % 4;
 

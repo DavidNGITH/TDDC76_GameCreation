@@ -23,12 +23,9 @@ int main()
     // reader reads the data and stores it in settings
     reader.parse(file, settings);
 
-    //unsigned const screen_width {1920};
-    //unsigned const screen_height {1080};
     srand (time(NULL));
 
-    //sf::RenderWindow window { sf::VideoMode {screen_width, screen_height}, settings["setup"]["name"].asString()};
-    sf::RenderWindow window { sf::VideoMode {settings["setup"]["width"].asInt(), settings["setup"]["height"].asInt()}, settings["setup"]["name"].asString()};
+    sf::RenderWindow window { sf::VideoMode {settings["setup"]["width"].asUInt(), settings["setup"]["height"].asUInt()}, settings["setup"]["name"].asString()};
     
     State* state = new Menu_state{};
 
@@ -39,9 +36,12 @@ int main()
     std::vector<Game_object*>  players{};
     Game_object*               current_player{};
     bool                       new_turn{false};
-    sf::Vector2f               hit_pos{0,0};
+    //sf::Vector2f               hit_pos{0,0};
+    Game_object*               missile{nullptr};
 
-    Context context{clock.restart(), nullptr, nullptr, objects, new_objects, players, current_player, new_turn, hit_pos, settings};
+
+    //Context context{clock.restart(), nullptr, nullptr, objects, new_objects, players, current_player, new_turn, hit_pos, settings};
+    Context context{clock.restart(), nullptr, nullptr, objects, new_objects, players, current_player, new_turn, missile, settings};
 
 
     while (window.isOpen())

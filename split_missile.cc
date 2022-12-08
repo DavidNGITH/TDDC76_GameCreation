@@ -12,9 +12,9 @@
 
 
 
-Split_Missile::Split_Missile(double incoming_position_x, double incoming_position_y,double same_speed, double bearing)
+Split_Missile::Split_Missile(Context& context, double incoming_position_x, double incoming_position_y,double same_speed, double bearing)
 {
-    dmg = 25; //dmg för splitmissilerna
+    dmg = context.settings["shower_missile"]["damage"].asDouble(); //dmg för splitmissilerna
     speed_x = same_speed;
     speed_y = 0; 
     acceleration_y= bearing;
@@ -41,6 +41,7 @@ void Split_Missile::collision(Game_object* object, Context& context)
 
     if((player !=nullptr || helicopter!=nullptr || static_object!=nullptr || map !=nullptr) && !explode)
     {
+        context.missile = this;
         explode = true;
         
     }

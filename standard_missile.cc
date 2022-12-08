@@ -10,22 +10,22 @@
 #include "standard_missile.h"
 
 
-Standard_Missile::Standard_Missile(double incoming_position_x, double incoming_position_y,double power, double bearing)
+Standard_Missile::Standard_Missile(Context& context, double incoming_position_x, double incoming_position_y,double power, double bearing)
 
 {
-    dmg = 50; //dmg för standard missilen
-    speed_x = cos((180-bearing)*M_PI/180)*12*power;
-    speed_y = sin((180-bearing)*M_PI/180)*(-12*power); 
-    acceleration_y= 400;
+    dmg = context.settings["standard_missile"]["damage"].asDouble(); //dmg för standard missilen
+    speed_x = cos((180-bearing)*M_PI/180)*context.settings["missile"]["power_scale"].asInt()*power;
+    speed_y = sin((180-bearing)*M_PI/180)*(-context.settings["missile"]["power_scale"].asInt()*power); 
+    acceleration_y = context.settings["missile"]["acceleration"].asDouble();
     explode=false;
     i=0;
     position_x = incoming_position_x;
-    position_y = incoming_position_y+10;
+    position_y = incoming_position_y;
 
     load_icon("textures_new/ball.png");
     sf::Vector2u texture_size { texture.getSize() };
-    icon.setOrigin(texture_size.x / 2, texture_size.y/2);
-    icon.setPosition(position_x, position_y-10);
+    icon.setOrigin(texture_size.x / 2, texture_size.y / 2);
+    icon.setPosition(position_x, position_y);
     
 }
 
