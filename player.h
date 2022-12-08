@@ -41,10 +41,10 @@ protected:
     int hp{};
 
 private:
-    void set_pos();
-    void set_barrel_pos();
-    void set_shield_pos();
-    void set_name_pos();
+    void set_pos(Context& context);
+    void set_barrel_pos(Context& context);
+    void set_shield_pos(Context& context);
+    void set_name_pos(Context& context);
     void update_score(Context & context, double damage);
     void Fire(Context& context);
     double calc_y_position();

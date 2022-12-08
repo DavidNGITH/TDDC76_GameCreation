@@ -26,8 +26,8 @@
         "spawn_rate": 33, //in percent
         "speed": 200,
         "position_x": -100,
-        "position_y": 160,
-        "align_pos": 200
+        "position_y": 160
+        //"align_pos": 200
     },
 
     "hud":
@@ -37,7 +37,7 @@
 
     "map":
     {
-
+        "align_pos": 200
     },
 
     "menu_state":
@@ -69,15 +69,27 @@
         "damage": 0
     },
 
+    //Uppdatera damage efter det är implementerat
+    //och mby dmgradien
     "player":
     {
         "start_hp": 100,
+        "start_score": 0,
         "start_fuel": 100,
         "start_bearing": 90,
         "start_power": 50,
+        "start_weapon": 1,
+        "barrel_rotation_speed": 30,
         "speed": 100,
         "player_text_pos": 80,
-        "health_boost": 40
+        "barrel_pos_y": 17, //17 is a good value
+        "shield_pos_y": 17, //17 is a good value
+        "health_boost": 40,
+        "start_standard_ammo": 1, //equals infinity
+        "start_shower_ammo": 3,
+        "start_mine_ammo": 3
+
+
     },
 
     "powerup":

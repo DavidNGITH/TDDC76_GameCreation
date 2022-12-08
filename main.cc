@@ -23,12 +23,9 @@ int main()
     // reader reads the data and stores it in settings
     reader.parse(file, settings);
 
-    //unsigned const screen_width {1920};
-    //unsigned const screen_height {1080};
     srand (time(NULL));
 
-    //sf::RenderWindow window { sf::VideoMode {screen_width, screen_height}, settings["setup"]["name"].asString()};
-    sf::RenderWindow window { sf::VideoMode {settings["setup"]["width"].asInt(), settings["setup"]["height"].asInt()}, settings["setup"]["name"].asString()};
+    sf::RenderWindow window { sf::VideoMode {settings["setup"]["width"].asUInt(), settings["setup"]["height"].asUInt()}, settings["setup"]["name"].asString()};
     
     State* state = new Menu_state{};
 

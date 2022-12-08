@@ -16,25 +16,22 @@
 
 
 
-//HARD CODED
+//HARD CODED //MBY not anymore/////////////////////////
 
 ///////////// Constructor /////////////////////
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
-: hp{100}, score{0}, fuel{100}, bearing{90}, power{50}, curr_weapon{1}, barrel_rotation_speed {30},
-  last_missile{nullptr}, old_position{}, barrel_sprite{}, barrel{}, player_name_var{player_name}, name_text{}, font{}, 
-  shield_isActive{false}, shield_sprite{}, shield{}, hud{new Hud()}, ammo_array{ 2, 10, 4 }
+: hp{context.settings["player"]["start_hp"].asInt()}, score{context.settings["player"]["start_score"].asDouble()}, 
+  fuel{context.settings["player"]["start_fuel"].asDouble()}, bearing{context.settings["player"]["start_bearing"].asDouble()}, 
+  power{context.settings["player"]["start_power"].asDouble()}, curr_weapon{context.settings["player"]["start_weapon"].asInt()}, 
+  barrel_rotation_speed{context.settings["player"]["barrel_rotation_speed"].asFloat()}, last_missile{nullptr}, old_position{}, 
+  barrel_sprite{}, barrel{}, player_name_var{player_name}, name_text{}, font{}, shield_isActive{false}, shield_sprite{}, shield{}, 
+  hud{new Hud()}, ammo_array{ context.settings["player"]["start_standard_ammo"].asInt(), context.settings["player"]["start_shower_ammo"].asInt(), context.settings["player"]["start_mine_ammo"].asInt() }
+
 {
-    ////////////// HARD CODED /////////////
-    speed = 100;
-    //position_x = rand() % (context.map -> get_window_size().x);
+    speed = context.settings["player"]["speed"].asInt();
     
     able_to_move = true;
-    fired=false;
-    //std::cout << "Ammo array at 0: " << ammo_array[0] << std::endl;
-    //std::cout << "Ammo array at 1: " << ammo_array[1] << std::endl;
-    //std::cout << "Ammo array at 2: " << ammo_array[2] << std::endl;
-    //std::cout << position_x << std::endl;
-    
+    fired=false;    
 
     /////////// Player sprite /////////////
     load_icon(player_texture);
@@ -46,7 +43,7 @@ Player::Player(std::string player_texture, std::string barrel_texture, std::stri
 
     while(bad_pos)
     {
-        position_x = rand() % (context.map -> get_window_size().x-200) + 100;
+        position_x = rand() % (context.map -> get_window_size().x - context.settings["map"]["align_pos"].asInt()) + context.settings["map"]["align_pos"].asInt()/2;
         position_y = get_ground_pos(context, position_x);
         icon.setPosition(position_x, position_y);
         bad_pos = false;
@@ -67,7 +64,7 @@ Player::Player(std::string player_texture, std::string barrel_texture, std::stri
     name_text.setColor(sf::Color::Black);
     name_text.setString(player_name_var);
     name_text.setOrigin(name_text.getLocalBounds().width/2,name_text.getLocalBounds().height/2);
-    name_text.setPosition(position_x, position_y - 80);
+    name_text.setPosition(position_x, position_y - context.settings["player"]["player_text_pos"].asInt());
     
 
     if (!barrel.loadFromFile(barrel_texture))
@@ -80,7 +77,7 @@ Player::Player(std::string player_texture, std::string barrel_texture, std::stri
     barrel_sprite.setOrigin(texture_size_barrel.x, texture_size_barrel.y / 2);
     barrel_sprite.setScale(1, 1);
     barrel_sprite.setRotation(bearing);
-    set_barrel_pos();
+    set_barrel_pos(context);
 
 }
 
@@ -171,7 +168,7 @@ void Player::move(Context& context)
                 position_y = old_position.y;
             }
             
-            set_pos();
+            set_pos(context);
 
         }
 
@@ -188,7 +185,7 @@ void Player::move(Context& context)
                 position_y = old_position.y;
             }
             
-            set_pos();
+            set_pos(context);
 
         }
 
@@ -273,7 +270,7 @@ void Player::collision(Game_object* object, Context& context)
         position_x = old_position.x;
         position_y = old_position.y;
 
-        set_pos();
+        set_pos(context);
     }
     
     if (other_player != nullptr)
@@ -282,8 +279,8 @@ void Player::collision(Game_object* object, Context& context)
         position_y = old_position.y;
 
         icon.setPosition(position_x, position_y);
-        set_barrel_pos();
-        set_name_pos();
+        set_barrel_pos(context);
+        set_name_pos(context);
     }
 
 
@@ -308,14 +305,14 @@ void Player::collision(Game_object* object, Context& context)
             shield_sprite.setOrigin((texture_size_shield.x / 2), 
             (texture_size_shield.y / 2));
             shield_sprite.setScale(0.3, 0.3);
-            set_shield_pos();
+            set_shield_pos(context);
             shield_isActive = true;
 
         }
         else if(powerup -> get_poweruptype() == 1)
         {
             //std::cout << "Collided with repair kit" << std::endl;
-            hp += 40;
+            hp += context.settings["player"]["health_boost"].asInt();
         }
         else if(powerup -> get_poweruptype() == 2)
         {
@@ -372,27 +369,27 @@ void Player::check_damage(Context& context, double missile_dmg)
     
 }
 
-void Player::set_pos()
+void Player::set_pos(Context& context)
 {
     icon.setPosition (position_x, position_y);
-    set_barrel_pos();
-    set_shield_pos();
-    set_name_pos();
+    set_barrel_pos(context);
+    set_shield_pos(context);
+    set_name_pos(context);
 }
 
-void Player::set_barrel_pos()
+void Player::set_barrel_pos(Context& context)
 {
-    barrel_sprite.setPosition(position_x, position_y - 17);
+    barrel_sprite.setPosition(position_x, position_y - context.settings["player"]["barrel_pos_y"].asInt());
 }
 
-void Player::set_name_pos()
+void Player::set_name_pos(Context& context)
 {
-    name_text.setPosition(position_x, position_y - 80);
+    name_text.setPosition(position_x, position_y - context.settings["player"]["player_text_pos"].asInt());
 }
 
-void Player::set_shield_pos() 
+void Player::set_shield_pos(Context& context) 
 {
-    shield_sprite.setPosition(position_x, position_y - 17);
+    shield_sprite.setPosition(position_x, position_y - context.settings["player"]["shield_pos_y"].asInt());
 }
 
 void Player::reset()

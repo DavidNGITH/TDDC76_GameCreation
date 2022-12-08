@@ -124,14 +124,14 @@ void Helicopter::create_powerup(Context& context) const
 void Helicopter::stop_position(Context& context)
 {
     //randomizes the stop_position.
-    stop_coordinate = (rand() % (context.settings["setup"]["width"].asInt() - 2*context.settings["helicopter"]["align_pos"].asInt()) + context.settings["helicopter"]["align_pos"].asInt());
+    stop_coordinate = (rand() % (context.settings["setup"]["width"].asUInt() - 2*context.settings["map"]["align_pos"].asInt()) + context.settings["map"]["align_pos"].asInt());
 
 }
 
 void Helicopter::reset(Context& context)
 {
-    position_x = context.settings["helicopter"]["position_x"].asInt();
-    position_y = context.settings["helicopter"]["position_y"].asInt();
+    position_x = context.settings["helicopter"]["position_x"].asDouble();
+    position_y = context.settings["helicopter"]["position_y"].asDouble();
 
     is_active = 0;
     has_stopped = 0;
