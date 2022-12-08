@@ -10,21 +10,22 @@
 
 
 
-Shower_Missile::Shower_Missile(double incoming_position_x, double incoming_position_y,double power, double bearing)
+Shower_Missile::Shower_Missile(Context& context, double incoming_position_x, double incoming_position_y, double power, double bearing)
 :if_split{false}
 {
-    speed_x = cos((180-bearing)*M_PI/180)*12*power;
-    speed_y = sin((180-bearing)*M_PI/180)*(-12*power); 
-    acceleration_y= 400;
+    dmg = context.settings["shower_missile"]["damage"].asDouble();
+    speed_x = cos((180-bearing)*M_PI/180)*context.settings["missile"]["power_scale"].asInt()*power;
+    speed_y = sin((180-bearing)*M_PI/180)*(-context.settings["missile"]["power_scale"].asInt()*power);
+    acceleration_y = context.settings["mine"]["acceleration"].asDouble();
     explode=false;
     i=0;
     position_x = incoming_position_x;
-    position_y = incoming_position_y+10;
+    position_y = incoming_position_y;
 
     load_icon("textures_new/ball.png");
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y/2);
-    icon.setPosition(position_x, position_y-10);
+    icon.setPosition(position_x, position_y);
     
 }
 
@@ -53,8 +54,8 @@ void Shower_Missile::update(Context& context)
         {
             if_split = true;
             
-            context.new_objects.push_back(new Split_Missile(position_x, position_y, speed_x*0.9, 400));
-            context.new_objects.push_back(new Split_Missile(position_x, position_y, speed_x*1.1, 400));
+            context.new_objects.push_back(new Split_Missile(context, position_x, position_y, speed_x*0.9, 400));
+            context.new_objects.push_back(new Split_Missile(context, position_x, position_y, speed_x*1.1, 400));
         }
     }
 }

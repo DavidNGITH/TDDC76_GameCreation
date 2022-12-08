@@ -44,7 +44,7 @@ void Map::render(sf::RenderWindow& window, Context& context)
 
 bool Map::check_collision(Game_object* object)
 {   
-    if (object -> icon.getPosition().y < 500)
+    if (object -> icon.getPosition().y < 365)
     {
         return false;
     }

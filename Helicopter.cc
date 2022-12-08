@@ -3,18 +3,17 @@
 #include "context.h"
 #include "PowerUp.h"
 #include "Missile.h"
-#include "Mine.h"
 
 Helicopter::Helicopter(Context& context)
 :stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{}, spawn_rate{context.settings["helicopter"]["spawn_rate"].asInt()}, speed{context.settings["helicopter"]["speed"].asFloat()}, current_player{nullptr}
 {   
-    load_icon("textures_new/helicopter.png");
+    load_icon("textures_new/helicopter_2.png");
 
     reset(context);
 
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y / 2);
-    icon.setScale(0.4,0.4);
+    icon.setScale(1,1);
 
 
 }
@@ -23,14 +22,7 @@ bool Helicopter::should_spawn()
 {
     //check if helicopter should spawn, given it's not already in flight
     int v1 = rand() % 100; //rand int between 0-100
-    if (v1 <= spawn_rate)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
+    return (v1 <= spawn_rate);
 }
 
 void Helicopter::update(Context& context)
@@ -97,13 +89,8 @@ void Helicopter::collision(Game_object* object, Context& context)
 {
     //reset all parameters, and reset position.
     Missile* missile { dynamic_cast<Missile*>(object) };
-    Mine* mine { dynamic_cast<Mine*>(object) };
 
     if (missile != nullptr)
-    {
-        reset(context);
-    }
-    if (mine != nullptr)
     {
         reset(context);
     }
@@ -124,14 +111,14 @@ void Helicopter::create_powerup(Context& context) const
 void Helicopter::stop_position(Context& context)
 {
     //randomizes the stop_position.
-    stop_coordinate = (rand() % (context.settings["setup"]["width"].asInt() - 2*context.settings["helicopter"]["align_pos"].asInt()) + context.settings["helicopter"]["align_pos"].asInt());
+    stop_coordinate = (rand() % (context.settings["setup"]["width"].asUInt() - 2*context.settings["map"]["align_pos"].asInt()) + context.settings["map"]["align_pos"].asInt());
 
 }
 
 void Helicopter::reset(Context& context)
 {
-    position_x = context.settings["helicopter"]["position_x"].asInt();
-    position_y = context.settings["helicopter"]["position_y"].asInt();
+    position_x = context.settings["helicopter"]["position_x"].asDouble();
+    position_y = context.settings["helicopter"]["position_y"].asDouble();
 
     is_active = 0;
     has_stopped = 0;

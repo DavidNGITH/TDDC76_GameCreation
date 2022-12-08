@@ -16,25 +16,22 @@
 
 
 
-//HARD CODED
+//HARD CODED //MBY not anymore/////////////////////////
 
 ///////////// Constructor /////////////////////
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
-: hp{100}, dmg_calc{0}, score{0}, fuel{100}, bearing{90}, power{50}, curr_weapon{1}, barrel_rotation_speed {30},
-  last_missile{nullptr}, old_position{}, barrel_sprite{}, barrel{}, player_name_var{player_name}, name_text{}, font{}, 
-  shield_isActive{false}, shield_sprite{}, shield{}, hud{new Hud()}, ammo_array{ 2, 10, 4 }
+: hp{context.settings["player"]["start_hp"].asInt()}, dmg_radius{context.settings["player"]["dmg_radius"].asInt()}, score{context.settings["player"]["start_score"].asDouble()}, 
+  fuel{context.settings["player"]["start_fuel"].asDouble()}, bearing{context.settings["player"]["start_bearing"].asDouble()}, 
+  power{context.settings["player"]["start_power"].asDouble()}, curr_weapon{context.settings["player"]["start_weapon"].asInt()}, 
+  barrel_rotation_speed{context.settings["player"]["barrel_rotation_speed"].asFloat()}, last_missile{nullptr}, old_position{}, 
+  barrel_sprite{}, barrel{}, player_name_var{player_name}, name_text{}, font{}, shield_isActive{false}, shield_sprite{}, shield{}, 
+  hud{new Hud()}, ammo_array{ context.settings["player"]["start_standard_ammo"].asInt(), context.settings["player"]["start_shower_ammo"].asInt(), context.settings["player"]["start_mine_ammo"].asInt() }
+
 {
-    ////////////// HARD CODED /////////////
-    speed = 100;
-    //position_x = rand() % (context.map -> get_window_size().x);
+    speed = context.settings["player"]["speed"].asInt();
     
     able_to_move = true;
-    fired=false;
-    //std::cout << "Ammo array at 0: " << ammo_array[0] << std::endl;
-    //std::cout << "Ammo array at 1: " << ammo_array[1] << std::endl;
-    //std::cout << "Ammo array at 2: " << ammo_array[2] << std::endl;
-    //std::cout << position_x << std::endl;
-    
+    fired=false;    
 
     /////////// Player sprite /////////////
     load_icon(player_texture);
@@ -46,7 +43,7 @@ Player::Player(std::string player_texture, std::string barrel_texture, std::stri
 
     while(bad_pos)
     {
-        position_x = rand() % (context.map -> get_window_size().x-200) + 100;
+        position_x = rand() % (context.map -> get_window_size().x - context.settings["map"]["align_pos"].asInt()) + context.settings["map"]["align_pos"].asInt()/2;
         position_y = get_ground_pos(context, position_x);
         icon.setPosition(position_x, position_y);
         bad_pos = false;
@@ -67,7 +64,7 @@ Player::Player(std::string player_texture, std::string barrel_texture, std::stri
     name_text.setColor(sf::Color::Black);
     name_text.setString(player_name_var);
     name_text.setOrigin(name_text.getLocalBounds().width/2,name_text.getLocalBounds().height/2);
-    name_text.setPosition(position_x, position_y - 80);
+    name_text.setPosition(position_x, position_y - context.settings["player"]["player_text_pos"].asInt());
     
 
     if (!barrel.loadFromFile(barrel_texture))
@@ -80,7 +77,7 @@ Player::Player(std::string player_texture, std::string barrel_texture, std::stri
     barrel_sprite.setOrigin(texture_size_barrel.x, texture_size_barrel.y / 2);
     barrel_sprite.setScale(1, 1);
     barrel_sprite.setRotation(bearing);
-    set_barrel_pos();
+    set_barrel_pos(context);
 
 }
 
@@ -102,7 +99,7 @@ void Player::Fire(Context& context)
     {
         if (curr_weapon == 1)
         {
-            context.new_objects.push_back(new Standard_Missile{calc_x_position(),
+            context.new_objects.push_back(new Standard_Missile{context, calc_x_position(),
             calc_y_position(), round(power), round(bearing)});
             fired = true;
         }
@@ -112,7 +109,7 @@ void Player::Fire(Context& context)
 
             if (curr_weapon == 2)
             {
-                context.new_objects.push_back(new Shower_Missile{calc_x_position(),
+                context.new_objects.push_back(new Shower_Missile{context, calc_x_position(),
                 calc_y_position(), round(power), round(bearing)});
             }
 
@@ -169,7 +166,7 @@ void Player::move(Context& context)
                 position_y = old_position.y;
             }
             
-            set_pos();
+            set_pos(context);
 
         }
 
@@ -186,7 +183,7 @@ void Player::move(Context& context)
                 position_y = old_position.y;
             }
             
-            set_pos();
+            set_pos(context);
 
         }
 
@@ -259,7 +256,6 @@ void Player::collision(Game_object* object, Context& context)
     Static_object* static_object { dynamic_cast<Static_object*>(object) };
     Player* other_player { dynamic_cast<Player*>(object) };
     Powerup* powerup { dynamic_cast<Powerup*>(object) };
-    Mine* mine { dynamic_cast<Mine*>(object) };
     Missile* missile { dynamic_cast<Missile*>(object) };
 
     
@@ -269,7 +265,7 @@ void Player::collision(Game_object* object, Context& context)
         position_x = old_position.x;
         position_y = old_position.y;
 
-        set_pos();
+        set_pos(context);
     }
     
     if (other_player != nullptr)
@@ -278,8 +274,8 @@ void Player::collision(Game_object* object, Context& context)
         position_y = old_position.y;
 
         icon.setPosition(position_x, position_y);
-        set_barrel_pos();
-        set_name_pos();
+        set_barrel_pos(context);
+        set_name_pos(context);
     }
 
 
@@ -303,13 +299,13 @@ void Player::collision(Game_object* object, Context& context)
             shield_sprite.setOrigin((texture_size_shield.x / 2), 
             (texture_size_shield.y / 2));
             shield_sprite.setScale(0.3, 0.3);
-            set_shield_pos();
+            set_shield_pos(context);
             shield_isActive = true;
 
         }
         else if(powerup -> get_poweruptype() == 1)
         {
-            hp += 40;
+            hp += context.settings["player"]["health_boost"].asInt();
         }
         else if(powerup -> get_poweruptype() == 2)
         {
@@ -334,27 +330,36 @@ void Player::collision(Game_object* object, Context& context)
         {
             hp -= missile->dmg;
             //std::cout << "HP för " << player_name_var << " kvar: " << hp << std::endl;
-            update_score(context, 49);
+            update_score(context, missile -> dmg);
         }
     }
 
 
-    else if (context.hit_pos.x != 0 && context.hit_pos.y != 0)
+    //else if (context.hit_pos.x != 0 && context.hit_pos.y != 0)
+    else if (context.missile != nullptr)
     {
-        //dmg_calc = missile->dmg;
-        check_damage(context, 50);
+        Missile* missile { dynamic_cast<Missile*>(context.missile) };
+        check_damage(context, missile -> dmg);
     }
 }
 
 void Player::check_damage(Context& context, int missile_dmg) 
 {
     double dist_from_player{};
-    dist_from_player = sqrt((pow((context.hit_pos.x - position_x), 2) 
-    + pow((context.hit_pos.y - position_y), 2)));
+    //dist_from_player = sqrt((pow((context.hit_pos.x - position_x), 2)
+    //+ pow((context.hit_pos.y - position_y), 2)));
+    dist_from_player = sqrt((pow((context.missile -> position_x - position_x), 2) 
+    + pow((context.missile -> position_y - position_y), 2)));
 
-    if(dist_from_player <= 100)
+    if(dist_from_player <= dmg_radius) // dmg radius = 100
     {
-        missile_dmg = missile_dmg - (dist_from_player/(100/missile_dmg));
+        if (shield_isActive && (context.current_player != this))
+        {
+            shield_isActive = false;
+            return;
+        }
+
+        missile_dmg = missile_dmg - (dist_from_player/(dmg_radius/missile_dmg));
         hp -= missile_dmg;
         update_score(context, missile_dmg);
     }
@@ -362,27 +367,27 @@ void Player::check_damage(Context& context, int missile_dmg)
     
 }
 
-void Player::set_pos()
+void Player::set_pos(Context& context)
 {
     icon.setPosition (position_x, position_y);
-    set_barrel_pos();
-    set_shield_pos();
-    set_name_pos();
+    set_barrel_pos(context);
+    set_shield_pos(context);
+    set_name_pos(context);
 }
 
-void Player::set_barrel_pos()
+void Player::set_barrel_pos(Context& context)
 {
-    barrel_sprite.setPosition(position_x, position_y - 17);
+    barrel_sprite.setPosition(position_x, position_y - context.settings["player"]["barrel_pos_y"].asInt());
 }
 
-void Player::set_name_pos()
+void Player::set_name_pos(Context& context)
 {
-    name_text.setPosition(position_x, position_y - 80);
+    name_text.setPosition(position_x, position_y - context.settings["player"]["player_text_pos"].asInt());
 }
 
-void Player::set_shield_pos() 
+void Player::set_shield_pos(Context& context) 
 {
-    shield_sprite.setPosition(position_x, position_y - 17);
+    shield_sprite.setPosition(position_x, position_y - context.settings["player"]["shield_pos_y"].asInt());
 }
 
 void Player::reset()
@@ -406,11 +411,9 @@ void Player::update_score(Context & context, double damage)
     {
         Player* player { dynamic_cast<Player*>(context.current_player) };
         player -> score += damage;
-    }
-
-
-    
+    }    
 }
+
 std::vector<std::string> Player::get_info()
 {
     std::vector<std::string> info;

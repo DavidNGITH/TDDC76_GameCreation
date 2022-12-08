@@ -26,7 +26,8 @@ public:
     bool able_to_move{};
     bool fired{};
 
-
+    double position_x{};
+    double position_y{};
 
 protected:
     void load_icon(std::string path);
@@ -34,8 +35,6 @@ protected:
 
     bool removed{};
     sf::Texture texture;
-    double position_x{};
-    double position_y{};
     float speed {};
 
 
