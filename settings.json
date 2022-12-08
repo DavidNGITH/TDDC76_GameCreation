@@ -26,7 +26,7 @@
         "spawn_rate": 33, //in percent
         "speed": 200,
         "position_x": -100,
-        "position_y": 160,
+        "position_y": 165,
         "align_pos": 200
     },
 
