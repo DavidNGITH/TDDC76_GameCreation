@@ -1,5 +1,9 @@
 #include <SFML/Graphics.hpp>
 
+#include <iostream>
+#include <fstream>
+#include <jsoncpp/json/json.h>
+
 #include "context.h"
 #include "state.h"
 #include "menu_state.h"
@@ -10,11 +14,21 @@
 
 int main()
 {
-    unsigned const screen_width {1920};
-    unsigned const screen_height {1080};
+    //read file
+    std::ifstream file("settings.json");
+    //json reader
+    Json::Reader reader;
+    //contain complete JSON data
+    Json::Value settings;
+    // reader reads the data and stores it in settings
+    reader.parse(file, settings);
+
+    //unsigned const screen_width {1920};
+    //unsigned const screen_height {1080};
     srand (time(NULL));
 
-    sf::RenderWindow window { sf::VideoMode {screen_width, screen_height}, "DANK TANKS"};
+    //sf::RenderWindow window { sf::VideoMode {screen_width, screen_height}, settings["setup"]["name"].asString()};
+    sf::RenderWindow window { sf::VideoMode {settings["setup"]["width"].asInt(), settings["setup"]["height"].asInt()}, settings["setup"]["name"].asString()};
     
     State* state = new Menu_state{};
 
@@ -27,7 +41,7 @@ int main()
     bool                       new_turn{false};
     sf::Vector2f               hit_pos{0,0};
 
-    Context context{clock.restart(), nullptr, nullptr, objects, new_objects, players, current_player, new_turn, hit_pos};
+    Context context{clock.restart(), nullptr, nullptr, objects, new_objects, players, current_player, new_turn, hit_pos, settings};
 
 
     while (window.isOpen())
@@ -69,4 +83,29 @@ int main()
         
         
     }
+
+    delete context.next_state;
+
+    delete state;
+
+    if(context.map != nullptr)
+    {
+        delete context.map;
+    }
+
+    for (long unsigned int i{0}; i < context.objects.size(); i++)
+    {
+        delete context.objects.at(i);
+    }
+
+    for (long unsigned int i{0}; i < context.new_objects.size(); i++)
+    {
+        delete context.new_objects.at(i);
+    }
+
+    for (long unsigned int i{0}; i < context.players.size(); i++)
+    {
+        delete context.players.at(i);
+    }
+
 }

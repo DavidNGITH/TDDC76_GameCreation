@@ -20,14 +20,14 @@
 
 ///////////// Constructor /////////////////////
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
-:hp{100}, fuel{100}, bearing{90}, power{50}, score{0}, shield_isActive{false}, curr_weapon{1},
-barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_missile{nullptr}, dmg_calc{0}
+: hp{100}, dmg_calc{0}, score{0}, fuel{100}, bearing{90}, power{50}, curr_weapon{1}, barrel_rotation_speed {30},
+  last_missile{nullptr}, old_position{}, barrel_sprite{}, barrel{}, player_name_var{player_name}, name_text{}, font{}, 
+  shield_isActive{false}, shield_sprite{}, shield{}, hud{new Hud()}, ammo_array{ 2, 10, 4 }
 {
     ////////////// HARD CODED /////////////
     speed = 100;
     //position_x = rand() % (context.map -> get_window_size().x);
-    position_x = rand() % (context.map -> get_window_size().x-200 + 1) + 100;
-    position_y = get_ground_pos(context, position_x);
+    
     able_to_move = true;
     fired=false;
     //std::cout << "Ammo array at 0: " << ammo_array[0] << std::endl;
@@ -35,6 +35,30 @@ barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_m
     //std::cout << "Ammo array at 2: " << ammo_array[2] << std::endl;
     //std::cout << position_x << std::endl;
     
+
+    /////////// Player sprite /////////////
+    load_icon(player_texture);
+    sf::Vector2u texture_size { texture.getSize() };
+    icon.setOrigin(texture_size.x / 2, texture_size.y);
+    icon.setScale(1.5, 1.5);
+
+    bool bad_pos{true};
+
+    while(bad_pos)
+    {
+        position_x = rand() % (context.map -> get_window_size().x-200) + 100;
+        position_y = get_ground_pos(context, position_x);
+        icon.setPosition(position_x, position_y);
+        bad_pos = false;
+
+        for(unsigned long int i{0}; i < context.players.size(); i++)
+        {
+            if (check_collision(context.players.at(i)))
+            {
+                bad_pos = true;
+            }
+        }
+    }
 
     ////////// Player name /////////////////////
     font.loadFromFile("Textures/Minecraft.ttf");
@@ -45,13 +69,6 @@ barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_m
     name_text.setOrigin(name_text.getLocalBounds().width/2,name_text.getLocalBounds().height/2);
     name_text.setPosition(position_x, position_y - 80);
     
-    /////////// Player sprite /////////////
-    load_icon(player_texture);
-
-    sf::Vector2u texture_size { texture.getSize() };
-    icon.setOrigin(texture_size.x / 2, texture_size.y);
-    icon.setScale(1.5, 1.5);
-    icon.setPosition(position_x, position_y);
 
     if (!barrel.loadFromFile(barrel_texture))
     {std::cerr << "Can't open: " << barrel_texture << std::endl;}
@@ -64,10 +81,6 @@ barrel_rotation_speed {30}, old_position{}, player_name_var{player_name}, last_m
     barrel_sprite.setScale(1, 1);
     barrel_sprite.setRotation(bearing);
     set_barrel_pos();
-
-
-    ///////// HUD //////////////
-    hud = new Hud();
 
 }
 
@@ -84,14 +97,13 @@ Player::~Player()
 
 void Player::Fire(Context& context)
 {   
-    //std::cout << get_ground_pos(context, position_x) << std::endl;
     
     if (!fired)
     {
         if (curr_weapon == 1)
         {
             context.new_objects.push_back(new Standard_Missile{calc_x_position(),
-            calc_y_position(), power, bearing});
+            calc_y_position(), round(power), round(bearing)});
             fired = true;
         }
         else if (ammo_array[curr_weapon - 1] > 0)
@@ -101,13 +113,13 @@ void Player::Fire(Context& context)
             if (curr_weapon == 2)
             {
                 context.new_objects.push_back(new Shower_Missile{calc_x_position(),
-                calc_y_position(), power, bearing});
+                calc_y_position(), round(power), round(bearing)});
             }
 
             else if (curr_weapon == 3)
             {
-                context.new_objects.push_back(new Mine{calc_x_position(),
-                calc_y_position(), power, bearing});
+                context.new_objects.push_back(new Mine{context, calc_x_position(),
+                calc_y_position(), round(power), round(bearing)});
             }
             fired = true;
         }
@@ -132,11 +144,10 @@ void Player::handle(Context& context, sf::Event event)
 
 void Player::update(Context& context)
 {
-    hud -> update(hp, bearing, power, fuel, curr_weapon, ammo_array, score, player_name_var);
+    hud -> update(hp, 180 - round(bearing), round(power), fuel, curr_weapon, ammo_array, score, player_name_var);
 
     if (hp <=0)
     {
-        //std::cout << "Här" << std::endl;
         remove();
     }
 }
@@ -201,7 +212,6 @@ void Player::move(Context& context)
             if (power <100)
             {
                 power += context.delta.asSeconds() * 10;
-                //std::cout << power << std::endl;
             }
         
         }
@@ -210,7 +220,6 @@ void Player::move(Context& context)
             if (power >0)
             {
                 power -= context.delta.asSeconds() * 10;
-                //std::cout << power << std::endl;
 
             }
         
@@ -280,10 +289,9 @@ void Player::collision(Game_object* object, Context& context)
         
         if ((powerup -> get_poweruptype() == 0) && (shield_isActive == false))
         {
-            //std::cout << "Collided with shield" << std::endl;
             ////////////////////// Hard coded: Read texture file
             
-            if (!shield.loadFromFile("shield.png"))
+            if (!shield.loadFromFile("textures_new/shield.png"))
             {
                 std::cerr << "Can't open: shield.png" << std::endl;
             }
@@ -301,7 +309,6 @@ void Player::collision(Game_object* object, Context& context)
         }
         else if(powerup -> get_poweruptype() == 1)
         {
-            //std::cout << "Collided with repair kit" << std::endl;
             hp += 40;
         }
         else if(powerup -> get_poweruptype() == 2)
@@ -321,7 +328,6 @@ void Player::collision(Game_object* object, Context& context)
         if (shield_isActive && (context.current_player != this))
         {
             shield_isActive = false;
-            //std::cout << "Shield hit!" << std::endl;
             return;
         }
         else
@@ -345,17 +351,14 @@ void Player::check_damage(Context& context, int missile_dmg)
     double dist_from_player{};
     dist_from_player = sqrt((pow((context.hit_pos.x - position_x), 2) 
     + pow((context.hit_pos.y - position_y), 2)));
-    //std::cout << "Distance from player " << player_name_var << ": " << dist_from_player << std::endl;
 
     if(dist_from_player <= 100)
     {
         missile_dmg = missile_dmg - (dist_from_player/(100/missile_dmg));
-        //std::cout << "Missile damage: " << missile_dmg << std::endl;
         hp -= missile_dmg;
         update_score(context, missile_dmg);
     }
 
-    //std::cout << "HP för " << player_name_var << " kvar: " << hp << std::endl;
     
 }
 
@@ -399,11 +402,9 @@ double Player::calc_y_position()
 
 void Player::update_score(Context & context, double damage)
 {
-    //std::cout << "är i update_score" << std::endl;
     if(context.current_player != this)
     {
         Player* player { dynamic_cast<Player*>(context.current_player) };
-        //std::cout << "kom in i if-satsen" << std::endl;
         player -> score += damage;
     }
 

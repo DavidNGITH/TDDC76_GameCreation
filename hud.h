@@ -4,7 +4,6 @@
 #include "context.h"
 
 
-//struct Context;
 
 class Hud
 {
@@ -12,8 +11,6 @@ class Hud
 
     Hud();
 
-    //~Helicopter() = default;
-    //void handle(Context& context, sf::Event event);
     void update(int player_hp, double player_bearing, double player_power, double player_fuel, int player_weapon, int ammo_array[], double player_score, std::string playerstring);
     void render(sf::RenderWindow& window);
     void text_init(sf::Text& text, int char_size);
@@ -23,7 +20,6 @@ class Hud
     int position_x{};
     int position_y{};
 
-    //std::string playerstring;
     sf::Sprite hud;
     sf::Texture texture;
 

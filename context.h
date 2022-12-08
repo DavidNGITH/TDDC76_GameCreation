@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <jsoncpp/json/json.h>
 
 #include "game_object.h"
 #include "map.h"
@@ -19,7 +20,8 @@ struct Context
     std::vector<Game_object*>&  players;
     Game_object*                current_player;
     bool                        new_turn;
-    sf::Vector2f                hit_pos; 
+    sf::Vector2f                hit_pos;
+    Json::Value                 settings;
 };
 
 #endif

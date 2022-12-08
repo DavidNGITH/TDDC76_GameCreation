@@ -41,12 +41,6 @@ void Split_Missile::collision(Game_object* object, Context& context)
 
     if((player !=nullptr || helicopter!=nullptr || static_object!=nullptr || map !=nullptr) && !explode)
     {
-        //Explosion();
-        //std::cout<< "Kollision" << std::endl;
-        /*if(player != nullptr && context.current_player != player)
-        {
-            context.current_player -> update_score(context);
-        }*/
         explode = true;
         
     }

@@ -1,13 +1,11 @@
 #include "hud.h"
 #include "player.h"
 #include <SFML/Graphics.hpp>
-#include <iostream>
-#include <iomanip>
-#include <sstream>
-#include <cmath>
 
 
 Hud::Hud()
+: hud{}, texture{}, sel_weapon{}, weapontext{}, font{}, hp_text{}, player_text{}, 
+  bearing_text{}, score_text{}, power_text{}, fuel_text{}, ammo_text{}
 {
     position_x = 960;
     position_y = 0;
@@ -108,8 +106,7 @@ void Hud::text_init(sf::Text& text, int char_size)
     //initiates all the different values to be displayed
     text.setFont(font);
     text.setCharacterSize(char_size);
-    text.setColor(sf::Color::Black);
+    text.setFillColor(sf::Color::Black);
     text.setString("");
     text.setOrigin(text.getLocalBounds().width/2,text.getLocalBounds().height/2);
-    //std::cout << char_size << std::endl;
 }

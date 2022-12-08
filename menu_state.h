@@ -15,14 +15,12 @@ class Menu_state : public State
 
     
 
-    //Map map;
 
     virtual void handle(Context& context, sf::Event event) override;
     virtual void update(Context& context) override;
     virtual void render(sf::RenderWindow& window, Context& context) override;
 
 
-    //~Menu_state();
 
     private:
     void add_player();
