@@ -26,7 +26,9 @@ Split_Missile::Split_Missile(Context& context, double incoming_position_x, doubl
     load_icon("textures_new/ball.png");
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y/2);
-    icon.setPosition(position_x, position_y-10);
+    icon.setPosition(position_x, position_y);
+
+    this_player = context.current_player;
     
 }
 
@@ -39,11 +41,15 @@ void Split_Missile::collision(Game_object* object, Context& context)
     Static_object* static_object { dynamic_cast<Static_object*>(object) };
     Map* map { dynamic_cast<Map*>(object) };
 
-    if((player !=nullptr || helicopter!=nullptr || static_object!=nullptr || map !=nullptr) && !explode)
+    if((player !=nullptr || helicopter!=nullptr || static_object!=nullptr && !explode))
+    {
+        explode = true;        
+    }
+
+    if (map !=nullptr && !explode)
     {
         context.missile = this;
         explode = true;
-        
     }
 
 }

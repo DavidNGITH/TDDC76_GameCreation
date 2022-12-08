@@ -26,6 +26,8 @@ Shower_Missile::Shower_Missile(Context& context, double incoming_position_x, dou
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y/2);
     icon.setPosition(position_x, position_y);
+
+    this_player = context.current_player;
     
 }
 

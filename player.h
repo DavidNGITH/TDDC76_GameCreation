@@ -28,7 +28,7 @@ public:
 
     double get_bearing() const&;
     int get_score() const&;
-    void check_damage(Context& context, int missile_dmg);
+    void check_damage(Context& context, Missile* missile);
 
     void reset();
 

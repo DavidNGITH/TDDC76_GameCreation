@@ -29,6 +29,8 @@ Mine::Mine(Context& context, double incoming_position_x, double incoming_positio
     icon.setOrigin(texture_size.x / 2, texture_size.y);
     icon.setScale(0.02, 0.02);
     icon.setPosition(position_x, position_y);
+
+    this_player = context.current_player;
 }
 
 

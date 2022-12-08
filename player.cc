@@ -321,7 +321,7 @@ void Player::collision(Game_object* object, Context& context)
     /////////////// MISSILE COLLISION /////////////////
     else if (missile != nullptr)
     {
-        if (shield_isActive && (context.current_player != this))
+        if (shield_isActive) // && (context.current_player != this))
         {
             shield_isActive = false;
             return;
@@ -329,8 +329,10 @@ void Player::collision(Game_object* object, Context& context)
         else
         {
             hp -= missile->dmg;
-            //std::cout << "HP för " << player_name_var << " kvar: " << hp << std::endl;
-            update_score(context, missile -> dmg);
+            if(missile -> this_player != this)
+            {
+                update_score(context, missile -> dmg);
+            }
         }
     }
 
@@ -339,11 +341,11 @@ void Player::collision(Game_object* object, Context& context)
     else if (context.missile != nullptr)
     {
         Missile* missile { dynamic_cast<Missile*>(context.missile) };
-        check_damage(context, missile -> dmg);
+        check_damage(context, missile);
     }
 }
 
-void Player::check_damage(Context& context, int missile_dmg) 
+void Player::check_damage(Context& context, Missile* missile) 
 {
     double dist_from_player{};
     //dist_from_player = sqrt((pow((context.hit_pos.x - position_x), 2)
@@ -359,9 +361,15 @@ void Player::check_damage(Context& context, int missile_dmg)
             return;
         }
 
-        missile_dmg = missile_dmg - (dist_from_player/(dmg_radius/missile_dmg));
+        int missile_dmg = (missile -> dmg - (dist_from_player/(dmg_radius/(missile -> dmg))));
+        //missile_dmg = missile_dmg - (dist_from_player/(dmg_radius/missile_dmg));
+        //hp -= missile_dmg;
         hp -= missile_dmg;
-        update_score(context, missile_dmg);
+        
+        if(missile -> this_player != this)
+        {
+            update_score(context, missile_dmg);
+        }
     }
 
     
