@@ -124,7 +124,6 @@ void Game_state::update(Context& context)
     }
 
 
-    //std::cout << "3" << std::endl;
 
     //Check whether an object should be deleted
     for (unsigned int i{0}; i < context.objects.size();)
@@ -247,7 +246,6 @@ void Game_state::delete_all(Context& context)
         delete context.objects[i];
     }
        
-    //std::cout << context.objects.size() << std::endl;
     for(unsigned int j{0} ; j < context.players.size(); j++)
     {   
         delete context.players[j];
