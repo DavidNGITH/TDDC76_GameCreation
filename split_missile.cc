@@ -50,7 +50,6 @@ void Split_Missile::collision(Game_object* object, Context& context)
     {
         context.missile = this;
         explode = true;
-        std::cout << "split" << std::endl;
     }
 
 }
