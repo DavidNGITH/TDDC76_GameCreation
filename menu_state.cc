@@ -21,10 +21,10 @@ Menu_state::Menu_state()
 
     menu_texture = set_texture("Textures/menu_background.jpg");
     campus_texture = set_texture("Map/campus.png");
-    halloween_texture = set_texture("Map/halloween.png");
+    halloween_texture = set_texture("Map/night_background.png");
 
     campus_foreground_texture = set_texture("Map/campus_foreground.png");
-    halloween_foreground_texture = set_texture("Map/halloween_foreground.png");
+    halloween_foreground_texture = set_texture("Map/night_foreground.png");
 
 
 
@@ -204,8 +204,8 @@ void Menu_state::handle(Context& context, sf::Event event)
                 }
                 else if(map_selection.getPosition().x == halloween.getPosition().x && map_selection.getPosition().y == halloween.getPosition().y)
                 {
-                    map_foreground = "Map/halloween_foreground.png";
-                    map_background = "Map/halloween.png";
+                    map_foreground = "Map/night_foreground.png";
+                    map_background = "Map/night_background.png";
                 }
 
                 if((players.size() > 1) && (map_selection.getPosition().x != 0))
