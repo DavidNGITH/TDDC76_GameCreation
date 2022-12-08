@@ -23,14 +23,7 @@ bool Helicopter::should_spawn()
 {
     //check if helicopter should spawn, given it's not already in flight
     int v1 = rand() % 100; //rand int between 0-100
-    if (v1 <= spawn_rate)
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
+    return (v1 <= spawn_rate);
 }
 
 void Helicopter::update(Context& context)
