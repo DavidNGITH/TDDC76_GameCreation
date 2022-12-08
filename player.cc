@@ -97,7 +97,6 @@ Player::~Player()
 
 void Player::Fire(Context& context)
 {   
-    //std::cout << get_ground_pos(context, position_x) << std::endl;
     
     if (!fired)
     {
@@ -149,7 +148,6 @@ void Player::update(Context& context)
 
     if (hp <=0)
     {
-        //std::cout << "Här" << std::endl;
         remove();
     }
 }
@@ -214,7 +212,6 @@ void Player::move(Context& context)
             if (power <100)
             {
                 power += context.delta.asSeconds() * 10;
-                //std::cout << power << std::endl;
             }
         
         }
@@ -223,7 +220,6 @@ void Player::move(Context& context)
             if (power >0)
             {
                 power -= context.delta.asSeconds() * 10;
-                //std::cout << power << std::endl;
 
             }
         
@@ -293,7 +289,6 @@ void Player::collision(Game_object* object, Context& context)
         
         if ((powerup -> get_poweruptype() == 0) && (shield_isActive == false))
         {
-            //std::cout << "Collided with shield" << std::endl;
             ////////////////////// Hard coded: Read texture file
             
             if (!shield.loadFromFile("textures_new/shield.png"))
@@ -314,7 +309,6 @@ void Player::collision(Game_object* object, Context& context)
         }
         else if(powerup -> get_poweruptype() == 1)
         {
-            //std::cout << "Collided with repair kit" << std::endl;
             hp += 40;
         }
         else if(powerup -> get_poweruptype() == 2)
@@ -334,14 +328,12 @@ void Player::collision(Game_object* object, Context& context)
         if (shield_isActive && (context.current_player != this))
         {
             shield_isActive = false;
-            //std::cout << "Shield hit!" << std::endl;
             return;
         }
         else
         {
             //////////////////// OBS /////////////////////
             hp -= 50;
-            //std::cout << "HP för " << player_name_var << " kvar: " << hp << std::endl;
             update_score(context, 50); //////////////////// OBS /////////////////////
         }
     }
@@ -358,17 +350,14 @@ void Player::check_damage(Context& context, double missile_dmg)
     double dist_from_player{};
     dist_from_player = sqrt((pow((context.hit_pos.x - position_x), 2) 
     + pow((context.hit_pos.y - position_y), 2)));
-    //std::cout << "Distance from player " << player_name_var << ": " << dist_from_player << std::endl;
 
     if(dist_from_player <= 100)
     {
         missile_dmg = missile_dmg - (dist_from_player/(100/missile_dmg));
-        //std::cout << "Missile damage: " << missile_dmg << std::endl;
         hp -= missile_dmg;
         update_score(context, missile_dmg);
     }
 
-    //std::cout << "HP för " << player_name_var << " kvar: " << hp << std::endl;
     
 }
 
@@ -412,11 +401,9 @@ double Player::calc_y_position()
 
 void Player::update_score(Context & context, double damage)
 {
-    //std::cout << "är i update_score" << std::endl;
     if(context.current_player != this)
     {
         Player* player { dynamic_cast<Player*>(context.current_player) };
-        //std::cout << "kom in i if-satsen" << std::endl;
         player -> score += damage;
     }
 
