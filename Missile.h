@@ -16,6 +16,7 @@ class Missile : public Game_object
     virtual void Explosion(Context& context);
  
     double dmg{};
+    Game_object* this_player{};
 protected:
     bool explode{};
     double speed_x{};

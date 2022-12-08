@@ -75,6 +75,8 @@ void Missile::collision(Game_object* object, Context& context)
         context.missile = this;
         context.new_turn = true;
         explode = true;
+
+        std::cout << "standard" << std::endl;
         
     }
 

@@ -193,7 +193,6 @@ std::vector<std::vector<std::string>> End_state::writeTo_File(std::vector<std::v
     data_csv.open("Highscore.csv");
     if(!data_csv.is_open())
     {
-        std::cout << "Skapar highscore.csv" << std::endl;
         std::ofstream check_data_csv;
         check_data_csv.open("Highscore.csv"); //std::ofstream::out | std::ofstream::trunc
         check_data_csv.close();
