@@ -12,7 +12,7 @@
 Shower_Missile::Shower_Missile(Context& context, double incoming_position_x, double incoming_position_y, double power, double bearing)
 :if_split{false}
 {
-    dmg = context.settings["shower_missile"]["damage"].asDouble();
+    dmg = context.settings["standard_missile"]["damage"].asDouble();
     speed_x = cos((180-bearing)*M_PI/180)*context.settings["missile"]["power_scale"].asInt()*power;
     speed_y = sin((180-bearing)*M_PI/180)*(-context.settings["missile"]["power_scale"].asInt()*power);
     acceleration_y = context.settings["shower_missile"]["acceleration"].asDouble();
@@ -29,9 +29,6 @@ Shower_Missile::Shower_Missile(Context& context, double incoming_position_x, dou
     this_player = context.current_player;
     
 }
-
-
-
 
 void Shower_Missile::update(Context& context)
 {
