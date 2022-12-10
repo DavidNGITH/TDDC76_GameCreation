@@ -5,7 +5,9 @@
 #include "Missile.h"
 
 Helicopter::Helicopter(Context& context)
-:stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{}, spawn_rate{context.settings["helicopter"]["spawn_rate"].asInt()}, speed{context.settings["helicopter"]["speed"].asFloat()}, current_player{nullptr}
+: stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{}, 
+  spawn_rate{context.settings["helicopter"]["spawn_rate"].asInt()}, 
+  speed{context.settings["helicopter"]["speed"].asFloat()}, current_player{nullptr}
 {   
     load_icon("textures_new/helicopter_2.png");
 
@@ -111,8 +113,8 @@ void Helicopter::create_powerup(Context& context) const
 void Helicopter::stop_position(Context& context)
 {
     //randomizes the stop_position.
-    stop_coordinate = (rand() % (context.settings["setup"]["width"].asUInt() - 2*context.settings["map"]["align_pos"].asInt()) + context.settings["map"]["align_pos"].asInt());
-
+    stop_coordinate = (rand() % (context.settings["setup"]["width"].asUInt() - 2*context.settings["map"]["align_pos"].asInt())
+                       + context.settings["map"]["align_pos"].asInt());
 }
 
 void Helicopter::reset(Context& context)

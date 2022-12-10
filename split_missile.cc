@@ -17,15 +17,15 @@ Split_Missile::Split_Missile(Context& context, double incoming_position_x, doubl
     dmg = context.settings["shower_missile"]["damage"].asDouble(); //dmg för splitmissilerna
     speed_x = same_speed;
     speed_y = 0; 
-    acceleration_y= bearing;
-    explode=false;
-    i=0;
+    acceleration_y = bearing;
+    explode = false;
+    i = 0;
     position_x = incoming_position_x;
     position_y = incoming_position_y;
 
     load_icon("textures_new/ball.png");
     sf::Vector2u texture_size { texture.getSize() };
-    icon.setOrigin(texture_size.x / 2, texture_size.y/2);
+    icon.setOrigin(texture_size.x / 2, texture_size.y / 2);
     icon.setPosition(position_x, position_y);
 
     this_player = context.current_player;
@@ -64,10 +64,10 @@ void Split_Missile::update(Context& context)
     {
         speed_y += acceleration_y * context.delta.asSeconds();
         position_x += speed_x*context.delta.asSeconds();
-        position_y += speed_y*context.delta.asSeconds()+ acceleration_y*context.delta.asSeconds()*context.delta.asSeconds()/2;
+        position_y += speed_y*context.delta.asSeconds() + acceleration_y*context.delta.asSeconds()*context.delta.asSeconds() / 2;
         icon.setPosition(position_x, position_y);
     }
-    if(icon.getPosition().x < 0 || icon.getPosition().x > 1920)
+    if(icon.getPosition().x < 0 || icon.getPosition().x > context.settings["setup"]["width"].asInt())
     {
         remove();
     }
