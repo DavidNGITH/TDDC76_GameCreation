@@ -332,7 +332,7 @@ void Player::collision(Game_object* object, Context& context)
         else
         {
             hp -= missile->dmg;
-            if(missile -> this_player != this)
+            if((missile -> this_player != this) && (missile -> this_player != nullptr))
             {
                 Player* player { dynamic_cast<Player*>(missile -> this_player) };
                 player -> update_score(missile -> dmg);

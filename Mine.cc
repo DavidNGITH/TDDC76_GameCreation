@@ -30,7 +30,7 @@ Mine::Mine(Context& context, double incoming_position_x, double incoming_positio
     icon.setScale(0.02, 0.02);
     icon.setPosition(position_x, position_y);
 
-    this_player = context.current_player;
+    this_player = nullptr;
 }
 
 
