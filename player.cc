@@ -328,13 +328,14 @@ void Player::collision(Game_object* object, Context& context)
         else
         {
             hp -= missile->dmg;
+            std::cout << player_name_var << " - damage: " << missile -> dmg << std::endl;
             if(missile -> this_player != this)
             {
-                update_score(context, missile -> dmg);
+                Player* player { dynamic_cast<Player*>(missile -> this_player) };
+                player -> update_score(missile -> dmg);
             }
         }
     }
-
 
     else if (context.missile != nullptr)
     {
@@ -346,6 +347,7 @@ void Player::collision(Game_object* object, Context& context)
 void Player::check_damage(Context& context, Missile* missile) 
 {
     double dist_from_player{};
+
     dist_from_player = sqrt((pow((context.missile -> position_x - position_x), 2) 
     + pow((context.missile -> position_y - position_y), 2)));
 
@@ -358,11 +360,14 @@ void Player::check_damage(Context& context, Missile* missile)
         }
 
         int missile_dmg = (missile -> dmg - (dist_from_player/(dmg_radius/(missile -> dmg))));
+
         hp -= missile_dmg;
+        std::cout << player_name_var << " - damage: " << missile_dmg << std::endl;
         
         if(missile -> this_player != this)
         {
-            update_score(context, missile_dmg);
+            Player* player { dynamic_cast<Player*>(missile -> this_player) };
+            player -> update_score(missile_dmg);
         }
     }
 
@@ -407,13 +412,10 @@ double Player::calc_y_position()
     return position_y - 30 - sin(bearing * M_PI/180) * (barrel.getSize().x + 7);
 }
 
-void Player::update_score(Context & context, double damage)
+void Player::update_score(double damage)
 {
-    if(context.current_player != this)
-    {
-        Player* player { dynamic_cast<Player*>(context.current_player) };
-        player -> score += damage;
-    }    
+    score += damage;
+    std::cout << player_name_var << " + score: " << damage << std::endl;   
 }
 
 std::vector<std::string> Player::get_info()

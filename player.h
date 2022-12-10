@@ -46,7 +46,7 @@ private:
     void set_barrel_pos(Context& context);
     void set_shield_pos(Context& context);
     void set_name_pos(Context& context);
-    void update_score(Context & context, double damage);
+    void update_score(double damage);
     void Fire(Context& context);
     double calc_y_position();
     double calc_x_position();
