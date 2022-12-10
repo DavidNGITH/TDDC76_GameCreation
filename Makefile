@@ -19,9 +19,14 @@ FILE12=shower_missile
 FILE13=Mine
 FILE14=split_missile
 FILE15=end_state
+FILE16=test_main
+FILE17=test_case
+
 
 
 OBJS= $(MAIN).o $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE5).o $(FILE6).o $(FILE7).o $(FILE9).o $(FILE10).o $(FILE8).o $(FILE11).o $(FILE12).o $(FILE13).o $(FILE14).o $(FILE15).o
+OBJS1= $(FILE1).o $(FILE2).o $(FILE3).o $(FILE4).o $(FILE5).o $(FILE6).o $(FILE7).o $(FILE9).o $(FILE10).o $(FILE8).o $(FILE11).o $(FILE12).o $(FILE13).o $(FILE14).o $(FILE15).o
+
 
 
 
@@ -78,7 +83,15 @@ $(FILE14).o: $(FILE14).cc
 $(FILE15).o: $(FILE15).cc
 	$(CC) $(CCFLAGS) $(FILE15).cc $(LIBS)
 
+$(FILE16).o: $(FILE16).cc
+	$(CC) $(CCFLAGS) $(FILE16).cc $(LIBS)
 
+$(FILE17).o: $(FILE17).cc
+	$(CC) $(CCFLAGS) $(FILE17).cc $(LIBS)
 clean:
 	rm *.o a.out
+
+test: $(FILE16).o $(FILE17).o $(OBJS1)
+	$(CC) $(FILE16).o $(FILE17).o $(OBJS1) -o test.out $(LIBS)
+
 

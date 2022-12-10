@@ -314,7 +314,7 @@ void Player::collision(Game_object* object, Context& context)
         }
         else if (powerup -> get_poweruptype() == 4)
         {
-            fuel += 50;
+            fuel += context.settings["powerup"]["fuel"].asInt();
         }
 
     }
