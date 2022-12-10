@@ -6,7 +6,6 @@
 #include "static_object.h"
 #include "map.h"
 #include "context.h"
-#include <iostream>
 #include "standard_missile.h"
 #include "split_missile.h"
 
