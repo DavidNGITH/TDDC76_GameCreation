@@ -283,7 +283,7 @@ void Player::collision(Game_object* object, Context& context)
     else if (powerup != nullptr)
     {
         
-        if ((powerup -> get_poweruptype() == 0) && (shield_isActive == false))
+        if ((powerup -> randnum == 0) && (shield_isActive == false))
         {   
             if (!shield.loadFromFile("textures_new/shield.png"))
             {
@@ -300,19 +300,19 @@ void Player::collision(Game_object* object, Context& context)
             shield_isActive = true;
 
         }
-        else if(powerup -> get_poweruptype() == 1)
+        else if(powerup -> randnum == 1)
         {
             hp += context.settings["player"]["health_boost"].asInt();
         }
-        else if(powerup -> get_poweruptype() == 2)
+        else if(powerup -> randnum == 2)
         {
             ammo_array[2] += 1;
         }
-        else if (powerup -> get_poweruptype() == 3)
+        else if (powerup -> randnum == 3)
         {
             ammo_array[1] += 1;
         }
-        else if (powerup -> get_poweruptype() == 4)
+        else if (powerup -> randnum == 4)
         {
             fuel += context.settings["powerup"]["fuel"].asInt();
         }

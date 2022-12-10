@@ -9,7 +9,6 @@
 #include "player.h"
 #include "hud.h"
 #include <string>
-//test
 
 Menu_state::Menu_state()
 : playerText{}, font{}, players{}, barrels{}, names{}

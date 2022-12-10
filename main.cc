@@ -36,11 +36,8 @@ int main()
     std::vector<Game_object*>  players{};
     Game_object*               current_player{};
     bool                       new_turn{false};
-    //sf::Vector2f               hit_pos{0,0};
     Game_object*               missile{nullptr};
 
-
-    //Context context{clock.restart(), nullptr, nullptr, objects, new_objects, players, current_player, new_turn, hit_pos, settings};
     Context context{clock.restart(), nullptr, nullptr, objects, new_objects, players, current_player, new_turn, missile, settings};
 
 

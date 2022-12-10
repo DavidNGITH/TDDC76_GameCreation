@@ -1,7 +1,6 @@
 #include "map.h"
 #include "SFML/Graphics.hpp"
 #include <iostream>
-//#include <cmath>
 
 
 Map::Map(std::string background, std::string foreground)

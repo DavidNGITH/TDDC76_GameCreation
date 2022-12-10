@@ -11,7 +11,6 @@ public:
     Mine(Context& context, double incoming_position_x, double incoming_position_y, double speed, double bearing);
 
     void update(Context& context) override;
-
     void collision(Game_object* object, Context& context) override; 
 
 private:

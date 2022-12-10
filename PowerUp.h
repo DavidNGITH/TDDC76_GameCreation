@@ -16,14 +16,13 @@ class Powerup :public Game_object
 
         void collision(Game_object* object, Context& context) override; 
 
-        int get_poweruptype() const&;
+        int randnum{};
 
     private:
         int old_position_x{};
         int old_position_y{};
 
         float speed{};
-        int randnum{};
         bool has_stopped{};
 };
 

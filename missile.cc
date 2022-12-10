@@ -34,9 +34,6 @@ void Missile::update(Context& context)
         context.new_turn = true;
         remove();
     }
-
-
-
 }
 
 void Missile::render(sf::RenderWindow& window, Context& context)
@@ -70,8 +67,6 @@ void Missile::collision(Game_object* object, Context& context)
 
     if((map !=nullptr) && !explode)
     {
-        //context.hit_pos.x = position_x;
-        //context.hit_pos.y = position_y;
         context.missile = this;
         context.new_turn = true;
         explode = true;

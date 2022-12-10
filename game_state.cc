@@ -87,7 +87,6 @@ void Game_state::update(Context& context)
     }
 
     //Check collision with other players
-    //if (context.hit_pos.x != 0 && context.hit_pos.y != 0)
     if(context.missile != nullptr)
     {
         for (unsigned int i{0}; i < context.players.size(); i++)
@@ -96,14 +95,8 @@ void Game_state::update(Context& context)
         }
     }
 
-    //context.hit_pos.x = 0;
-    //context.hit_pos.y = 0;
-
     context.missile = nullptr;
     
-
-
-
     //Check collision between players and objects
     for (unsigned int i{0}; i < context.players.size(); i++)
     {   

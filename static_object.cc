@@ -37,10 +37,14 @@ Static_object::Static_object(Context& context)
 }
 
 void Static_object::handle(Context& context, sf::Event event)
-{}
+{
+
+}
 
 void Static_object::update(Context& context)
-{}
+{
+    
+}
 
 void Static_object::render(sf::RenderWindow& window, Context& context)
 {

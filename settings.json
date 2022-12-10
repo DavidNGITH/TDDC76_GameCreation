@@ -2,7 +2,7 @@
     "setup":
     {
         "width": 1920,
-        "height": 1080,
+        "height": 1200,
         "name": "DANK TANKZ"
     },
 
@@ -18,7 +18,7 @@
 
     "game_state":
     {
-        "num_of_trees": 3
+        "num_of_trees": 8
     },
 
     "helicopter":
@@ -53,18 +53,18 @@
     "mine":
     {
         "acceleration": 500,
-        "damage": 45
+        "damage": 35
     },
 
     "standard_missile":
     {
-        "damage": 35
+        "damage": 25
     },
 
     "shower_missile":
     {
         "acceleration": 400,
-        "damage": 25,
+        "damage": 15,
         "acc_1": 0.9,
         "acc_2": 1.1
     },
@@ -94,7 +94,7 @@
     "powerup":
     {
         "speed": 200,
-        "align_pos_y": 100 //100 is a good value
+        "align_pos_y": 100, //100 is a good value
         "fuel" : 50 
     },
 

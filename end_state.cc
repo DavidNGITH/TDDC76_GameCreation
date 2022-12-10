@@ -19,7 +19,6 @@
 
 
 End_state::End_state(Context& context, std::vector<std::vector<std::string>> score_list)
-//: //high_score_list{}, sorted_score_list{}
 {
 
     unsigned int width{};

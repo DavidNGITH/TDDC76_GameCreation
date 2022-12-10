@@ -2,13 +2,13 @@
 #define MISSILE_H
 
 #include "SFML/Graphics.hpp"
-//#include "Player.h"
 #include "game_object.h"
 #include <vector>
+
 class Missile : public Game_object
 {
 //Functions
-    public:
+public:
     virtual void handle(Context& context, sf::Event event) override;
     virtual void update(Context& context) override;
     virtual void render(sf::RenderWindow& window, Context& context) override;
