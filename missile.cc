@@ -82,7 +82,7 @@ void Missile::collision(Game_object* object, Context& context)
 
 void Missile::Explosion(Context& context)
 {   
-    if(!i)
+    if(!explosion_timer)
     {
         if (!boom.loadFromFile("textures_new/boom_2.png"))
         {
@@ -98,14 +98,14 @@ void Missile::Explosion(Context& context)
         icon.setPosition(0, 0);
     }
     
-    i+= context.delta.asSeconds();
-    if(i< 0.2)
+    explosion_timer+= context.delta.asSeconds();
+    if(explosion_timer< 0.2)
     {
-        boom_sprite.setScale(2*i,2*i);
+        boom_sprite.setScale(2*explosion_timer,2*explosion_timer);
     }
     
             
-    if(i > 0.5)
+    if(explosion_timer > 0.5)
     {
         remove();
     }

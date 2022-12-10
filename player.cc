@@ -315,6 +315,10 @@ void Player::collision(Game_object* object, Context& context)
         {
             ammo_array[1] += 1;
         }
+        else if (powerup -> get_poweruptype() == 4)
+        {
+            fuel += 50;
+        }
 
     }
 

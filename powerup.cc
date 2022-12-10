@@ -14,7 +14,7 @@ Powerup::Powerup(Context& context, double incoming_x, double incoming_y)
     position_x = incoming_x;
     position_y = incoming_y + context.settings["powerup"]["align_pos_y"].asDouble();
 
-    randnum = rand() % 4;
+    randnum = 4;//rand() % 5;
 
     if (randnum == 0)
     {
@@ -28,11 +28,14 @@ Powerup::Powerup(Context& context, double incoming_x, double incoming_y)
     {
         load_icon("textures_new/ammo_c4.png");
     }
-    else
+    else if (randnum == 3)
     {
         load_icon("textures_new/showermissile2.png");
     }
-    
+    else
+    {
+        load_icon("textures_new/gasolina.png");
+    }
     //Creates the Powerup at the same position as the helicopter.   
     sf::Vector2u texture_size { texture.getSize() };
     icon.setOrigin(texture_size.x / 2, texture_size.y);    
@@ -97,5 +100,6 @@ int Powerup::get_poweruptype() const&
     //return the value 1 for repair
     //return the value 2 for mine ammo
     //return the value 3 for showermissile ammo
+    //return the value 4 fuel up
     return randnum;
 }

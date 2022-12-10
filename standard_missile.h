@@ -13,7 +13,7 @@ public:
 
 private:
     std::string type{"Standard Missile"};
-    //int const Damage{20}; //bestämd antal hp som missilen skall skada
+    
 
 
 

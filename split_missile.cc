@@ -19,7 +19,7 @@ Split_Missile::Split_Missile(Context& context, double incoming_position_x, doubl
     speed_y = 0; 
     acceleration_y= bearing;
     explode=false;
-    i=0;
+    explosion_timer=0;
     position_x = incoming_position_x;
     position_y = incoming_position_y;
 
