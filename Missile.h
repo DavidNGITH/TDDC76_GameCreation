@@ -22,7 +22,7 @@ protected:
     double speed_x{};
     double speed_y{};
     double acceleration_y{};
-    double i{};
+    double explosion_timer{};
     
     sf::Sprite boom_sprite;
     sf::Texture boom;

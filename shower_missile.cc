@@ -17,7 +17,7 @@ Shower_Missile::Shower_Missile(Context& context, double incoming_position_x, dou
     speed_y = sin((180-bearing)*M_PI/180)*(-context.settings["missile"]["power_scale"].asInt()*power);
     acceleration_y = context.settings["mine"]["acceleration"].asDouble();
     explode=false;
-    i=0;
+    explosion_timer=0;
     position_x = incoming_position_x;
     position_y = incoming_position_y;
 
@@ -61,9 +61,5 @@ void Shower_Missile::update(Context& context)
     }
 }
 
-void Shower_Missile::split_missile()
-{
-
-}
 
 
