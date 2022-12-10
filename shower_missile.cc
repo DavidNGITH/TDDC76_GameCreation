@@ -3,7 +3,6 @@
 #include "SFML/Graphics.hpp"
 #include "Missile.h"
 #include "player.h"
-#include <iostream>
 #include "standard_missile.h"
 #include "split_missile.h"
 #include <cmath>

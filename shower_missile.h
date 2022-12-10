@@ -15,7 +15,6 @@ public:
 
 private:
     std::string type{"Shower Missile"};
-
     bool if_split{};
 
 
