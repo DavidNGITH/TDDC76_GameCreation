@@ -84,7 +84,6 @@ Player::Player(std::string player_texture, std::string barrel_texture, std::stri
 ///////////////////// Destructor ///////////////////
 Player::~Player()
 {
-    //Spara undan det som ska sparas, score
     //Ta bort hud och sen ta bort player
     delete hud;
 
@@ -337,7 +336,6 @@ void Player::collision(Game_object* object, Context& context)
     }
 
 
-    //else if (context.hit_pos.x != 0 && context.hit_pos.y != 0)
     else if (context.missile != nullptr)
     {
         Missile* missile { dynamic_cast<Missile*>(context.missile) };
@@ -348,8 +346,6 @@ void Player::collision(Game_object* object, Context& context)
 void Player::check_damage(Context& context, Missile* missile) 
 {
     double dist_from_player{};
-    //dist_from_player = sqrt((pow((context.hit_pos.x - position_x), 2)
-    //+ pow((context.hit_pos.y - position_y), 2)));
     dist_from_player = sqrt((pow((context.missile -> position_x - position_x), 2) 
     + pow((context.missile -> position_y - position_y), 2)));
 
@@ -362,8 +358,6 @@ void Player::check_damage(Context& context, Missile* missile)
         }
 
         int missile_dmg = (missile -> dmg - (dist_from_player/(dmg_radius/(missile -> dmg))));
-        //missile_dmg = missile_dmg - (dist_from_player/(dmg_radius/missile_dmg));
-        //hp -= missile_dmg;
         hp -= missile_dmg;
         
         if(missile -> this_player != this)
