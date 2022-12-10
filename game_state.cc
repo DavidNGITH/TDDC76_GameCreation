@@ -13,7 +13,6 @@
 #include "menu_state.h"
 #include <vector>
 #include "end_state.h"
-#include <iostream>
 
 
 Game_state::Game_state(Context& context)
@@ -150,13 +149,6 @@ void Game_state::update(Context& context)
     {   
         if (context.players.at(i) -> is_removed())
         {   
-            std::cout << "Before: " << std::endl;
-            for (Game_object* player : context.players)
-            {
-                Player* other_player { dynamic_cast<Player*>(player) };
-                std::cout << other_player -> player_name_var << std::endl;
-            }
-
             if (context.players.at(i) == context.current_player)
             {
                 switch_player(context);
@@ -164,7 +156,7 @@ void Game_state::update(Context& context)
             Player* player { dynamic_cast<Player*>(context.players.at(i)) };
             score_list.push_back(player->get_info());
 
-                    std::swap(context.players.at(i), context.players.back());
+            std::swap(context.players.at(i), context.players.back());
             delete context.players.back(); 
             context.players.pop_back();
 
@@ -180,15 +172,6 @@ void Game_state::update(Context& context)
             {
                 std::swap(context.players.at(i), context.players.back());
             }  
-    
-            std::cout << "After: " << std::endl;
-            for (Game_object* player : context.players)
-            {
-                Player* other_player { dynamic_cast<Player*>(player) };
-                std::cout << other_player -> player_name_var << std::endl;
-            }
-
-
             break;
         }
         else
