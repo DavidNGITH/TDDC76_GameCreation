@@ -156,16 +156,22 @@ void Game_state::update(Context& context)
             Player* player { dynamic_cast<Player*>(context.players.at(i)) };
             score_list.push_back(player->get_info());
 
-        
-
             std::swap(context.players.at(i), context.players.back());
             delete context.players.back(); 
             context.players.pop_back();
 
-            if(i != context.players.size())
+            if (i == 0)
+            {
+                for (int j{0}; j < context.players.size() - 1; j++)
+                {
+                    std::swap(context.players.at(j), context.players.at(j+1));
+                }
+            }
+
+            else if(i != context.players.size())
             {
                 std::swap(context.players.at(i), context.players.back());
-            }
+            }  
             break;
         }
         else

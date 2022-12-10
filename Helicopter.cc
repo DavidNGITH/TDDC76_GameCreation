@@ -3,9 +3,11 @@
 #include "context.h"
 #include "PowerUp.h"
 #include "Missile.h"
+#include <cmath>
+#include <iostream>
 
 Helicopter::Helicopter(Context& context)
-:stop_coordinate{0}, is_active{0}, has_stopped{0}, has_dropped{}, spawn_rate{context.settings["helicopter"]["spawn_rate"].asInt()}, speed{context.settings["helicopter"]["speed"].asFloat()}, current_player{nullptr}
+:stop_coordinate{0}, is_active{0}, time{0}, has_stopped{0}, has_dropped{}, spawn_rate{context.settings["helicopter"]["spawn_rate"].asInt()}, speed{context.settings["helicopter"]["speed"].asFloat()}, current_player{nullptr}
 {   
     load_icon("textures_new/helicopter_2.png");
 
@@ -34,6 +36,9 @@ void Helicopter::update(Context& context)
             if (has_dropped == 1)
             {
                 //stay still
+                //time += speed*context.delta.asSeconds();
+                //position_y = 30*sin((time/50)) + context.settings["helicopter"]["position_y"].asDouble();
+                //std::cout << position_y << std::endl;
             }
             else
             {
@@ -53,6 +58,7 @@ void Helicopter::update(Context& context)
             else
             {
                 position_x += speed * context.delta.asSeconds();
+                //position_y = 30*sin((position_x/50)) + context.settings["helicopter"]["position_y"].asDouble();;
                 icon.setPosition(position_x, position_y); //moves the helicopter in positive x, keeps y.
             }
         }

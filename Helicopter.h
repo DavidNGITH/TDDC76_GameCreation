@@ -35,6 +35,7 @@ class Helicopter :public Game_object
     int has_dropped{};
     int spawn_rate{};  //number 0-100 in likelihood of spawning (percent)
     float speed{};
+    double time{};
     Game_object* current_player{};
 
 };
