@@ -6,7 +6,6 @@
 #include "static_object.h"
 #include "map.h"
 #include "context.h"
-#include <iostream>
 #include "standard_missile.h"
 #include "split_missile.h"
 
@@ -17,9 +16,9 @@ Split_Missile::Split_Missile(Context& context, double incoming_position_x, doubl
     dmg = context.settings["shower_missile"]["damage"].asDouble(); //dmg för splitmissilerna
     speed_x = same_speed;
     speed_y = 0; 
-    acceleration_y = bearing;
-    explode = false;
-    i = 0;
+    acceleration_y= bearing;
+    explode=false;
+    explosion_timer=0;
     position_x = incoming_position_x;
     position_y = incoming_position_y;
 

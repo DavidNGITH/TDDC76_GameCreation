@@ -85,7 +85,6 @@ Player::Player(std::string player_texture, std::string barrel_texture, std::stri
 ///////////////////// Destructor ///////////////////
 Player::~Player()
 {
-    //Spara undan det som ska sparas, score
     //Ta bort hud och sen ta bort player
     delete hud;
 
@@ -313,6 +312,10 @@ void Player::collision(Game_object* object, Context& context)
         {
             ammo_array[1] += 1;
         }
+        else if (powerup -> get_poweruptype() == 4)
+        {
+            fuel += 50;
+        }
 
     }
 
@@ -327,8 +330,7 @@ void Player::collision(Game_object* object, Context& context)
         else
         {
             hp -= missile->dmg;
-            std::cout << player_name_var << " - damage: " << missile -> dmg << std::endl;
-            if(missile -> this_player != this)
+            if((missile -> this_player != this) && (missile -> this_player != nullptr))
             {
                 Player* player { dynamic_cast<Player*>(missile -> this_player) };
                 player -> update_score(missile -> dmg);
@@ -361,7 +363,6 @@ void Player::check_damage(Context& context, Missile* missile)
         int missile_dmg = (missile -> dmg - (dist_from_player/(dmg_radius/(missile -> dmg))));
 
         hp -= missile_dmg;
-        std::cout << player_name_var << " - damage: " << missile_dmg << std::endl;
         
         if(missile -> this_player != this)
         {
@@ -413,8 +414,7 @@ double Player::calc_y_position()
 
 void Player::update_score(double damage)
 {
-    score += damage;
-    std::cout << player_name_var << " + score: " << damage << std::endl;   
+    score += damage; 
 }
 
 std::vector<std::string> Player::get_info()
