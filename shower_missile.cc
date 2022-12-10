@@ -16,7 +16,7 @@ Shower_Missile::Shower_Missile(Context& context, double incoming_position_x, dou
     dmg = context.settings["shower_missile"]["damage"].asDouble();
     speed_x = cos((180-bearing)*M_PI/180)*context.settings["missile"]["power_scale"].asInt()*power;
     speed_y = sin((180-bearing)*M_PI/180)*(-context.settings["missile"]["power_scale"].asInt()*power);
-    acceleration_y = context.settings["mine"]["acceleration"].asDouble();
+    acceleration_y = context.settings["shower_missile"]["acceleration"].asDouble();
     explode=false;
     i=0;
     position_x = incoming_position_x;

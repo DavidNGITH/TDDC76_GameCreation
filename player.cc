@@ -16,7 +16,6 @@
 
 
 
-//HARD CODED //MBY not anymore/////////////////////////
 
 ///////////// Constructor /////////////////////
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
@@ -286,9 +285,7 @@ void Player::collision(Game_object* object, Context& context)
     {
         
         if ((powerup -> get_poweruptype() == 0) && (shield_isActive == false))
-        {
-            ////////////////////// Hard coded: Read texture file
-            
+        {   
             if (!shield.loadFromFile("textures_new/shield.png"))
             {
                 std::cerr << "Can't open: shield.png" << std::endl;
@@ -296,7 +293,6 @@ void Player::collision(Game_object* object, Context& context)
 
             shield_sprite.setTexture(shield);
             
-            ////////////// HARD CODED //////////////
             sf::Vector2u texture_size_shield { shield.getSize() };
             shield_sprite.setOrigin((texture_size_shield.x / 2), 
             (texture_size_shield.y / 2));
@@ -323,7 +319,7 @@ void Player::collision(Game_object* object, Context& context)
     /////////////// MISSILE COLLISION /////////////////
     else if (missile != nullptr)
     {
-        if (shield_isActive) // && (context.current_player != this))
+        if (shield_isActive)
         {
             shield_isActive = false;
             return;

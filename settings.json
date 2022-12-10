@@ -52,7 +52,7 @@
 
     "mine":
     {
-        "acceleration": 400,
+        "acceleration": 500,
         "damage": 45
     },
 
@@ -78,7 +78,7 @@
         "start_bearing": 90,
         "start_power": 50,
         "start_weapon": 1,
-        "barrel_rotation_speed": 30,
+        "barrel_rotation_speed": 40,
         "speed": 100,
         "player_text_pos": 80,
         "barrel_pos_y": 17, //17 is a good value
