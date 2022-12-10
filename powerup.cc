@@ -1,5 +1,3 @@
-//Hårdkodad kod nedan
-
 #include <iostream>
 #include "SFML/Graphics.hpp"
 #include "PowerUp.h"
@@ -14,7 +12,7 @@ Powerup::Powerup(Context& context, double incoming_x, double incoming_y)
     position_x = incoming_x;
     position_y = incoming_y + context.settings["powerup"]["align_pos_y"].asDouble();
 
-    randnum = 4;//rand() % 5;
+    randnum = rand() % 5;
 
     if (randnum == 0)
     {
@@ -41,7 +39,6 @@ Powerup::Powerup(Context& context, double incoming_x, double incoming_y)
     icon.setOrigin(texture_size.x / 2, texture_size.y);    
     icon.setScale(0.1, 0.1);
     icon.setPosition(position_x, position_y);
-    get_poweruptype(); //0 for shield, 1 for repair, 2 for mine ammo and 3 for showermissile ammo
 }
 
 Powerup::Powerup()
@@ -92,14 +89,4 @@ void Powerup::collision(Game_object* object, Context& context)
     {
         remove();
     }
-}
-
-int Powerup::get_poweruptype() const&
-{
-    //return the value 0 for shield
-    //return the value 1 for repair
-    //return the value 2 for mine ammo
-    //return the value 3 for showermissile ammo
-    //return the value 4 fuel up
-    return randnum;
 }
