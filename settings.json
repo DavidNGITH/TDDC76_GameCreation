@@ -18,7 +18,7 @@
 
     "game_state":
     {
-        "num_of_trees": 10
+        "num_of_trees": 3
     },
 
     "helicopter":
@@ -48,13 +48,11 @@
     {
         "acceleration": 400,
         "power_scale": 12
-        //"explosion_duration": 0.5,
-        //"align_pos": 10 //10 is a good value
     },
 
     "mine":
     {
-        "acceleration": 400,
+        "acceleration": 500,
         "damage": 45
     },
 
@@ -65,23 +63,22 @@
 
     "shower_missile":
     {
+        "acceleration": 400,
         "damage": 25,
         "acc_1": 0.9,
         "acc_2": 1.1
     },
 
-    //Uppdatera damage efter det är implementerat
-    //och mby dmgradien
     "player":
     {
         "start_hp": 100,
+        "dmg_radius": 100,
         "start_score": 0,
         "start_fuel": 100,
         "start_bearing": 90,
         "start_power": 50,
         "start_weapon": 1,
-        "dmg_radius": 100,
-        "barrel_rotation_speed": 30,
+        "barrel_rotation_speed": 40,
         "speed": 100,
         "player_text_pos": 80,
         "barrel_pos_y": 17, //17 is a good value

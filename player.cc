@@ -16,16 +16,16 @@
 
 
 
-//HARD CODED //MBY not anymore/////////////////////////
 
 ///////////// Constructor /////////////////////
 Player::Player(std::string player_texture, std::string barrel_texture, std::string player_name, Context& context)
-: hp{context.settings["player"]["start_hp"].asInt()}, dmg_radius{context.settings["player"]["dmg_radius"].asInt()}, score{context.settings["player"]["start_score"].asDouble()}, 
-  fuel{context.settings["player"]["start_fuel"].asDouble()}, bearing{context.settings["player"]["start_bearing"].asDouble()}, 
-  power{context.settings["player"]["start_power"].asDouble()}, curr_weapon{context.settings["player"]["start_weapon"].asInt()}, 
-  barrel_rotation_speed{context.settings["player"]["barrel_rotation_speed"].asFloat()}, last_missile{nullptr}, old_position{}, 
-  barrel_sprite{}, barrel{}, player_name_var{player_name}, name_text{}, font{}, shield_isActive{false}, shield_sprite{}, shield{}, 
-  hud{new Hud()}, ammo_array{ context.settings["player"]["start_standard_ammo"].asInt(), context.settings["player"]["start_shower_ammo"].asInt(), context.settings["player"]["start_mine_ammo"].asInt() }
+: hp{context.settings["player"]["start_hp"].asInt()}, dmg_radius{context.settings["player"]["dmg_radius"].asInt()}, 
+  score{context.settings["player"]["start_score"].asDouble()}, fuel{context.settings["player"]["start_fuel"].asDouble()}, 
+  bearing{context.settings["player"]["start_bearing"].asDouble()}, power{context.settings["player"]["start_power"].asDouble()}, 
+  curr_weapon{context.settings["player"]["start_weapon"].asInt()}, barrel_rotation_speed{context.settings["player"]["barrel_rotation_speed"].asFloat()}, 
+  last_missile{nullptr}, old_position{}, barrel_sprite{}, barrel{}, player_name_var{player_name}, name_text{}, font{}, 
+  shield_isActive{false}, shield_sprite{}, shield{}, hud{new Hud()}, ammo_array{ context.settings["player"]["start_standard_ammo"].asInt(), 
+  context.settings["player"]["start_shower_ammo"].asInt(), context.settings["player"]["start_mine_ammo"].asInt() }
 
 {
     speed = context.settings["player"]["speed"].asInt();
@@ -43,7 +43,8 @@ Player::Player(std::string player_texture, std::string barrel_texture, std::stri
 
     while(bad_pos)
     {
-        position_x = rand() % (context.map -> get_window_size().x - context.settings["map"]["align_pos"].asInt()) + context.settings["map"]["align_pos"].asInt()/2;
+        position_x = (rand() % (context.map -> get_window_size().x - context.settings["map"]["align_pos"].asInt())
+                     + context.settings["map"]["align_pos"].asInt() / 2);
         position_y = get_ground_pos(context, position_x);
         icon.setPosition(position_x, position_y);
         bad_pos = false;
@@ -283,9 +284,7 @@ void Player::collision(Game_object* object, Context& context)
     {
         
         if ((powerup -> get_poweruptype() == 0) && (shield_isActive == false))
-        {
-            ////////////////////// Hard coded: Read texture file
-            
+        {   
             if (!shield.loadFromFile("textures_new/shield.png"))
             {
                 std::cerr << "Can't open: shield.png" << std::endl;
@@ -293,7 +292,6 @@ void Player::collision(Game_object* object, Context& context)
 
             shield_sprite.setTexture(shield);
             
-            ////////////// HARD CODED //////////////
             sf::Vector2u texture_size_shield { shield.getSize() };
             shield_sprite.setOrigin((texture_size_shield.x / 2), 
             (texture_size_shield.y / 2));
@@ -324,7 +322,7 @@ void Player::collision(Game_object* object, Context& context)
     /////////////// MISSILE COLLISION /////////////////
     else if (missile != nullptr)
     {
-        if (shield_isActive) // && (context.current_player != this))
+        if (shield_isActive)
         {
             shield_isActive = false;
             return;
