@@ -428,3 +428,13 @@ std::vector<std::string> Player::get_info()
 
     return info;
 }
+
+double Player::get_power() const&
+{
+    return power;
+}
+
+double Player::get_bearing() const&
+{
+    return bearing;
+}

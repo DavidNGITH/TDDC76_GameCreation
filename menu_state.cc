@@ -301,6 +301,10 @@ void Menu_state::handle(Context& context, sf::Event event)
             playerText.setString(playerInput);
         }    
     }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+    {
+        add_player();
+    }
             
     
 }
@@ -457,6 +461,9 @@ void Menu_state::add_player()
         playerInput = "";
         playerText.setString(playerInput);
     }
+
+    player_selection.setPosition(0,0);
+
 }
 
 
