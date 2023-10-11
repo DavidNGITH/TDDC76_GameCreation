@@ -1,6 +1,6 @@
 CC=g++ -std=c++17 -g
 CCFLAGS= -c -Wall -Wextra -Wpedantic -Weffc++ -Wold-style-cast
-LIBS:= -lsfml-graphics -lsfml-window -lsfml-system -ljsoncpp
+LIBS:= -I/opt/homebrew/Cellar/sfml/2.5.1_2/include -L/opt/homebrew/Cellar/sfml/2.5.1_2/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -L/opt/homebrew/Cellar/jsoncpp/1.9.5/lib -I/opt/homebrew/Cellar/jsoncpp/1.9.5/include -ljsoncpp 
 
 
 MAIN=main

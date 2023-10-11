@@ -1,5 +1,5 @@
 #include "SFML/Graphics.hpp"
-#include <jsoncpp/json/json.h>
+#include <json/json.h>
 
 #include "game_state.h"
 #include "context.h"

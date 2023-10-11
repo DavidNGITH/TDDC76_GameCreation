@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include <jsoncpp/json/json.h>
+#include <json/json.h>
 
 #include "game_object.h"
 #include "map.h"
